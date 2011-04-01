@@ -39,7 +39,7 @@
 	<!-- 禁用缓存过滤器:*.do -->
 	<filter>
 		<filter-name>noCacheFilter</filter-name>
-		<filter-class>qc.web.filter.CacheFilter</filter-class>
+		<filter-class>cn.bc.web.filter.CacheFilter</filter-class>
 		<init-param>
 			<param-name>expires</param-name>
 			<!--配为0代表禁用缓存-->
@@ -50,7 +50,7 @@
 	<!-- 缓存过滤器:js、css、图片等文件添加永久缓存(设为10年) -->
 	<filter>
 		<filter-name>foreverCacheFilter</filter-name>
-		<filter-class>qc.web.filter.CacheFilter</filter-class>
+		<filter-class>cn.bc.web.filter.CacheFilter</filter-class>
 		<init-param>
 			<param-name>expires</param-name>
 			<!--缓存时间配置 ,单位为分钟,配为-1代表永久的缓存-->
@@ -71,7 +71,7 @@
 	<!-- 对响应进行gzip压缩的过虑器  -->
 	<filter>
 		<filter-name>gzip-filter</filter-name>
-		<filter-class>qc.web.filter.gzip.GzipFilter</filter-class>
+		<filter-class>cn.bc.web.filter.gzip.GzipFilter</filter-class>
 		<!-- 排除某些目录或文件不处理(多个配置间用逗号分隔): 如对于下载文件的url则需要在这里配置排除  -->
 	 	<init-param>
 			<param-name>excludePaths</param-name>
