@@ -1,0 +1,6 @@
+/*common css*/
+html,body {
+	font: 12px "宋体", sans-serif, "Trebuchet MS";
+	margin: 0;
+	padding: 0;
+}

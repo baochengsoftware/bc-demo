@@ -17,7 +17,7 @@
 		<param name="MaxFileSize"  value="1024KB"/>
 		<param name="MaxBackupIndex" value="4"/> 
 
-		<param name="File" value="bc-examples-struts2hibernate3jpa.log"/> 
+		<param name="File" value="bc-demo.log"/> 
 		
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d %5p %c{1} %m%n"/>
@@ -37,10 +37,18 @@
 	<category name="org.hibernate">
 	  <priority value="ERROR" />
 	</category>
+	
+	<!-- struts2 -->
+    <category name="com.opensymphony">
+    	<priority value="DEBUG" />
+    </category>
+    <category name="org.apache.struts2">
+    	 <priority value="DEBUG" />
+    </category>
 
-	<!-- qc -->
+	<!-- bc -->
 	<category name="cn.bc">
-	  <priority value="WARN" />
+	  <priority value="DEBUG" />
 	</category>
     	
   	<!-- 设置默认的日志级别(该设置必须放在最后,否则加载会解析出错) -->

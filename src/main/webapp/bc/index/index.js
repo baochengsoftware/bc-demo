@@ -1,12 +1,14 @@
+var bc={};
 jQuery(function() {
 	//刷新按钮
 	$("#btnRefresh").click(refresh);
 	
 	//新建按钮
 	$("#btnNew").click(function(){
-		window.open(contextPath + "/example.do?method=create");
+		window.open(contextPath + "example!edit");
 	});
 	
+	/*
 	//修改按钮
 	$("input[name='btnEdit']").click(function() {
 		var id = $(this).parent().siblings(":first").text();
@@ -62,6 +64,7 @@ jQuery(function() {
 	if(pageNo == 1){
 		$("#btnPrevPage").attr("disabled",true);
 	}
+	*/
 	
 	//自定义的函数
 	function refresh(){
