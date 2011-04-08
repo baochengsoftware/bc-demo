@@ -25,3 +25,11 @@ jQuery(function() {
 		return false;
 	});
 });
+
+var f="/bc/index.js/index.js?v=1";
+//alert(t);
+//alert(t+"|"+t.index+"|"+t.lastIndex+"|"+t.input);
+var t=f.replace(/.+\/|.+\.|\?.+/gi,"");
+$("#bcdebug").prepend(t + "<br/>");
+var t = f.match(/\.(js|css)\?{0,1}.+$/i);
+$("#bcdebug").prepend(t + "<br/>");

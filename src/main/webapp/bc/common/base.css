@@ -4,3 +4,15 @@ html,body {
 	margin: 0;
 	padding: 0;
 }
+
+#bcdebug {
+	border: 1px solid #ccc;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	width: 400px;
+	min-height: 20px;
+	max-height: 200px;
+	color: #ccc;
+	overflow: auto;
+}
