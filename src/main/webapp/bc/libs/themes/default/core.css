@@ -1,0 +1,19 @@
+/**
+ * 全局样式控制
+ * 主要设置一些跨浏览器的兼容设置
+ *
+ * @author rongjihuang@gmail.com
+ * @date 2011-04-11
+ */
+html {
+	height: 100%;
+}
+
+/**全局字体控制*/
+body {
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	font: 12px/1.5 "微软雅黑", "宋体", sans-serif, tahoma;
+}

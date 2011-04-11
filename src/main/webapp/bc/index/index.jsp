@@ -38,7 +38,6 @@
 				$("#bcdebug").prepend("Loader重复测试" + (i++) + "<br/>");
 			}]);
 		});
-		//alert(this == document);
 	</script>
 </body>
 </html>

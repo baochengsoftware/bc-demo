@@ -1,0 +1,119 @@
+/**
+ * 桌面主题样式
+ *
+ * @author rongjihuang@gmail.com
+ * @date 2011-04-11
+ */
+body{
+	background: url(images/bg_page.png) repeat top left;
+}
+#loader {
+	height: 32px;
+	width: auto;
+	overflow: hidden;
+	border: 0;
+	position: absolute;
+	margin: 10px;
+	font-size: 24px;
+	background-image: url(images/loader/loader01_32x32.gif);
+	background-repeat: no-repeat;
+	height: 32px;
+	text-indent: 34px;
+	display: none;
+	line-height: 32px;
+	z-index: 10000;
+}
+
+#layout {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	border: 0;
+	position: absolute;
+}
+
+#desktop {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	overflow: auto;
+}
+
+#quickbar {
+	position: absolute;
+	height: 48px;
+	bottom: 0;
+	background-color: #dd3;
+	width: 100%;
+	overflow: hidden;
+	background: url(images/bg_quickbar.png) repeat top left;
+}
+
+#poweredBy {
+	margin:5px; float:right;
+}
+#poweredBy span{
+	display: block;width:83px;height:34px;
+	background: url(images/poweredBy.gif) 0 0 no-repeat;
+}
+
+#shortcuts{
+	background-image: url(images/shortcuts/grid.png);
+}
+#shortcuts .shortcut{
+	float: left;
+	margin: 15px 0 0 15px;
+	clear: left;
+	width: 64px;
+	font-size: 14px;
+	text-align: center;
+	display: block;
+}
+#shortcuts .shortcut a{
+	width: 64px;
+	display: block;
+	color: white;
+	text-decoration: none;
+}
+#shortcuts .shortcut .icon{
+	display: block;
+	width:48px;height:48px;
+	background-image: url(images/shortcuts/shortcuts.png);
+	/*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo48.png', sizingMethod='scale');*/
+	margin-left:8px;
+}
+#shortcuts .shortcut .subject{
+	display: block;
+	width: 100%;
+	color: white;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+#quickStart {
+	position: absolute;
+	height: 100%;
+	width: 100px;
+	margin:0;padding:0;
+	background-color: #ccc
+}
+
+#quickButtons {
+	position: absolute;
+	left: 100px;
+	list-style: none;
+	border: 0;
+	height: 100%;
+	width: 600px;
+	margin:0;padding:0;
+	overflow:hidden;
+	vertical-align: middle;
+}
+#quickButtons .quickButton {
+	float: left;
+	margin: 4px 0px 4px 2px;
+	border: 1px solid black;
+	font-size: 14px;
+	height:40px;
+}

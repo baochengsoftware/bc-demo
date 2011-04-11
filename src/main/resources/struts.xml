@@ -21,7 +21,7 @@
 		</action>
 		<!-- 设置空的name，使web.xml中可以通过action来配置welcome-file -->
 		<action name="" class="IndexAction">
-			<result>/bc/index/index.jsp</result>
+			<result>/bc/index/desktop.jsp</result>
 		</action>
 	</package>
 

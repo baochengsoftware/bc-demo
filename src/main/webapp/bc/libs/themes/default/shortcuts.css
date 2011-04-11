@@ -1,0 +1,15 @@
+/**
+ * 桌面图标
+ *
+ * @author rongjihuang@gmail.com
+ * @date 2011-04-11
+ */
+#shortcuts .shortcut .m01{
+	background-image: url(images/shortcuts/grid.png);
+}
+#shortcuts .shortcut .m02{
+	background-image: url(images/shortcuts/mens.png);
+}
+#shortcuts .shortcut .m03{
+	background-image: url(images/shortcuts/chart.png);
+}

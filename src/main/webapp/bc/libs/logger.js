@@ -136,6 +136,7 @@ window['logger'] = (function($){
 		infoEnabled: true,
 		warnEnabled: true,
 		profileEnabled: true,
+		/**在每条日志信息前显示时间还是序号*/
 		showTime: true,
 		debug:function(){
 			out.apply(this,["debug"].concat(jQuery.makeArray(arguments)));
