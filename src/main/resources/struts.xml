@@ -38,5 +38,5 @@
 		</action>
 	</package>
 
-	<!--More includes... <include file="/com/dragon/struts-others.xml"/> -->
+	<include file="cn/bc/identity/struts.xml"/>
 </struts>

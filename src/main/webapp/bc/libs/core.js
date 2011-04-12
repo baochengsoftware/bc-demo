@@ -16,13 +16,13 @@ if(!window['bc'])window['bc']={};
  */
 String.format=function(format){
 	var args = Array.prototype.slice.call(arguments, 1);
-	return format.replace(/\{(\d+)\}/g, function(m, i){
+	return (format+"").replace(/\{(\d+)\}/g, function(m, i){
         return args[i];
     });
 };
 String.prototype.format=function(){
     var args = arguments;
-    return this.replace(/\{(\d+)\}/g, function(m, i){
+    return (this+"").replace(/\{(\d+)\}/g, function(m, i){
         return args[i];
     });
 };
@@ -57,3 +57,17 @@ Date.prototype.format = function(format){
 		  format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
   return format; 
 }
+
+/** 获取使用符号"."连接的嵌套对象,如a.b.c返回window[a][b][c]或eval(a.b.c) */
+bc.getNested=function(nestedName){
+	try{
+		var names = nestedName.split(".");
+		var result = window[names[0]];
+		for(var i=1;i<names.length;i++)
+			result = result[names[i]];
+		return result;
+	}catch(e){
+		logger.error("error get:" + nestedName + ";e=" + e);
+	}
+}
+

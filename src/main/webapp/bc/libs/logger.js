@@ -1,10 +1,12 @@
 /**
  * JavaScript日志组件
  * 
- * 1)使用Ctrl+Home快捷键可以切换控制台的显示隐藏状态。
+ * 1)使用Ctrl+Home快捷键或logger.toggle()可以切换控制台的显示隐藏状态。
  * 2)使用logger.debugEnabled|infoEnabled|warnEnabled|profileEnabled判断当前日志级别的配置，
  *   默认debugEnabled=false,其余为true。
  * 3)使用logger.debug|info|warn|error|profile(msg)输出调试信息。
+ * 4)使用logger.enable|disabled(type)禁用或启用指定级别的信息输出。
+ * 5)使用logger.clear()清空输出。
  * 
  * @author rongjihuang@gmail.com
  * @date 2011-04-11

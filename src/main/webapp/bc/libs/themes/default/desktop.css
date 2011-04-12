@@ -23,6 +23,14 @@ body{
 	line-height: 32px;
 	z-index: 10000;
 }
+#heavyControl{
+	position: absolute;
+	border:1px solid #ccc;
+	right:10px;
+	bottom:60px;
+	width:300px;
+	padding:4px;
+}
 
 #layout {
 	height: 100%;
@@ -54,33 +62,39 @@ body{
 }
 #poweredBy span{
 	display: block;width:83px;height:34px;
-	background: url(images/poweredBy.gif) 0 0 no-repeat;
+	background: url(images/poweredBy.png) 0 0 no-repeat;
 }
 
 #shortcuts{
 	background-image: url(images/shortcuts/grid.png);
+	list-style: none;
+	margin:0;padding:0;
 }
 #shortcuts .shortcut{
 	float: left;
-	margin: 15px 0 0 15px;
+	margin: 10px;
 	clear: left;
-	width: 64px;
+	/*width: 64px;*/
 	font-size: 14px;
 	text-align: center;
 	display: block;
 }
 #shortcuts .shortcut a{
-	width: 64px;
+	/*width: 64px;*/
 	display: block;
-	color: white;
+	color: #9FBED1;
 	text-decoration: none;
+}
+#shortcuts .shortcut a:HOVER{
+	color: white;
+	text-decoration: underline;
 }
 #shortcuts .shortcut .icon{
 	display: block;
 	width:48px;height:48px;
 	background-image: url(images/shortcuts/shortcuts.png);
 	/*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo48.png', sizingMethod='scale');*/
-	margin-left:8px;
+	margin:0 4px 0 4px;
 }
 #shortcuts .shortcut .subject{
 	display: block;

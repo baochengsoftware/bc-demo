@@ -29,7 +29,7 @@
 		<div id="desktop">
 			<a id="poweredBy" href="http://www.google.com.hk" target="_blank"><span></span></a>
 			<dl id="shortcuts">
-	            <dt class="shortcut" id="shortcut-m01" data-mid="m01">
+	            <dt class="shortcut" id="shortcut-m01" data-mid="m01" data-url="/user/edit">
 	                <a href="#">
 		                <span class="icon m01"></span>
 		                <span class="subject">组织管理</span>
@@ -60,6 +60,21 @@
 				</li>
 			</ul>
 		</div>
+	</div>
+	
+	<div id="heavyControl">
+	<h1>重型控件测试</h1>
+	<form>
+		<p><input value="普通文本" style="width:90%;"/></p>
+		<p><input type="checkbox"/>多选框1<input type="checkbox"/>多选框2</p>
+		<p><input type="radio" name="radio"/>单选框1<input type="radio" name="radio"/>单选框2</p>
+		<p><select>
+			<option>选择1</option>
+			<option>选择2</option>
+			<option>选择选择选择选择3</option>
+		</select></p>
+		<p><textarea style="width:90%;">多行文本框</textarea></p>
+	</form>
 	</div>
 
 	<script type="text/javascript"
