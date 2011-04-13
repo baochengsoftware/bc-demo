@@ -58,6 +58,10 @@ Date.prototype.format = function(format){
   return format; 
 }
 
+/** 获取新的唯一id值: var newId = bc.nextId();*/
+bc.id=0;
+bc.nextId=function(prefix){return (prefix ? prefix : "bc") + (bc.id++)};
+
 /** 获取使用符号"."连接的嵌套对象,如a.b.c返回window[a][b][c]或eval(a.b.c) */
 bc.getNested=function(nestedName){
 	try{

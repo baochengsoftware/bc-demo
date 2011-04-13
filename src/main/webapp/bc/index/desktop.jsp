@@ -62,20 +62,22 @@
 		</div>
 	</div>
 	
-	<div id="heavyControl">
-	<h1>重型控件测试</h1>
-	<form>
-		<p><input value="普通文本" style="width:90%;"/></p>
-		<p><input type="checkbox"/>多选框1<input type="checkbox"/>多选框2</p>
-		<p><input type="radio" name="radio"/>单选框1<input type="radio" name="radio"/>单选框2</p>
-		<p><select>
-			<option>选择1</option>
-			<option>选择2</option>
-			<option>选择选择选择选择3</option>
-		</select></p>
-		<p><textarea style="width:90%;">多行文本框</textarea></p>
-	</form>
-	</div>
+	<s:if test='{getText("app.debug") == "true"}'>
+		<div id="heavyControl">
+		<h1>重型控件测试</h1>
+		<form>
+			<p><input value="普通文本" style="width:90%;"/></p>
+			<p><input type="checkbox"/>多选框1<input type="checkbox"/>多选框2</p>
+			<p><input type="radio" name="radio"/>单选框1<input type="radio" name="radio"/>单选框2</p>
+			<p><select>
+				<option>选择1</option>
+				<option>选择2</option>
+				<option>选择选择选择选择3</option>
+			</select></p>
+			<p><textarea style="width:90%;">多行文本框</textarea></p>
+		</form>
+		</div>
+	</s:if>
 
 	<script type="text/javascript"
 		src="<s:url value='/ui-libs/jquery/1.5.1/jquery.min.js' />"></script>
@@ -109,6 +111,12 @@
 	<script type="text/javascript">
 		bc.root = "<%=request.getContextPath()%>";
 		bc.debug = <s:text name="app.debug" />;
+		if(bc.debug){
+			jQuery(function(){
+				logger.toggle();
+				logger.enable("debug");
+			});
+		}
 	</script>
 </body>
 </html>

@@ -22,7 +22,7 @@ bc.desktop = {
 				function() {
 					$this = $(this);
 					var murl = $this.parent().attr("data-url");
-					logger.info(murl);
+					logger.debug("desktop: "+murl);
 					$.ajax({
 						url : murl,
 						dataType : "text",
@@ -32,12 +32,11 @@ bc.desktop = {
 							var dataJs = $dom.attr("data-js");
 							if(dataJs){
 								bc.load([dataJs,function(){
-									logger.debug("loaded "+ dataJs);
 									var method = $dom.attr("data-method");
-									logger.info("method="+method);
+									logger.debug("desktop: method name="+method);
 									if(method){
 										method = bc.getNested(method);
-										logger.info("method type=" + (typeof method));
+										logger.debug("desktop: method type=" + (typeof method));
 										if(typeof method == "function"){
 											method.call($dom,eval("("+$dom.attr("data-option")+")"));
 										}
@@ -46,7 +45,7 @@ bc.desktop = {
 							}
 						},
 						error : function(request, textStatus, errorThrown) {
-							logger.error("textStatus=" + textStatus
+							logger.debug("desktop: textStatus=" + textStatus
 									+ ";errorThrown=" + errorThrown);
 						}
 					});
@@ -108,7 +107,4 @@ bc.desktop = {
 };
 jQuery(function($) {
 	bc.desktop.init();
-	logger.toggle();
-	logger.info("loaded desktop.js");
-	logger.info(!$("#ttttt").length);
 });

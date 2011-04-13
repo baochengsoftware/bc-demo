@@ -104,12 +104,12 @@ window['logger'] = (function($){
 			source.className = type + "Disabled";
 			source.title = "已禁用";
 			out(type,"已禁用" + type);
-			logger[type + "Enable"] = false;
+			logger[type + "Enabled"] = false;
 			if(type=="profile")delete profiler["已禁用" + type];
 		}else{
 			source.className = type;
 			source.title = "已启用" + type;
-			logger[type + "Enable"] = true;
+			logger[type + "Enabled"] = true;
 			out(type,"已启用" + type);
 			if(type=="profile")delete profiler["已启用" + type];
 		}
@@ -172,12 +172,12 @@ window['logger'] = (function($){
 		clear:function(){content.empty();num=0;},
 		enable: function(type){
 			$("#logger-btn-" + type).attr("class",type);
-			logger[type + "Enable"] = true;
+			logger[type + "Enabled"] = true;
 			return this;
 		},
 		disabled: function(type){
 			$("#logger-btn-" + type).attr("class",type + "Disabled");
-			logger[type + "Enable"] = false;
+			logger[type + "Enabled"] = false;
 			return this;
 		},
 		toggle: function(){

@@ -40,10 +40,10 @@
 	
 	<!-- struts2 -->
     <category name="com.opensymphony">
-    	<priority value="DEBUG" />
+    	<priority value="INFO" />
     </category>
     <category name="org.apache.struts2">
-    	 <priority value="DEBUG" />
+    	 <priority value="INFO" />
     </category>
 
 	<!-- bc -->

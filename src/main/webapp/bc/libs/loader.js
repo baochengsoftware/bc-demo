@@ -73,7 +73,11 @@ bc.loader = {
 	a: function(u,l) {
 		var s, t, m = this, n = u[0].replace(/.+\/|\.min\.js|\.js|\?.+|\W/g, ''), k = {js: {t: "script", a: "src"}, css: {t: "link", a: "href", r: "stylesheet"}, "i": {t: "img", a: "src"}}; // Clean up the name of the script for storage in the queue
 		t = u[0].match(/\.(js|css).*$/i); t = (t) ? t[1] : "i";
-		if(m.q[n] === true) return;//避免重复加载和解析
+		if(m.q[n] === true){
+			if(logger.debugEnabled)logger.debug("loader: skip load '" + u[0] + "'");
+			l && l(); // Call the callback function l
+			return;//避免重复加载和解析
+		}
 		s = m.q[n] = m.c.createElement(k[t].t);
 		s.setAttribute(k[t].a, u[0]);
 		// Fix: CSS links do not fire onload events - Richard Lopes
@@ -87,6 +91,7 @@ bc.loader = {
 			// 1. It will call nbl.l() with the remaining items in u[1] (if there are any)
 			// 2. It will execute the function l (if it is a function)
 			s.onload = s.onreadystatechange = function(){
+				if(logger.debugEnabled)logger.debug("loader: finished loaded '" + u[0] + "' and call the callback");
 				var s = this, d = function(){
 					var s = m, r = u[1]; 
 					s.q[n] = true; // Set the entry for this script in the script-queue to true
@@ -100,6 +105,7 @@ bc.loader = {
 			};
 			m.s++
 		}
+		if(logger.debugEnabled)logger.debug("loader: append '" + u[0] + "' to head");
 		m.h.appendChild(s) // Add the script to the document
 	}
 };
