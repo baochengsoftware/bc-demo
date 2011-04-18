@@ -80,5 +80,12 @@
 			<artifactId>struts2-jquery-grid-plugin</artifactId>
 			<version>${struts2.jquery.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>bc</groupId>
+			<artifactId>bc-test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>
