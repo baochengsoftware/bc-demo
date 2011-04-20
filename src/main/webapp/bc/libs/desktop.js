@@ -100,6 +100,9 @@ bc.desktop = {
 		}).live("mouseout", function() {
 			$(this).removeClass("ui-state-hover")
 		});
+		
+		$("dt.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
+		$("#shortcuts" ).selectable();
 	},
 	doResize : function() {
 		$("#desktop").height($("#layout").height() - $("#quickbar").height())

@@ -2,11 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
+		<groupId>cn.bc</groupId>
 		<artifactId>bc-parent</artifactId>
-		<groupId>bc</groupId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>bc</groupId>
 	<artifactId>bc-demo</artifactId>
 	<packaging>war</packaging>
 	<name>bc平台演示</name>
@@ -26,18 +25,18 @@
 			<version>20080701</version>
 		</dependency>
 		<dependency>
-			<groupId>bc</groupId>
+			<groupId>cn.bc</groupId>
 			<artifactId>bc-web-struts2</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>bc</groupId>
+			<groupId>cn.bc</groupId>
 			<artifactId>bc-orm-hibernate</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>bc</groupId>
-			<artifactId>bc-identity</artifactId>
+			<groupId>cn.bc</groupId>
+			<artifactId>bc-identity-impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -82,10 +81,10 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>bc</groupId>
+			<groupId>cn.bc</groupId>
 			<artifactId>bc-test</artifactId>
 			<version>${project.version}</version>
-			<scope>test</scope>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 </project>

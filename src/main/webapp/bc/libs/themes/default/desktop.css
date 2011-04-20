@@ -84,10 +84,13 @@ body{
 	display: block;
 	color: #9FBED1;
 	text-decoration: none;
+	border: 2px solid transparent;
+	border-radius: 8px; 
 }
 #shortcuts .shortcut a:HOVER{
-	color: white;
-	text-decoration: underline;
+	/*color: white;
+	text-decoration: underline;*/
+	border-color: green;
 }
 #shortcuts .shortcut .icon{
 	display: block;
