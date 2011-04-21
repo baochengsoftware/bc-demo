@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 主页配置 -->
+	<package name="index" extends="struts-default" namespace="/">
+		<action name="index" class="IndexAction">
+			<result>/bc/index/index.jsp</result>
+		</action>
+		<!-- 设置空的name，使web.xml中可以通过action来配置welcome-file -->
+		<action name="" class="IndexAction">
+			<result>/bc/index/desktop.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -2,7 +2,7 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
-<!-- struts.xml文件必须放在“src/main/resources”目录下 -->
+<!-- 项目的Struts2全局配置文件，在这里通过include引用其他模块的配置文件-->
 <struts>
 	<!-- 配置i18n全局配置文件的文件名 ：global.properties -->
 	<constant name="struts.custom.i18n.resources" value="global" />
@@ -14,29 +14,7 @@
 	<constant name="struts.objectFactory"
 		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
 
-	<!-- 主页配置 -->
-	<package name="index" extends="struts-default" namespace="/">
-		<action name="index" class="IndexAction">
-			<result>/bc/index/index.jsp</result>
-		</action>
-		<!-- 设置空的name，使web.xml中可以通过action来配置welcome-file -->
-		<action name="" class="IndexAction">
-			<result>/bc/index/desktop.jsp</result>
-		</action>
-	</package>
-
-	<!-- 范例配置 -->
-	<package name="example" extends="struts-default" namespace="/bc/example">
-		<action name="list" class="ExampleListAction">
-			<result>/bc/example/list.jsp</result>
-		</action>
-		<action name="forStream" class="ExampleListAction" method="forStream">
-			<result type="stream">
-				<param name="contentType">text/html</param>
-				<param name="inputName">inputStream</param>
-			</result>
-		</action>
-	</package>
-
-	<include file="cn/bc/identity/struts.xml"/>
+	<!-- 引用其他模块的配置文件-->
+	<include file="struts-demo.xml"/>
+	<include file="cn/bc/identity/web/struts2/struts.xml"/>
 </struts>

@@ -37,14 +37,29 @@
 	<category name="org.hibernate">
 	  <priority value="ERROR" />
 	</category>
+	<!-- hibernate：设为INFO，查看实体对象映射到哪张数据表；设为DEBUG则可以查看实体属性与表中列的映射对应关系 -->
+	<category name="org.hibernate.cfg.HbmBinder">
+	  <priority value="INFO" />
+	</category>
 	
 	<!-- struts2 -->
-    <category name="com.opensymphony">
-    	<priority value="INFO" />
-    </category>
     <category name="org.apache.struts2">
-    	 <priority value="INFO" />
+    	 <priority value="DEBUG" />
     </category>
+	<!-- struts2：设为DEBUG，查看转发到那个jsp文件 -->
+    <category name="org.apache.struts2.dispatcher.ServletDispatcherResult">
+    	 <priority value="DEBUG" />
+    </category>
+    <category name="com.opensymphony">
+    	<priority value="DEBUG" />
+    </category>
+	<!-- struts2：设为DEBUG，查看加载了哪些xml配置文件 -->
+    <category name="com.opensymphony.xwork2.util.FileManager">
+    	<priority value="DEBUG" />
+    </category>
+	<category name="freemarker">
+	  <priority value="DEBUG" />
+	</category>
 
 	<!-- bc -->
 	<category name="cn.bc">

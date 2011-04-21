@@ -6,9 +6,10 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<!-- 标识生成器 -->
-		<class>cn.bc.identity.domain.Generator</class>
+		<class>cn.bc.identity.domain.IdGenerator</class>
 		
-		<!-- Actor -->
+		<!-- Identity -->
+		<class>cn.bc.identity.domain.Duty</class>
 		<class>cn.bc.identity.impl.domain.ActorImpl</class>
 		<class>cn.bc.identity.impl.domain.ActorDetailImpl</class>
 

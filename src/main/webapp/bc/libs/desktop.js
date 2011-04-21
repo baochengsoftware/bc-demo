@@ -28,6 +28,7 @@ bc.desktop = {
 						dataType : "text",
 						context : this,
 						success : function(data) {
+							alert(data);
 							var $dom = $(data);
 							var dataJs = $dom.attr("data-js");
 							if(dataJs){

@@ -29,10 +29,10 @@
 		<div id="desktop">
 			<a id="poweredBy" href="http://www.google.com.hk" target="_blank"><span></span></a>
 			<dl id="shortcuts">
-	            <dt class="shortcut" id="shortcut-m01" data-mid="m01" data-url="/user/edit">
+	            <dt class="shortcut" id="shortcut-m01" data-mid="m01" data-url="/duty/form">
 	                <a href="#">
 		                <span class="icon m01"></span>
-		                <span class="subject">组织管理</span>
+		                <span class="subject">职务配置</span>
 	                </a>
 	            </dt>
 	            <dt class="shortcut" id="shortcut-m02" data-mid="m02">
