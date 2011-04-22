@@ -3,13 +3,14 @@
  * 
  * @author rongjihuang@gmail.com
  * @date 2011-04-11
- * @ref http://dev.sencha.com/deploy/ext-4.0-beta1/examples/sandbox/sandbox.html,http://web2.qq.com/
+ * @ref ext桌面 http://dev.sencha.com/deploy/ext-4.0-beta1/examples/sandbox/sandbox.html,http://web2.qq.com/
+ * @ref jquery桌面 http://desktop.sonspring.com/
  */
 
 if (!window['bc'])
 	window['bc'] = {};
 bc.desktop = {
-	init : function() {
+	init : function(option) {
 		// 执行桌面布局
 		bc.desktop.doResize();
 		$(window).resize(function() {
@@ -17,11 +18,11 @@ bc.desktop = {
 		});
 
 		// 桌面快捷方式处理
-		$("#shortcuts > .shortcut > a").live(
-				"click",
+		$("#shortcuts > a.shortcut").live(
+				"dblclick",
 				function() {
 					$this = $(this);
-					var murl = $this.parent().attr("data-url");
+					var murl = $this.attr("data-url");
 					logger.debug("desktop: "+murl);
 					$.ajax({
 						url : murl,
@@ -66,7 +67,7 @@ bc.desktop = {
 					 */
 
 					return false;
-				});
+				}).live("click",function(){return false;});
 
 		// 快速工具条中条目的鼠标控制
 		$("#quickButtons .quickButton").live(
@@ -102,7 +103,7 @@ bc.desktop = {
 			$(this).removeClass("ui-state-hover")
 		});
 		
-		$("dt.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
+		$("a.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
 		$("#shortcuts" ).selectable();
 	},
 	doResize : function() {

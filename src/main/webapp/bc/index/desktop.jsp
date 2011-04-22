@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
@@ -27,43 +27,38 @@
 	<div id="loader">正在加载......</div>
 	<div id="layout">
 		<div id="desktop">
-			<a id="poweredBy" href="http://www.google.com.hk" target="_blank"><span></span></a>
-			<dl id="shortcuts">
-	            <dt class="shortcut" id="shortcut-m01" data-mid="m01" data-url="/duty/form">
-	                <a href="#">
-		                <span class="icon m01"></span>
-		                <span class="subject">职务配置</span>
-	                </a>
-	            </dt>
-	            <dt class="shortcut" id="shortcut-m02" data-mid="m02">
-	                <a href="#">
-	                	<span class="icon m02"></span>
-	                	<span class="subject">联系沟通</span>
-	                </a>
-	            </dt>
-	            <dt class="shortcut" id="shortcut-m03" data-mid="m03">
-	                <a href="#">
-	                	<span class="icon m03"></span>
-	                	<span class="subject">动态报表</span>
-	                </a>
-	            </dt>
-	        </dl>
+			<%--<a id="poweredBy" href="http://www.google.com.hk" target="_blank"><span></span></a> --%>
+            <a href="#" class="shortcut" data-mid="m01" data-url="/ou/list">
+            	<span class="icon"></span>
+            	<span class="text">组织管理</span>
+            </a>
+            <a href="#" class="shortcut" data-mid="m02" data-url="/user/list">
+             	<span class="icon i0001"></span>
+             	<span class="text">用户管理</span>
+            </a>
+            <a href="#" class="shortcut" data-mid="m03" data-url="/duty/list">
+            	<span class="icon i0001"></span>
+            	<span class="text">职务配置</span>
+            </a>
+            <a href="#" class="shortcut" data-mid="m04" data-url="/module/list">
+            	<span class="icon i0007"></span>
+            	<span class="text">模块配置</span>
+            </a>
 		</div>
 		<div id="quickbar">
-			<div id="quickStart">开始</div>
-			<ul id="quickButtons">
-				<li id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01"><a href="#">组织管理</a>
-				</li>
-				<li id="quickButton-m02" class="quickButton ui-state-default ui-corner-all" data-mid="m02"><a href="#">联系沟通</a>
-				</li>
-				<li id="quickButton-m03" class="quickButton ui-state-default ui-corner-all" data-mid="m03"><a href="#">动态报表</a>
-				</li>
-			</ul>
+			<div id="quickStart"><a href="#" title="开始"></a></div>
+			<div id="quickButtons">
+				<a href="#" id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a>
+				<a href="#" id="quickButton-m02" class="quickButton ui-state-default ui-corner-all" data-mid="m02">联系沟通</a>
+				<a href="#" id="quickButton-m03" class="quickButton ui-state-default ui-corner-all" data-mid="m03">动态报表</a>
+			</div>
+			<div id="quickShowHide" title="显示桌面"><a href="#"></a></div>
+			<div id="copyrightBar"><a href="http://www.bctaxi.com.cn" target="_blank">Copyright © 2011 广州市宝城汽车出租有限公司</a></div>
 		</div>
 	</div>
 	
 	<s:if test='{getText("app.debug") == "true"}'>
-		<div id="heavyControl">
+		<div id="heavyControl" style="display: none">
 		<h1>重型控件测试</h1>
 		<form>
 			<p><input value="普通文本" style="width:90%;"/></p>
@@ -113,7 +108,7 @@
 		bc.debug = <s:text name="app.debug" />;
 		if(bc.debug){
 			jQuery(function(){
-				logger.toggle();
+				//logger.toggle();
 				logger.enable("debug");
 			});
 		}
