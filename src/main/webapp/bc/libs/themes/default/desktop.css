@@ -4,6 +4,9 @@
  * @author rongjihuang@gmail.com
  * @date 2011-04-11
  */
+html,body{
+	overflow: hidden;
+}
 body{
 	background: url(images/bg_page.png) repeat top left;
 }
@@ -55,38 +58,38 @@ body{
 
 /**桌面快捷方式*/
 #desktop a.shortcut{
-	float: left;
+	/*clear: left; 设置这个就默认竖排了*/
 	margin: 10px 5px 5px 10px;
-	clear: left; /*设置这个就默认竖排了*/
-	/*width: 64px;*/
 	font-size: 0.87em;
-	display: block;
+	display: inline-block;
 	color: #ffffff;
 	text-decoration: none;
 	border: 2px solid transparent;
 	border-radius: 8px; 
 	cursor: default;
-	_text-align: center;
+	_text-align: center;/*fixed ie6:使内部内容水平居中*/
+	width:60px;
 }
 #desktop a.shortcut:HOVER{
 	border-color: green;
 }
 #desktop a.shortcut .icon{
-	margin:auto;
 	display: block;
 	width:52px;height:52px;
 	background: url(images/shortcuts/shortcuts.png) no-repeat 0 0;
 	/*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo48.png', sizingMethod='scale');*/
-	margin:0 4px 0 4px;
+	margin: auto;
 }
 #desktop a.shortcut .text{
-	margin:auto;
+	margin: auto;
 	display: block;
-	width:60px;
+	width:56px;
 	color: white;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: default;
+	text-align: center;
+	padding:2px;
 }
 
 /**快速任务栏*/
@@ -177,4 +180,13 @@ body{
 #poweredBy span{
 	display: block;width:83px;height:34px;
 	background: url(images/poweredBy.png) 0 0 no-repeat;
+}
+.imgtest{
+	display:block;
+	background: url(images/shortcuts/shortcuts.png) no-repeat -52px 0;
+	width:52px;height:52px;
+	zoom:0.5;
+}
+.imgtest:HOVER{
+	zoom:1;
 }

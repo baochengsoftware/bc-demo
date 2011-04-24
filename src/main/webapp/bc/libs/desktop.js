@@ -10,64 +10,27 @@
 if (!window['bc'])
 	window['bc'] = {};
 bc.desktop = {
+	/**桌面布局的初始化*/
 	init : function(option) {
 		// 执行桌面布局
 		bc.desktop.doResize();
 		$(window).resize(function() {
 			bc.desktop.doResize();
 		});
+		
+		//对ie，所有没有定义href属性的a，自动设置该属性为"#"，避免css中的:hover等没有效果
+		if($.browser.msie){
+			$("a[href=''],a:not([href])").each(function(){
+				this.setAttribute("href","");
+			});
+		}
 
-		// 桌面快捷方式处理
-		$("#shortcuts > a.shortcut").live(
-				"dblclick",
-				function() {
-					$this = $(this);
-					var murl = $this.attr("data-url");
-					logger.debug("desktop: "+murl);
-					$.ajax({
-						url : murl,
-						dataType : "text",
-						context : this,
-						success : function(data) {
-							alert(data);
-							var $dom = $(data);
-							var dataJs = $dom.attr("data-js");
-							if(dataJs){
-								bc.load([dataJs,function(){
-									var method = $dom.attr("data-method");
-									logger.debug("desktop: method name="+method);
-									if(method){
-										method = bc.getNested(method);
-										logger.debug("desktop: method type=" + (typeof method));
-										if(typeof method == "function"){
-											method.call($dom,eval("("+$dom.attr("data-option")+")"));
-										}
-									}
-								}]);
-							}
-						},
-						error : function(request, textStatus, errorThrown) {
-							logger.debug("desktop: textStatus=" + textStatus
-									+ ";errorThrown=" + errorThrown);
-						}
-					});
-
-					/*
-					 * var mid=$this.attr("data-mid");//模块的标识 if(!$("#" +
-					 * mid).length) $("body").append("<div id='" + mid + "'
-					 * class='hide'></div>");//没有就先创建隐藏元素
-					 * 
-					 * var $m = $("#" + mid); var mcfg =
-					 * $this.attr("data-cfg");//模块的配置参数 if(mcfg && mcfg.length)
-					 * mcfg=eval("(" + $this.attr("data-cfg") + ")"); else
-					 * mcfg={};
-					 * 
-					 * if(!mcfg.type || mcfg.type=="dialog"){//默认为创建对话框
-					 * logger.info("create a dialog"); $m.dialog(); }else{ }
-					 */
-
-					return false;
-				}).live("click",function(){return false;});
+		// 双击打开桌面快捷方式
+		var shortcuts = $("#desktop > a.shortcut");
+		shortcuts.live("dblclick",bc.desktop.openModule);
+		
+		// 禁用桌面快捷方式的默认链接打开功能
+		shortcuts.live("click",function(){logger.debug("a:click");return false;});
 
 		// 快速工具条中条目的鼠标控制
 		$("#quickButtons .quickButton").live(
@@ -103,11 +66,72 @@ bc.desktop = {
 			$(this).removeClass("ui-state-hover")
 		});
 		
+		//允许图标拖动
 		$("a.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
-		$("#shortcuts" ).selectable();
+		//$("#shortcuts" ).selectable();
 	},
+	/**重新调整桌面的布局*/
 	doResize : function() {
 		$("#desktop").height($("#layout").height() - $("#quickbar").height())
+	},
+	/**双击打开桌面快捷方式*/
+	openModule: function(option) {
+		$this = $(this);
+		var type = $this.attr("data-type");
+		if(logger.debugEnabled)
+			logger.debug("a:dblclick,type=" + type);
+		if(type == "2"){//打开内部链接
+			var url = $this.attr("data-url");
+			logger.info("loading html from url:" + url);
+			$.ajax({
+				url : url,
+				dataType : "text",
+				context : this,
+				success : function(html) {
+					logger.info("success loaded html");
+					var $dom = $(html);
+					function _init(){
+						//从dom构建并显示桌面组件
+						var option = eval("("+$dom.attr("data-option")+")");
+						option = option || {};
+						option.modal=true;
+						$dom.dialog(option)
+						.bind("dialogclose",function(event,ui){
+							logger.debug("dialogclose");
+							$(this).dialog("destroy").remove();
+						});
+						
+						//执行组件指定的额外初始化方法，上下文为$dom
+						var method = $dom.attr("data-initMethod");
+						logger.debug("initMethod="+method);
+						if(method){
+							method = bc.getNested(method);
+							logger.debug("initMethodType=" + (typeof method));
+							if(typeof method == "function"){
+								method.call($dom, option);
+							}
+						}
+					}
+					//alert(html);
+					var dataJs = $dom.attr("data-js");
+					if(dataJs){
+						//先加载js文件后执行模块指定的初始化方法
+						bc.load([dataJs,_init]);
+					}else{
+						//执行模块指定的初始化方法
+						_init();
+					}
+					
+					
+				},
+				error : function(request, textStatus, errorThrown) {
+					logger.debug("desktop: textStatus=" + textStatus + ";errorThrown=" + errorThrown);
+				}
+			});
+		}
+	},
+	widget: function(){
+		var $dom = this;
 	}
 };
 jQuery(function($) {
