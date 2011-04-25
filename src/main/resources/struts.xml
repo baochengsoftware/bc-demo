@@ -14,7 +14,10 @@
 	<constant name="struts.objectFactory"
 		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
 
-	<!-- 引用其他模块的配置文件-->
-	<include file="struts-demo.xml"/>
+	<!-- 平台基础模块的配置文件-->
+	<include file="cn/bc/web/struts2/struts.xml"/>
 	<include file="cn/bc/identity/web/struts2/struts.xml"/>
+
+	<!-- 项目自定义的配置文件-->
+	<include file="struts-demo.xml"/>
 </struts>

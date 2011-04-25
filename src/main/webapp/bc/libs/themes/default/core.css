@@ -35,3 +35,6 @@ body {
 .ui-dialog {padding: 0;}
 .ui-dialog .ui-widget-header {border-width: 0;}
 .ui-dialog .ui-widget-header.ui-corner-all {border-radius: 0;}
+.ui-dialog .ui-dialog-content {
+	padding: 0 1px;
+}

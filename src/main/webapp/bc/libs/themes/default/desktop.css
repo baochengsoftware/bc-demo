@@ -58,7 +58,8 @@ body{
 
 /**桌面快捷方式*/
 #desktop a.shortcut{
-	/*clear: left; 设置这个就默认竖排了*/
+	float: left;
+	clear: left; /*设置这个就默认竖排了*/
 	margin: 10px 5px 5px 10px;
 	font-size: 0.87em;
 	display: inline-block;

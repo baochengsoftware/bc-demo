@@ -6,13 +6,15 @@
 <title><s:text name="app.title" />
 </title>
 <link rel="stylesheet" type="text/css"
-	href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/smoothness/jquery-ui.css' />" />
+	href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/ui-lightness/jquery-ui.css' />" />
 <link rel="stylesheet" type="text/css"
 	href="<s:url value='/bc/libs/themes/default/core.css' />" />
 <link rel="stylesheet" type="text/css"
 	href="<s:url value='/bc/libs/themes/default/desktop.css' />" />
 <link rel="stylesheet" type="text/css"
 	href="<s:url value='/bc/libs/themes/default/shortcuts.css' />" />
+<link rel="stylesheet" type="text/css"
+	href="<s:url value='/bc/libs/themes/default/list.css' />" />
 <style type="text/css">
 .toggler { width: 500px; height: 200px; position: relative; }
 #m01 { width: 240px; height: 135px; padding: 0.4em; position: relative; }
@@ -27,6 +29,14 @@
 	<div id="loader">正在加载......</div>
 	<div id="layout">
 		<div id="desktop">
+            <a class="shortcut" data-mid="m03" data-type="2" data-url="/duty/form">
+            	<span class="icon i0001"></span>
+            	<span class="text">职务表单</span>
+            </a>
+            <a class="shortcut" data-mid="m03" data-type="2" data-url="/duty/list">
+            	<span class="icon i0001"></span>
+            	<span class="text">职务列表</span>
+            </a>
             <a class="shortcut" data-mid="m01" data-type="2" data-url="/ou/list">
             	<span class="icon"></span>
             	<span class="text">组织管理</span>
@@ -34,14 +44,6 @@
             <a class="shortcut" data-mid="m02" data-type="2" data-url="/user/list">
              	<span class="icon i0001"></span>
              	<span class="text">用户</span>
-            </a>
-            <a class="shortcut" data-mid="m03" data-type="2" data-url="/duty/list">
-            	<span class="icon i0001"></span>
-            	<span class="text">职务列表</span>
-            </a>
-            <a class="shortcut" data-mid="m03" data-type="2" data-url="/duty/form">
-            	<span class="icon i0001"></span>
-            	<span class="text">职务表单</span>
             </a>
             <a class="shortcut" data-mid="m04" data-url="/module/list">
             	<span class="icon i0007"></span>
@@ -87,6 +89,8 @@
 		src="<s:url value='/ui-libs/jquery-ui/1.8.11/i18n/jquery-ui-i18n.js' />"></script>
 	<script type="text/javascript"
 		src="<s:url value='/ui-libs/jquery-ui/1.8.11/jquery-ui.min.js' />"></script>
+	<script type="text/javascript"
+		src="<s:url value='/bc/libs/window.js' />"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' />"></script>
 	<script type="text/javascript"
 		src="<s:url value='/bc/libs/loader.js' />"></script>
@@ -106,10 +110,13 @@
 				profile:$.noop,enable:$.noop,disabled:$.noop,show:$.noop,test:true
 			};
 		}
-	</script>
+		</script>
 	</s:else>
 	<script type="text/javascript"
 		src="<s:url value='/bc/libs/desktop.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/form.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/dialog.js' />"></script>
 	<script type="text/javascript">
 		bc.root = "<%=request.getContextPath()%>";
 		bc.debug = <s:text name="app.debug" />;

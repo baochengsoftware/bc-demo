@@ -86,20 +86,23 @@ bc.desktop = {
 			$.ajax({
 				url : url,
 				dataType : "text",
-				context : this,
 				success : function(html) {
 					logger.info("success loaded html");
 					var $dom = $(html);
 					function _init(){
 						//从dom构建并显示桌面组件
-						var option = eval("("+$dom.attr("data-option")+")");
-						option = option || {};
-						option.modal=true;
-						$dom.dialog(option)
+						var option = jQuery.parseJSON($dom.attr("data-option"));	
+						logger.debug(typeof option);
+						$dom.dialog(bc.desktop.rebuildOption.call($dom,option))
 						.bind("dialogclose",function(event,ui){
 							logger.debug("dialogclose");
-							$(this).dialog("destroy").remove();
+							$(this).dialog("destroy").remove();//彻底删除所有相关的dom元素
 						});
+						
+						//插入最大化|还原按钮、最小化按钮
+						if(option.maximize !== false){
+							//$dom.dialog(
+						}
 						
 						//执行组件指定的额外初始化方法，上下文为$dom
 						var method = $dom.attr("data-initMethod");
@@ -125,13 +128,34 @@ bc.desktop = {
 					
 				},
 				error : function(request, textStatus, errorThrown) {
-					logger.debug("desktop: textStatus=" + textStatus + ";errorThrown=" + errorThrown);
+					logger.error("desktop: textStatus=" + textStatus + ";errorThrown=" + errorThrown);
 				}
 			});
 		}
 	},
 	widget: function(){
 		var $dom = this;
+	},
+	rebuildOption: function(option){
+		var _option = option || {};
+		if(_option.buttons){
+			var btn;
+			for(var i in _option.buttons){
+				btn = _option.buttons[i];
+				if(btn.action == "save"){//内部的表单保存
+					btn.click = bc.form.save;
+				}else if(btn.action == "cancel"){//关闭对话框
+					btn.click = bc.form.cancel;
+				}else if(btn.fn){//调用自定义函数
+					btn.click = bc.getNested(btn.fn);
+				}
+				
+				//如果click为字符串，当成是函数名称处理
+				if(typeof btn.click == "string")
+					btn.click = bc.getNested(btn.click);
+			}
+		}
+		return _option;
 	}
 };
 jQuery(function($) {
