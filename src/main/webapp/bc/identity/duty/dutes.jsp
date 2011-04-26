@@ -18,7 +18,7 @@
 			<tr>
 				<td class="id first"><s:text name="label.id" />
 				</td>
-				<td class="middle" style="width:40px"><s:text name="duty.code" />
+				<td class="middle" style="width:80px"><s:text name="duty.code" />
 				</td>
 				<td class="last"><s:text name="duty.name" />
 				</td>

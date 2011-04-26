@@ -31,7 +31,7 @@ table.list tbody td.first,table.list tbody td.middle,table.list tbody td.last{
 	padding-left: 0.25em;
 	padding-right: 0.25em;
 	
-	/*内容溢出控制
+	/*内容溢出控制*/
 	overflow:hidden;
 	text-overflow:ellipsis;
 	-o-text-overflow:ellipsis;
@@ -40,6 +40,6 @@ table.list tbody td.first,table.list tbody td.middle,table.list tbody td.last{
 	-moz-text-overflow: ellipsis;
 	-webkit-text-overflow: ellipsis;
 	white-space:nowrap;
-	-moz-binding: url('ellipsis.xml#ellipsis');*/
+	-moz-binding: url('ellipsis.xml#ellipsis');
 }
 
