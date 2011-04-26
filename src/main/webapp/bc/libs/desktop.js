@@ -93,6 +93,7 @@ bc.desktop = {
 						//从dom构建并显示桌面组件
 						var option = jQuery.parseJSON($dom.attr("data-option"));	
 						logger.debug(typeof option);
+						option.dialogClass="bc-ui-dialog";
 						$dom.dialog(bc.desktop.rebuildOption.call($dom,option))
 						.bind("dialogclose",function(event,ui){
 							logger.debug("dialogclose");

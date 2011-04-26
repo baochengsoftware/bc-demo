@@ -10,8 +10,11 @@ table.list {
 	width: 100%;
 	height: 100%;
 	list-style: none;
-	border: 0;
 	table-layout: fixed;
+	border-spacing: 0;
+	background: none;
+	padding:0;
+	margin:0;
 }
 table.list thead td{
 	text-align: center;
@@ -19,3 +22,24 @@ table.list thead td{
 table.list td.id{
 	width:60px;
 }
+table.list td.middle,table.list td.last{
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+table.list tbody td.first,table.list tbody td.middle,table.list tbody td.last{
+	border-bottom: 1px solid #ccc;
+	padding-left: 0.25em;
+	padding-right: 0.25em;
+	
+	/*内容溢出控制
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	-icab-text-overflow: ellipsis;
+	-khtml-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	white-space:nowrap;
+	-moz-binding: url('ellipsis.xml#ellipsis');*/
+}
+

@@ -13,23 +13,23 @@
 		],
 		"minWidth":500,"minHeight":250,"height":400,"modal":false
 	}'>
-	<table class="list">
+	<table class="ui-widget-header list" cellspacing="0">
 		<thead class="ui-widget-header">
 			<tr>
-				<td class="id"><s:text name="label.id" />
+				<td class="id first"><s:text name="label.id" />
 				</td>
-				<td style="width:100px"><s:text name="duty.code" />
+				<td class="middle" style="width:40px"><s:text name="duty.code" />
 				</td>
-				<td><s:text name="duty.name" />
+				<td class="last"><s:text name="duty.name" />
 				</td>
 			</tr>
 		</thead>
 		<tbody>
 			<s:iterator value="bs" status="stuts">
 				<tr class='ui-state-default<s:if test="#stuts.odd == true"> odd</s:if>' onclick='$(this).toggleClass("ui-state-focus")'>
-					<td class="id"><s:property value="id" /></td>
-					<td><s:property value="code" /></td>
-					<td><s:property value="name" /></td>
+					<td class="first id" data-id='<s:property value="id" />'><s:property value="#stuts.index" /></td>
+					<td class="middle"><s:property value="code" /></td>
+					<td class="last"><s:property value="name" /></td>
 				</tr>
 			</s:iterator>
 		</tbody>
