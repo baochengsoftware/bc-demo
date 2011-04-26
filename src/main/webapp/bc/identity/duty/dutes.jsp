@@ -2,9 +2,9 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="bc-content" title='<s:text name="duty.list.title"/>'
 	data-type='list'
-	data-action-delete='<@s.url value="/duty/delete" />'
-	data-action-edit='<@s.url value="/duty/edit" />'
-	data-action-create='<@s.url value="/duty/create" />'
+	data-action-delete='<s:url value="/duty/delete" />'
+	data-action-edit='<s:url value="/duty/edit" />'
+	data-action-create='<s:url value="/duty/create" />'
 	data-option='{
 		"buttons":[
 			{"text":"<s:text name="label.delete"/>","action":"delete"},

@@ -34,7 +34,7 @@
 	<div id="loader">正在加载......</div>
 	<div id="layout">
 		<div id="desktop">
-            <a class="shortcut" data-mid="m03" data-type="2" data-url="/duty/form">
+            <a class="shortcut" data-mid="m03" data-type="2" data-url="/duty/create">
             	<span class="icon i0001"></span>
             	<span class="text">职务表单</span>
             </a>
@@ -97,6 +97,8 @@
 	<script type="text/javascript"
 		src="<s:url value='/bc/libs/window.js' />"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' />"></script>
 	<script type="text/javascript"
 		src="<s:url value='/bc/libs/loader.js' />"></script>
 	<s:if test='{getText("app.debug") == "true"}'>
@@ -119,9 +121,6 @@
 	</s:else>
 	<script type="text/javascript"
 		src="<s:url value='/bc/libs/desktop.js' />"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/form.js' />"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' />"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/dialog.js' />"></script>
 	<script type="text/javascript">
 		bc.root = "<%=request.getContextPath()%>";
 		bc.debug = <s:text name="app.debug" />;

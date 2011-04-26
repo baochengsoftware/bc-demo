@@ -81,82 +81,8 @@ bc.desktop = {
 		if(logger.debugEnabled)
 			logger.debug("a:dblclick,type=" + type);
 		if(type == "2"){//打开内部链接
-			var url = $this.attr("data-url");
-			logger.info("loading html from url:" + url);
-			$.ajax({
-				url : url,
-				dataType : "text",
-				success : function(html) {
-					logger.info("success loaded html");
-					var $dom = $(html);
-					function _init(){
-						//从dom构建并显示桌面组件
-						var option = jQuery.parseJSON($dom.attr("data-option"));	
-						logger.debug(typeof option);
-						option.dialogClass="bc-ui-dialog";
-						$dom.dialog(bc.desktop.rebuildOption.call($dom,option))
-						.bind("dialogclose",function(event,ui){
-							logger.debug("dialogclose");
-							$(this).dialog("destroy").remove();//彻底删除所有相关的dom元素
-						});
-						
-						//插入最大化|还原按钮、最小化按钮
-						if(option.maximize !== false){
-							//$dom.dialog(
-						}
-						
-						//执行组件指定的额外初始化方法，上下文为$dom
-						var method = $dom.attr("data-initMethod");
-						logger.debug("initMethod="+method);
-						if(method){
-							method = bc.getNested(method);
-							logger.debug("initMethodType=" + (typeof method));
-							if(typeof method == "function"){
-								method.call($dom, option);
-							}
-						}
-					}
-					//alert(html);
-					var dataJs = $dom.attr("data-js");
-					if(dataJs){
-						//先加载js文件后执行模块指定的初始化方法
-						bc.load([dataJs,_init]);
-					}else{
-						//执行模块指定的初始化方法
-						_init();
-					}
-					
-					
-				},
-				error : function(request, textStatus, errorThrown) {
-					logger.error("desktop: textStatus=" + textStatus + ";errorThrown=" + errorThrown);
-				}
-			});
+			bc.page.newWin($this.attr("data-url"));
 		}
-	},
-	widget: function(){
-		var $dom = this;
-	},
-	rebuildOption: function(option){
-		var _option = option || {};
-		if(_option.buttons){
-			var btn;
-			for(var i in _option.buttons){
-				btn = _option.buttons[i];
-				if(btn.action == "save"){//内部的表单保存
-					btn.click = bc.form.save;
-				}else if(btn.action == "cancel"){//关闭对话框
-					btn.click = bc.form.cancel;
-				}else if(btn.fn){//调用自定义函数
-					btn.click = bc.getNested(btn.fn);
-				}
-				
-				//如果click为字符串，当成是函数名称处理
-				if(typeof btn.click == "string")
-					btn.click = bc.getNested(btn.click);
-			}
-		}
-		return _option;
 	}
 };
 jQuery(function($) {
