@@ -26,7 +26,7 @@
 		</thead>
 		<tbody>
 			<s:iterator value="bs" status="stuts">
-				<tr class='ui-state-default<s:if test="#stuts.odd == true"> odd</s:if>' onclick='$(this).toggleClass("ui-state-focus")'>
+				<tr class='ui-state-default<s:if test="#stuts.odd == true"> odd</s:if>'>
 					<td class="first id" data-id='<s:property value="id" />'><s:property value="#stuts.index" /></td>
 					<td class="middle"><s:property value="code" /></td>
 					<td class="last"><s:property value="name" /></td>

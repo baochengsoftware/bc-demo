@@ -81,7 +81,7 @@ bc.desktop = {
 		if(logger.debugEnabled)
 			logger.debug("a:dblclick,type=" + type);
 		if(type == "2"){//打开内部链接
-			bc.page.newWin($this.attr("data-url"));
+			bc.page.newWin({url:$this.attr("data-url")});
 		}
 	}
 };
