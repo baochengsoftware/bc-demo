@@ -10,7 +10,7 @@
 <head>
 <title><s:text name="app.title" /></title>
 <link rel="stylesheet" type="text/css"
-	href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/ui-lightness/jquery.ui.all.css' />" />
+	href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/base/jquery.ui.all.css' />" />
 <link rel="stylesheet" type="text/css"
 	href="<s:url value='/bc/libs/themes/default/core.css' />" />
 <link rel="stylesheet" type="text/css"
@@ -33,7 +33,6 @@
 			<div id="fontSlider"></div>
 		</div>
 		<div id="themeSwitcherContainer">
-			<div style="margin-bottom:8px;">主题：<span id="themeName">14</span></div>
 			<div id="themeSwitcher"></div>
 		</div>
 	</div>

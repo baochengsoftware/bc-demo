@@ -69,12 +69,12 @@ bc.page = {
 	 */
 	innerInit: function() {
 		//单击行切换样式
-		jQuery("table.list>tbody>tr").live("click",function(){
+		jQuery("table.list>tbody>tr.row").live("click",function(){
 			$(this).toggleClass("ui-state-focus");
 		});
 		
 		//双击行执行编辑
-		jQuery("table.list>tbody>tr").live("dblclick",function(){
+		jQuery("table.list>tbody>tr.row").live("dblclick",function(){
 			var $this = $(this).toggleClass("ui-state-focus",true);
 			$this.siblings().removeClass("ui-state-focus");
 			var $content = $this.parents(".bc-content");

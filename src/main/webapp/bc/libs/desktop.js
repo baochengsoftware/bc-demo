@@ -100,7 +100,7 @@ jQuery(function($) {
 	});
 	
 	//主题设置
-	$('#themeSwitcher').themeswitcher();
+	$('#themeSwitcher').themeswitcher({closeOnSelect:false,height:340});
 	
 	//显示设置
 	//$("#setting").show();

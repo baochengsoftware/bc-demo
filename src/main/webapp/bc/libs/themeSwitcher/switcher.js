@@ -15,7 +15,7 @@ $.fn.themeswitcher = function(settings){
 		initialText: '选择主题',
 		width: 150,
 		height: 200,
-		buttonPreText: 'Theme: ',
+		buttonPreText: '主题: ',
 		closeOnSelect: true,
 		buttonHeight: 14,
 		cookieName: 'jquery-ui-theme',
@@ -30,17 +30,67 @@ $.fn.themeswitcher = function(settings){
 			+'<span class="jquery-ui-themeswitcher-title">'
 			+ options.initialText +'</span></a>');
 	var RP=bc.root;
+	
+	var kv=[];
+	kv["ui-lightness"]="明 亮";
+	kv["ui-darkness"]="黑 暗";
+	kv["smoothness"]="平 滑";
+	kv["start"]="起 点";
+	kv["redmond"]="雷德蒙";
+	kv["sunny"]="阳 光";
+	kv["overcast"]="阴 天";
+	kv["le-frog"]="老实的青蛙";
+	kv["flick"]="浪 漫";
+	//kv["pepper-grinder"]="";
+	kv["eggplant"]="茄 子";
+	kv["dark-hive"]="黑蜂窝";
+	//kv["cupertino"]="";
+	kv["south-street"]="南 街";
+	kv["blitzer"]="闪 电";
+	kv["humanity"]="仁 慈";
+	//kv["hot-sneaks"]="溜得快";
+	kv["excite-bike"]="刺激的自行车";
+	kv["vader"]="维 达";
+	kv["dot-luv"]="点 爱";
+	kv["mint-choc"]="薄荷巧克力";
+	kv["black-tie"]="黑领带";
+	//kv["trontastic"]="";
+	kv["swanky-purse"]="时髦包包";
+	
+	function buildThemeLI(themeName,label,icon){
+		label = kv[themeName] || label;
+		return '<li><a href="'+RP+'/ui-libs/jquery-ui/1.8.11/themes/'+themeName+'/jquery.ui.theme.css">'+
+		'<img src="'+RP+'/bc/libs/themeSwitcher/images/'+icon+'" alt="'+label+'" title="'+label+'" />'+
+		'<span class="themeName">'+label+'</span></a></li>';
+	}	
 	var switcherpane = $('<div class="jquery-ui-themeswitcher">'+
 		'<div id="themeGallery">'+
 		'<ul>'+
-			'<li><a href="'+RP+'/ui-libs/jquery-ui/1.8.11/themes/ui-lightness/jquery.ui.theme.css">'+
-				'<img src="'+RP+'/bc/libs/themeSwitcher/images/theme_90_ui_light.png" alt="UI Lightness" title="UI Lightness" />'+
-				'<span class="themeName">UI lightness</span></a>'+
-			'</li>'+
-			'<li><a href="'+RP+'/ui-libs/jquery-ui/1.8.11/themes/ui-darkness/jquery.ui.theme.css">'+
-				'<img src="'+RP+'/bc/libs/themeSwitcher/images/theme_90_ui_dark.png" alt="UI Darkness" title="UI Darkness" />'+
-				'<span class="themeName">UI Darkness</span></a>'+
-			'</li>'+
+			[buildThemeLI("ui-lightness","UI lightness","theme_90_ui_light.png"),
+			 buildThemeLI("ui-darkness","UI Darkness","theme_90_ui_dark.png"),
+			 buildThemeLI("smoothness","Smoothness","theme_90_smoothness.png"),
+			 buildThemeLI("start","Start","theme_90_start_menu.png"),
+			 buildThemeLI("redmond","Redmond","theme_90_windoze.png"),
+			 buildThemeLI("sunny","Sunny","theme_90_sunny.png"),
+			 buildThemeLI("overcast","Overcast","theme_90_overcast.png"),
+			 buildThemeLI("le-frog","Le Frog","theme_90_le_frog.png"),
+			 buildThemeLI("flick","Flick","theme_90_flick.png"),
+			 buildThemeLI("pepper-grinder","Pepper Grinder","theme_90_pepper_grinder.png"),
+			 buildThemeLI("eggplant","Eggplant","theme_90_eggplant.png"),
+			 buildThemeLI("dark-hive","Dark Hive","theme_90_dark_hive.png"),
+			 buildThemeLI("cupertino","Cupertino","theme_90_cupertino.png"),
+			 buildThemeLI("south-street","South Street","theme_90_south_street.png"),
+			 buildThemeLI("blitzer","Blitzer","theme_90_blitzer.png"),
+			 buildThemeLI("humanity","Humanity","theme_90_hot_sneaks.png"),
+			 buildThemeLI("hot-sneaks","Hot Sneaks","theme_90_hot_sneaks.png"),
+			 buildThemeLI("excite-bike","Excite Bike","theme_90_excite_bike.png"),
+			 buildThemeLI("vader","Vader","theme_90_black_matte.png"),
+			 buildThemeLI("dot-luv","Dot Luv","theme_90_dot_luv.png"),
+			 buildThemeLI("mint-choc","Mint Choc","theme_90_mint_choco.png"),
+			 buildThemeLI("black-tie","Black Tie","theme_90_black_tie.png"),
+			 buildThemeLI("trontastic","Trontastic","theme_90_trontastic.png"),
+			 buildThemeLI("swanky-purse","Swanky Purse","theme_90_swanky_purse.png")
+			].join("")+
 		'</ul>'+
 		'</div></div>').find('div').removeAttr('id');
 	

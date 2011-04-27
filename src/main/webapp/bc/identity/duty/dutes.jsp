@@ -13,10 +13,10 @@
 		],
 		"minWidth":500,"minHeight":250,"height":400,"modal":false
 	}'>
-	<table class="ui-widget-header list" cellspacing="0">
+	<table class="list" cellspacing="0">
 		<thead class="ui-widget-header">
-			<tr>
-				<td class="id first"><s:text name="label.id" />
+			<tr class='row'>
+				<td class="first id"><s:text name="label.id" />
 				</td>
 				<td class="middle" style="width:80px"><s:text name="duty.code" />
 				</td>
@@ -26,12 +26,17 @@
 		</thead>
 		<tbody>
 			<s:iterator value="bs" status="stuts">
-				<tr class='ui-state-default<s:if test="#stuts.odd == true"> odd</s:if>'>
+				<tr class='ui-state-default row <s:if test="#stuts.odd == true"> odd</s:if>'>
 					<td class="first id" data-id='<s:property value="id" />'><s:property value="#stuts.index" /></td>
 					<td class="middle"><s:property value="code" /></td>
 					<td class="last"><s:property value="name" /></td>
 				</tr>
 			</s:iterator>
+			<tr class='empty' height="*">
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
 		</tbody>
 	</table>
 </div>
