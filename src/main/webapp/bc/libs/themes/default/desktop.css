@@ -83,7 +83,7 @@ body{
 #desktop a.shortcut .text{
 	margin: auto;
 	display: block;
-	width:4em;/*1em(16px)->56px*/
+	width:4.1em;
 	color: white;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -157,11 +157,12 @@ body{
 /*设置字体大小*/
 #setting{
 	position: fixed;
-	margin-left:-60px;
-	margin-top:10px;
-	left:50%;
+	_position: absolute;
+	top:10px;
+	right:20px;
 	overflow: visible;
 	z-index:100;
+	*width:150px;/*ie6,ie7*/
 }
 #fontSliderContainer{
 	margin-bottom:10px;

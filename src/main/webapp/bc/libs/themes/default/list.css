@@ -21,7 +21,7 @@ table.list thead td{
 	text-align: center;
 }
 table.list td.id{
-	width:60px;
+	width:40px;
 }
 table.list td.first,table.list td.middle,table.list td.last{
 	border-bottom: 1px solid #ccc;
@@ -47,5 +47,16 @@ table.list tbody td.first,table.list tbody td.middle,table.list tbody td.last{
 	-webkit-text-overflow: ellipsis;
 	white-space:nowrap;
 	-moz-binding: url('ellipsis.xml#ellipsis');
+}
+table.list tbody tr.row td.id span.ui-icon{
+	display:none;
+}
+table.list tbody tr.row td.id span.ui-icon-check{
+	display:inline-block;
+	*display:block;/*ie6,ie7*/
+	*float: left;/*ie6,ie7*/
+}
+table.list thead tr.row td.id span.ui-icon{
+	margin:auto;/*现代浏览器居中处理*/
 }
 

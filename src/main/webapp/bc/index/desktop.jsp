@@ -38,17 +38,19 @@
 	</div>
 	<div id="layout">
 		<div id="desktop">
-			<a class="shortcut" data-mid="m03" data-type="2"
-				data-url="/duty/create"> <span class="icon i0001"></span> <span
-				class="text">职务表单</span> </a> <a class="shortcut" data-mid="m03"
+			<a class="shortcut" data-mid="m03"
 				data-type="2" data-url="/duty/list"> <span class="icon i0001"></span>
-				<span class="text">职务列表</span> </a> <a class="shortcut" data-mid="m01"
+				<span class="text">职务配置</span> </a>
+			<a class="shortcut" data-mid="m01"
 				data-type="2" data-url="/ou/list"> <span class="icon"></span> <span
-				class="text">组织管理</span> </a> <a class="shortcut" data-mid="m02"
+				class="text">模块配置</span> </a> 
+			<a class="shortcut" data-mid="m02"
 				data-type="2" data-url="/user/list"> <span class="icon i0001"></span>
-				<span class="text">用户</span> </a> <a class="shortcut" data-mid="m04"
+				<span class="text">用户</span> </a> 
+			<a class="shortcut" data-mid="m04"
 				data-url="/module/list"> <span class="icon i0007"></span> <span
-				class="text">模块配置配置配置</span> </a> <a class="shortcut" data-mid="m05"
+				class="text">模块配置配置配置</span> </a> 
+			<a class="shortcut" data-mid="m05"
 				data-type="folder"> <span class="icon i0007"></span> <span
 				class="text">模块配置配置配置</span> </a>
 		</div>
@@ -57,19 +59,13 @@
 				<a title="开始"></a>
 			</div>
 			<div id="quickButtons">
-				<a id="quickButton-m01"
-					class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a>
-				<a id="quickButton-m02"
-					class="quickButton ui-state-default ui-corner-all" data-mid="m02">联系沟通</a>
-				<a id="quickButton-m03"
-					class="quickButton ui-state-default ui-corner-all" data-mid="m03">动态报表</a>
+				<a id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a>
 			</div>
 			<div id="quickShowHide" title="显示桌面">
 				<a></a>
 			</div>
 			<div id="copyrightBar">
-				<a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©
-					2011 广州市宝城汽车出租有限公司</a>
+				<a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a>
 			</div>
 		</div>
 	</div>

@@ -88,7 +88,7 @@ bc.desktop = {
 jQuery(function($) {
 	bc.desktop.init();
 	
-	//字体设置
+	//字体设置:初始化为14px=0.87em(浏览器默认为1em=16px)
 	$("body").css("fontSize", 14/16 + 'em');
 	$( "#fontSlider" ).slider({
 		value:14,min: 12,max: 20,step: 2,

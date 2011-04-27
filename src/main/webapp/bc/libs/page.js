@@ -70,16 +70,26 @@ bc.page = {
 	innerInit: function() {
 		//单击行切换样式
 		jQuery("table.list>tbody>tr.row").live("click",function(){
-			$(this).toggleClass("ui-state-focus");
+			$(this).toggleClass("ui-state-focus").find("td.id>span.ui-icon").toggleClass("ui-icon-check");
 		});
 		
 		//双击行执行编辑
 		jQuery("table.list>tbody>tr.row").live("dblclick",function(){
 			var $this = $(this).toggleClass("ui-state-focus",true);
-			$this.siblings().removeClass("ui-state-focus");
+			$this.find("td.id>span.ui-icon").toggleClass("ui-icon-check",true);
+			$this.siblings().removeClass("ui-state-focus").find("td.id>span.ui-icon").removeClass("ui-icon-check");
 			var $content = $this.parents(".bc-content");
 			//alert($content.html());
 			bc.page.edit.call($content);
+		});
+		
+		//全选与反选
+		jQuery("table.list>thead>tr.row>td.id>span.ui-icon").live("click",function(){
+			var $this = $(this).toggleClass("ui-icon-info ui-icon-circle-check");
+			var check = $this.hasClass("ui-icon-circle-check");
+			$this.parents("table.list").find(">tbody>tr.row")
+			.toggleClass("ui-state-focus",check)
+			.find("td.id>span.ui-icon").toggleClass("ui-icon-check",check);
 		});
 	},
 	/**重新加载窗口的内容部分
