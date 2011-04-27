@@ -61,7 +61,6 @@ body{
 	float: left;
 	clear: left; /*设置这个就默认竖排了*/
 	margin: 10px 5px 5px 10px;
-	font-size: 0.87em;
 	display: inline-block;
 	color: #ffffff;
 	text-decoration: none;
@@ -69,7 +68,7 @@ body{
 	border-radius: 8px; 
 	cursor: default;
 	_text-align: center;/*fixed ie6:使内部内容水平居中*/
-	width:60px;
+	width:4.5em;
 }
 #desktop a.shortcut:HOVER{
 	border-color: green;
@@ -84,7 +83,7 @@ body{
 #desktop a.shortcut .text{
 	margin: auto;
 	display: block;
-	width:56px;
+	width:4em;/*1em(16px)->56px*/
 	color: white;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -153,6 +152,19 @@ body{
 	font-size: 14px;
 	height:22px;
 	text-decoration: none;
+}
+
+/*设置字体大小*/
+#setting{
+	position: fixed;
+	margin-left:-60px;
+	margin-top:10px;
+	left:50%;
+	overflow: visible;
+	z-index:9999999999;
+}
+#fontSliderContainer{
+	margin-bottom:10px;
 }
 
 /*版权相关*/

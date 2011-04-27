@@ -87,4 +87,21 @@ bc.desktop = {
 };
 jQuery(function($) {
 	bc.desktop.init();
+	
+	//字体设置
+	$("body").css("fontSize", 14/16 + 'em');
+	$( "#fontSlider" ).slider({
+		value:14,min: 12,max: 20,step: 2,
+		slide: function( event, ui ) {
+			$("#fontSize").html(ui.value);
+			$("body").css("fontSize",ui.value / 16 + 'em');
+			logger.info(ui.value);
+		}
+	});
+	
+	//主题设置
+	$('#themeSwitcher').themeswitcher();
+	
+	//显示设置
+	//$("#setting").show();
 });
