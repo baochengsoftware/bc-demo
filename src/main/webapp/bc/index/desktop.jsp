@@ -41,18 +41,18 @@
 			<a class="shortcut" data-mid="m03"
 				data-type="2" data-url="/duty/list"> <span class="icon i0001"></span>
 				<span class="text">职务配置</span> </a>
+			<a class="shortcut" data-mid="m03"
+				data-type="2" data-url="/Unit/list"> <span class="icon"></span>
+				<span class="text">单位配置</span> </a>
+			<a class="shortcut" data-mid="m03"
+				data-type="2" data-url="/Department/list"> <span class="icon"></span>
+				<span class="text">部门配置</span> </a>
+			<a class="shortcut" data-mid="m02"
+				data-type="2" data-url="/User/list"> <span class="icon i0001"></span>
+				<span class="text">用户配置</span> </a> 
 			<a class="shortcut" data-mid="m01"
 				data-type="2" data-url="/ou/list"> <span class="icon"></span> <span
-				class="text">模块配置</span> </a> 
-			<a class="shortcut" data-mid="m02"
-				data-type="2" data-url="/user/list"> <span class="icon i0001"></span>
-				<span class="text">用户</span> </a> 
-			<a class="shortcut" data-mid="m04"
-				data-url="/module/list"> <span class="icon i0007"></span> <span
 				class="text">模块配置配置配置</span> </a> 
-			<a class="shortcut" data-mid="m05"
-				data-type="folder"> <span class="icon i0007"></span> <span
-				class="text">模块配置配置配置</span> </a>
 		</div>
 		<div id="quickbar">
 			<div id="quickStart">
