@@ -8,7 +8,9 @@ html,body{
 	overflow: hidden;
 }
 body{
-	background: url(images/bg_page.png) repeat top left;
+	/*background: url(images/bg_page.png) repeat top left;
+	background-color: #FAFAFA;*/
+	border: 0;
 }
 
 /*加载动画*/
@@ -62,7 +64,7 @@ body{
 	clear: left; /*设置这个就默认竖排了*/
 	margin: 10px 5px 5px 10px;
 	display: inline-block;
-	color: #ffffff;
+	/*color: #ffffff;*/
 	text-decoration: none;
 	border: 2px solid transparent;
 	border-radius: 8px; 
@@ -84,7 +86,7 @@ body{
 	margin: auto;
 	display: block;
 	width:4.1em;
-	color: white;
+	/*color: white;*/
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: default;
@@ -100,8 +102,9 @@ body{
 	background-color: #dd3;
 	width: 100%;
 	overflow: hidden;
-	background: url(images/bg_quickbar1.png) repeat-x top left;
+	/*background: url(images/bg_quickbar1.png) repeat-x top left;*/
 	z-index: 10!important;
+	border:0;
 }
 #quickStart {
 	position: relative;

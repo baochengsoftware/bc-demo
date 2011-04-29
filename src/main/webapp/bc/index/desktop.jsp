@@ -22,7 +22,7 @@
 <style type="text/css">
 </style>
 </head>
-<body>
+<body class="ui-widget-content">
 	<noscript>
 		<div>请设置浏览器开启 JavaScript功能，然后重试。</div>
 	</noscript>
@@ -54,7 +54,7 @@
 				data-type="2" data-url="/ou/list"> <span class="icon"></span> <span
 				class="text">模块配置配置配置</span> </a> 
 		</div>
-		<div id="quickbar">
+		<div id="quickbar" class="ui-widget-header">
 			<div id="quickStart">
 				<a title="开始"></a>
 			</div>
@@ -136,7 +136,7 @@
 		bc.debug = <s:text name="app.debug" />;
 		if (bc.debug) {
 			jQuery(function() {
-				logger.toggle();
+				//logger.toggle();
 				logger.enable("debug");
 			});
 		}
