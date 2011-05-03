@@ -141,6 +141,6 @@
 			});
 		}
 	</script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/themeSwitcher/switcher.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/themeSwitcher/switcher.js' />"></script>
 </body>
 </html>
