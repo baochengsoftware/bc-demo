@@ -73,5 +73,9 @@ bc.getNested=function(nestedName){
 	}catch(e){
 		logger.error("error get:" + nestedName + ";e=" + e);
 	}
-}
+};
+/** 得到字符串的真实长度（双字节换算为两个单字节）*/
+bc.getStringActualLen=function(sourceString){  
+    return sourceString.replace(/[^\x00-\xff]/g,"xx").length;  
+};
 

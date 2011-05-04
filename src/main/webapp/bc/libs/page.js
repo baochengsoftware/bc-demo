@@ -147,6 +147,12 @@ bc.page = {
 		var url=$this.attr("data-action");
 		logger.info("save url=" + url);
 		var $form = $("form",this);
+		
+		//表单验证
+		if(!bc.validator.validate($form))
+			return;
+		
+		//使用ajax保存数据
 		var data = $form.serialize();
 		bc.ajax({
 			url: url, data: data, dataType: "json",
@@ -160,7 +166,6 @@ bc.page = {
 				$this.attr("data-status","saved");
 			}
 		});
-		
 	},
 	/**删除*/
 	delete_: function() {
@@ -257,3 +262,113 @@ jQuery(function($) {
 function testFN(){
 	logger.info("testFN");
 }
+
+bc.validator = {
+	/**
+	 * 表单验证
+	 * <input ... validate='{required:true,type:"number",max:10,min:5}'/>
+	 * type的值控制各种不同的验证方式：
+	 * 1) undefined或required 最简单的必填域验证，值不为空即可
+	 * 2) number 数字(正数、负数、小数)
+	 * 3) digits 整数
+	 * 4) email 电子邮件 TODO
+	 * 5) url 网址 TODO
+	 * 6) date 日期 TODO
+	 * 7) datetime 日期时间 TODO
+	 * 8) time 时间 TODO
+	 * min的值控制数字的最小值
+	 * max的值控制数字的最大值
+	 * minLen的值控制字符串的最小长度(中文按两个字符长度计算)
+	 * maxLen的值控制字符串的最大长度(中文按两个字符长度计算)
+	 * 如果无需配置其他属性，type的值可以直接配置为validate的值，如<input ... validate="number"/>
+	 * @$form 表单form的jquery对象
+	 */
+	validate: function($form) {
+		var ok = true;
+		$form.find(":input:enabled:not(:hidden):not(:button)")
+		.each(function(i, n){
+			var validate = $(this).attr("validate");
+			if(logger.infoEnabled)
+				logger.info(this.nodeName + "," + this.name + "," + this.value + "," + validate);
+			if(validate && $.trim(validate).length > 0){
+				if(!/^\{/.test(validate)){
+					validate = "{type:'" + validate + "'}";
+				}
+				validate = eval("(" + validate + ")");
+				var method = bc.validator.methods[validate.type];
+				if(method){
+					ok = method.call(validate, this, $form);
+					if(!ok){//验证不通过，增加界面的提示
+						bc.validator.remind(this,validate.type);
+					}
+					return ok;
+				}else{
+					logger.error("undefined method: bc.validator.methods['" + validate.type + "']");
+				}
+			}
+		});
+		return ok;
+	},
+	/**各种验证方法，可以自行扩展新的验证方法，方法的上下文为对象的验证配置*/
+	methods:{
+		/**必填*/
+		required: function(element, $form) {
+			switch( element.nodeName.toLowerCase() ) {
+			case 'select':
+				// could be an array for select-multiple or a string, both are fine this way
+				var val = $(element).val();
+				return val && val.length > 0;
+			case 'input':
+				if(/radio|checkbox/i.test(element.type)){//多选和单选框
+					return $form.find("input:checked[name='" + element.name + "']").length > 0;
+				}
+			default:
+				return $.trim($(element).val()).length > 0;
+			}
+		},
+		/**数字*/
+		number: function(element) {
+			return /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(element.value);
+		},
+		/**正数*/
+		digits: function(element) {
+			return /^\d+$/.test(element.value);
+		},
+		/**字符串最小长度*/
+		minLen: function(element) {
+			return bc.getStringActualLen(element.value) >= this.minLen;
+		},
+		/**字符串最大长度*/
+		maxLen: function(element) {
+			return bc.getStringActualLen(element.value) <= this.maxLen;
+		},
+		/**最小值*/
+		min: function(element) {
+			return element.value >= this.minValue;
+		},
+		/**最大值*/
+		max: function(element) {
+			return element.value <= this.maxValue;
+		}
+	},
+	/**
+	 * 显示验证不通过的提示信息
+	 * @element 验证不通过的dom元素
+	 * @validateType 验证的类型
+	 */
+	remind: function(element,validateType){
+		bc.boxPointer.show({target:element,content:bc.validator.messages[validateType]});
+	},
+	messages:{
+		required:"这里必须填写哦！",
+		number: "这里必须填写数字哦！",
+		digits: "这里必须填写整数哦！",
+		email: "请输入正确格式的电子邮件",
+		url: "请输入正确格式的网址",
+		date: "请输入正确格式的日期",
+		maxLen: "这里至少需要输入 {0}个字符！",
+		minLen: "这里最多只能输入 {0}个字符！",
+		max: "这个值不能小于 {0}！",
+		min: "这个值不能大于 {0}！",
+	}
+};

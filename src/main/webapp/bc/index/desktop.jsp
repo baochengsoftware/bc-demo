@@ -19,6 +19,8 @@
 	href="<s:url value='/bc/libs/themes/default/shortcuts.css' />" />
 <link rel="stylesheet" type="text/css"
 	href="<s:url value='/bc/libs/themes/default/list.css' />" />
+<link rel="stylesheet" type="text/css"
+	href="<s:url value='/bc/libs/themes/default/boxPointer.css' />" />
 <style type="text/css">
 </style>
 </head>
@@ -97,6 +99,13 @@
 			</form>
 		</div>
 	</s:if>
+	
+		<div id="test" style="position:absolute;top:40%;left:50%;width:500px;height:300px;border:0px solid blue;">
+			<div class="boxPointer">
+				<div class="content">undefined content!</div>
+				<s class="pointerBorder"><i class="pointerColor"></i></s>
+			</div>
+		</div>
 
 	<script type="text/javascript"
 		src="<s:url value='/ui-libs/jquery/1.5.1/jquery.min.js' />"></script>
@@ -109,6 +118,7 @@
 	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' />"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' />"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/boxPointer.js' />"></script>
 	<script type="text/javascript"
 		src="<s:url value='/bc/libs/loader.js' />"></script>
 	<s:if test='{getText("app.debug") == "true"}'>
