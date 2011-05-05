@@ -99,13 +99,6 @@
 			</form>
 		</div>
 	</s:if>
-	
-		<div id="test" style="position:absolute;top:40%;left:50%;width:500px;height:300px;border:0px solid blue;">
-			<div class="boxPointer">
-				<div class="content">undefined content!</div>
-				<s class="pointerBorder"><i class="pointerColor"></i></s>
-			</div>
-		</div>
 
 	<script type="text/javascript"
 		src="<s:url value='/ui-libs/jquery/1.5.1/jquery.min.js' />"></script>

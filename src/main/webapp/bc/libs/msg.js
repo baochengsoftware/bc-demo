@@ -37,13 +37,33 @@ bc.msg = {
      * @param {String} title [可选]标题,默认为OZ.Messager.DEFAULT_TITLE
      */
     confirm: function(msg, onOk, onCancel, title){
-    	$.messager.confirm(title||OZ.Messager.DEFAULT_TITLE, msg, function(value){
-    		if (value){
-    			if(typeof onOk == "function") onOk.call(this,true);
-    		}else{
-    			if(typeof onCancel == "function") onCancel.call(this,false);
-    		}
-    	});
+    	$('<div data-type="msg" id="msg-' + (bc.msg.id++) + '">' + (msg || 'no message.') + '</div>').dialog({
+			modal: true, title: title || bc.msg.DEFAULT_TITLE,
+			buttons:[
+			    {
+			    	text:bc.msg.YES,
+			    	click:function(){
+			    		if(typeof onOk == "function"){
+			    			if(onOk.call() !== false){//不保留窗口
+			    				$(this).dialog("destroy").remove();
+			    			}
+			    		}else{
+			    			$(this).dialog("destroy").remove();
+			    		}
+			    	}
+			    },{
+			    	text:bc.msg.NO,
+			    	click:function(){
+			    		$(this).dialog("destroy").remove();
+			    		if(typeof onCancel == "function")
+			    			onCancel.call();
+			    	}
+			    }]
+		}).bind("dialogclose",function(event,ui){
+			$(this).dialog("destroy").remove();//彻底删除所有相关的dom元素
+			if(typeof onCancel == "function")
+				onCancel.call();
+		});
     },
     /** 输入框 
      * @param {String} msg 提示信息
@@ -69,56 +89,45 @@ bc.msg = {
     },
     /** 信息提示框：提示框icon=info的简化使用版 */
     info: function(msg, title, onOk){
-    	OZ.Messager.alert(msg, title, onOk, "info");
+    	alert("TODO");
     },
     /** 信息警告框：提示框icon=warning的简化使用版 */
     warn: function(msg, title, onOk){
-    	OZ.Messager.alert(msg, title, onOk, "warning");
+    	alert("TODO");
     },
     /** 错误提示框：提示框icon=error的简化使用版 */
     error: function(msg, title, onOk){
-    	OZ.Messager.alert(msg, title, onOk, "error");
+    	alert("TODO");
     },
     /** 信息提问框：提示框icon=question的简化使用版 */
     question: function(msg, title, onOk){
-    	OZ.Messager.alert(msg, title, onOk, "question");
+    	alert("TODO");
     },
-    /** 自动提醒框：显示在页面右下角并可以自动隐藏的消息提示框
-     * @param {Object} config 配置对象
-     * @config {String} showType 消息框弹出的动画类型：
-     *     null,slide(底部滑出滑入),fade(右下角射出射入),show(慢慢出现消失)，默认为slide
-     * @config {String} showSpeed 定义消息框自动隐藏的速度(单位为毫秒)，默认为600
-     * @config {String} width 消息框的宽度，默认为250
-     * @config {String} height 消息框的高度，默认为100
-     * @config {String} msg 消息内容
-     * @config {String} title 标题
-     * @config {String} timeout 消息框显示的停留时间(单位为毫秒)，默认为4000，设为0则不会自动隐藏
-     */
+    /** 自动提醒框：显示在页面右下角并可以自动隐藏的消息提示框 */
     show: function(config){
-    	$.messager.show($.extend({title: OZ.Messager.DEFAULT_TITLE}, config));
+    	alert("TODO");
     },
     /** 自动提醒框的slide简化使用版:滑出滑入效果 */
     slide: function(msg,timeout,width,height){
-    	var c = {showType: 'slide',msg:msg};
-    	if(typeof timeout != "undefined" && timeout != null)c.timeout=timeout;
-    	if(typeof width != "undefined" && width != null)c.width=width;
-    	if(typeof height != "undefined" && height != null)c.height=height;
-    	OZ.Messager.show(c);
+    	//构造容器
+    	var me = $('<div class="bc-slide ui-widget ui-state-highlight ui-corner-all"><div class="content"></div></div>');
+    	me.find(".content").append(msg || 'undefined message!');
+    	//显示
+    	me.hide().appendTo("body").slideDown("fast",function(){
+			//自动隐藏
+			setTimeout(function(){
+		    	me.slideUp("slow",function(){
+		    		me.unbind().remove();
+				});
+			},timeout || 2000);
+		});
     },
     /** 自动提醒框的fade简化使用版：渐渐显示消失效果 */
     fade: function(msg,timeout,width,height){
-    	var c = {showType: 'fade',msg:msg};
-    	if(typeof timeout != "undefined" && timeout != null)c.timeout=timeout;
-    	if(typeof width != "undefined" && width != null)c.width=width;
-    	if(typeof height != "undefined" && height != null)c.height=height;
-    	OZ.Messager.show(c);
+    	alert("TODO");
     },
     /** 自动提醒框的show简化使用版：从角落飞出飞入效果 */
     fly: function(msg,timeout,width,height){
-    	var c = {showType: 'show',msg:msg};
-    	if(typeof timeout != "undefined" && timeout != null)c.timeout=timeout;
-    	if(typeof width != "undefined" && width != null)c.width=width;
-    	if(typeof height != "undefined" && height != null)c.height=height;
-    	OZ.Messager.show(c);
+    	alert("TODO");
     }
 };

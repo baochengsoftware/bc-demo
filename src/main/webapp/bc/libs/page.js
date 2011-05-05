@@ -161,7 +161,7 @@ bc.page = {
 				if(json.id){
 					$form.find("input[name='b.id']").val(json.id);
 				}
-				bc.msg.alert(json.msg);
+				bc.msg.slide(json.msg);
 				//记录已保存状态
 				$this.attr("data-status","saved");
 			}
@@ -184,17 +184,19 @@ bc.page = {
 		}
 		if(logger.infoEnabled) logger.info("bc.page.delete_: data=" + data);
 		if(data == null){
-			bc.msg.alert("请先选择要删除的条目！");
+			bc.msg.slide("请先选择要删除的条目！");
 			return;
 		}
-		bc.ajax({
-			url: url, data: data, dataType: "json",
-			success: function(json) {
-				if(logger.debugEnabled)logger.debug("delete success.json=" + jQuery.param(json));
-				bc.msg.alert(json.msg || "must defined msg.");
-				//重新加载列表
-				bc.page.reloadWin.call($this);
-			}
+		bc.msg.confirm("确定要删除选定的 <b>"+$tds.length+"</b> 项吗？",function(){
+			bc.ajax({
+				url: url, data: data, dataType: "json",
+				success: function(json) {
+					if(logger.debugEnabled)logger.debug("delete success.json=" + jQuery.param(json));
+					bc.msg.slide(json.msg);
+					//重新加载列表
+					bc.page.reloadWin.call($this);
+				}
+			});
 		});
 	},
 	/**关闭表单对话框，上下文为dialog的原始dom元素*/
@@ -232,10 +234,10 @@ bc.page = {
 				}
 			});
 		}else if($tds.length > 1){
-			bc.msg.alert("一次只可以编辑一条信息，请确认您只选择了一条信息！");
+			bc.msg.slide("一次只可以编辑一条信息，请确认您只选择了一条信息！");
 			return;
 		}else{
-			bc.msg.alert("请先选择要编辑的条目！");
+			bc.msg.slide("请先选择要编辑的条目！");
 			return;
 		}
 	}
@@ -357,7 +359,7 @@ bc.validator = {
 	 * @validateType 验证的类型
 	 */
 	remind: function(element,validateType){
-		bc.boxPointer.show({target:element,content:bc.validator.messages[validateType]});
+		bc.boxPointer.show({of:element,content:bc.validator.messages[validateType]});
 	},
 	messages:{
 		required:"这里必须填写哦！",
@@ -369,6 +371,6 @@ bc.validator = {
 		maxLen: "这里至少需要输入 {0}个字符！",
 		minLen: "这里最多只能输入 {0}个字符！",
 		max: "这个值不能小于 {0}！",
-		min: "这个值不能大于 {0}！",
+		min: "这个值不能大于 {0}！"
 	}
 };

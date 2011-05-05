@@ -57,3 +57,17 @@ body {
 .bc-ui-dialog .ui-dialog-content {
 	padding: 2px 0;
 }
+
+.bc-slide {
+	position: absolute;
+	min-width: 200px;
+	min-height: 50px;
+	_height: 50px;
+	z-index: 10000;
+	padding:4px;
+	right:2px;
+	bottom:2px;
+}
+.bc-slide .ui-widget-content {
+	cursor: default;
+}

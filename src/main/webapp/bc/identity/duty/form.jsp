@@ -9,7 +9,7 @@
 	}'>
 	<s:form name="dutyForm">
 		<s:textfield name="b.name" key="duty.name" validate="required"/>
-		<s:textfield name="b.code" key="duty.code" validate="number" />
+		<s:textfield name="b.code" key="duty.code" validate="required" />
 		
 		<s:hidden name="b.status" />
 		<s:hidden name="b.inner" />
