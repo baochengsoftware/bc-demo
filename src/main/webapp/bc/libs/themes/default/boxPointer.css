@@ -6,16 +6,21 @@
  */
 .boxPointer {
 	position: absolute;
-	border: 2px solid red;
-	background-color: #FFFEDE;
 	min-width: 100px;
-	min-height: 1em;
+	min-height: 40px;
+	_height: 40px;
+	z-index: 10000;
+	
+	/*border: 2px solid red;
+	background-color: #FFFEDE;
 	border-radius: 5px;
-	box-shadow: 3px 3px 4px #999;
+	box-shadow: 3px 3px 4px #999;*/
 	/*filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#999');*/
-	z-index: 10000;/**/
 }
-
+.boxPointer a.close{
+	position:absolute;
+	top:-8px;right:-8px;
+}
 .boxPointer .content {
 	margin: 4px;
 	cursor: default;
@@ -23,27 +28,28 @@
 
 .boxPointer .pointerBorder {
 	position: absolute;
-	top: -20px; left: 10px;/*top*/
-	border-style: dashed dashed solid dashed;
 	display: block;
 	height: 0;
 	width: 0;
 	font-size: 0;
 	line-height: 0;
-	border-color: transparent transparent red transparent;/*设为与boxPointer的边框色相同*/
+	background:none;
 	border-width: 10px;
+	/*border-color: transparent transparent red transparent;设为与boxPointer的边框色相同
+	border-style: dashed dashed solid dashed;
+	top: -20px; left: 10px;*/
 }
 
 .boxPointer .pointerColor {
 	position: absolute;
-	top: -7px;
-	left: -10px;
 	display: block;
 	height: 0;
 	width: 0;
 	font-size: 0;
 	line-height: 0;
-	border-color: transparent transparent #FFFEDE transparent;/*设为与boxPointer的背景色相同*/
-	border-style: dashed dashed solid dashed;
+	background:none;
 	border-width: 10px;
+	/*border-color: transparent transparent #FFFEDE transparent;设为与boxPointer的背景色相同
+	border-style: dashed dashed solid dashed;
+	top: -9px;left: -10px;*/
 }
