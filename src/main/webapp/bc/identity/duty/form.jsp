@@ -8,8 +8,8 @@
 		"minWidth":400,"minHeight":250,"modal":false
 	}'>
 	<s:form name="dutyForm">
-		<s:textfield name="b.name" key="duty.name" validate="required"/>
-		<s:textfield name="b.code" key="duty.code" validate="required" />
+		<s:textfield name="b.name" key="duty.name" data-validate="required"/>
+		<s:textfield name="b.code" key="duty.code" data-validate="required" />
 		
 		<s:hidden name="b.status" />
 		<s:hidden name="b.inner" />

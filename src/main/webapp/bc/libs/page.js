@@ -30,7 +30,7 @@ bc.page = {
 						
 						//彻底删除所有相关的dom元素
 						$(this).dialog("destroy").remove();
-					}).attr("data-src",option.url).disableSelection();
+					}).attr("data-src",option.url);//.disableSelection();这个会导致表单中输入框部分浏览器无法获取输入焦点
 					
 					//初始化表单或列表中的元数据信息：表单验证、列表的行操作处理
 					//bc.page.innerInit.call($dom[0]);
@@ -268,7 +268,7 @@ function testFN(){
 bc.validator = {
 	/**
 	 * 表单验证
-	 * <input ... validate='{required:true,type:"number",max:10,min:5}'/>
+	 * <input ... data-validate='{required:true,type:"number",max:10,min:5}'/>
 	 * type的值控制各种不同的验证方式：
 	 * 1) undefined或required 最简单的必填域验证，值不为空即可
 	 * 2) number 数字(正数、负数、小数)
@@ -282,14 +282,14 @@ bc.validator = {
 	 * max的值控制数字的最大值
 	 * minLen的值控制字符串的最小长度(中文按两个字符长度计算)
 	 * maxLen的值控制字符串的最大长度(中文按两个字符长度计算)
-	 * 如果无需配置其他属性，type的值可以直接配置为validate的值，如<input ... validate="number"/>
+	 * 如果无需配置其他属性，type的值可以直接配置为validate的值，如<input ... data-validate="number"/>
 	 * @$form 表单form的jquery对象
 	 */
 	validate: function($form) {
 		var ok = true;
 		$form.find(":input:enabled:not(:hidden):not(:button)")
 		.each(function(i, n){
-			var validate = $(this).attr("validate");
+			var validate = $(this).attr("data-validate");
 			if(logger.infoEnabled)
 				logger.info(this.nodeName + "," + this.name + "," + this.value + "," + validate);
 			if(validate && $.trim(validate).length > 0){

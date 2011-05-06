@@ -19,9 +19,9 @@ bc.desktop = {
 		});
 		
 		//对ie，所有没有定义href属性的a，自动设置该属性为"#"，避免css中的:hover等没有效果
-		if($.browser.msie){
+		if(true || $.browser.msie){
 			$("a[href=''],a:not([href])").each(function(){
-				this.setAttribute("href","");
+				this.setAttribute("href","#");
 			});
 		}
 

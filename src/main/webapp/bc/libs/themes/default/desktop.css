@@ -48,6 +48,7 @@ body{
 	overflow: auto;
 	border: 0;
 	position: absolute;
+	z-index: 0;
 }
 
 /*桌面区域*/
