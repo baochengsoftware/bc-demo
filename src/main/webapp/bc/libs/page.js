@@ -91,6 +91,65 @@ bc.page = {
 			.toggleClass("ui-state-focus",check)
 			.find("td.id>span.ui-icon").toggleClass("ui-icon-check",check);
 		});
+		
+		//列表的排序
+		jQuery("table.list>thead>tr.row>td.sortable").live("click",function(){
+			//标记当前列出与排序状态
+			var $this = $(this).toggleClass("current",true);
+			
+			//将其他列的排序去除
+			$this.siblings(".current").removeClass("current")
+			.find("span.ui-icon").addClass("hide");
+			
+			var $icon = $this.find("span.ui-icon");
+			//切换排序图标
+			var dir = 0;
+			if($icon.hasClass("ui-icon-triangle-1-n")){//正序
+				$icon.removeClass("hide ui-icon-triangle-1-n").addClass("ui-icon-triangle-1-s");
+				dir = -1;
+			}else if($icon.hasClass("ui-icon-triangle-1-s")){//逆序
+				$icon.removeClass("hide ui-icon-triangle-1-s").addClass("ui-icon-triangle-1-n");
+				dir = 1;
+			}else{
+				$icon.removeClass("hide").addClass("ui-icon-triangle-1-s");//逆序
+			}
+			
+			//排序列表中的行
+			var $table = $this.parents("table.list").find(">tbody");//要排序的表格
+			var tdIndex = this.cellIndex;//要排序的列索引
+			var remoteSort = $table.attr("remoteSort") === "true";//是否远程排序，默认本地排序
+			if(remoteSort){//远程排序
+				logger.profile("do remote sort");
+				//TODO
+				
+				logger.profile("do remote sort");
+			}else{//本地排序
+				logger.profile("do local sort");
+				var tbody = $table[0];
+				var rows = tbody.rows;
+				var trs = new Array(rows.length);
+				for(var i=0;i<trs.length;i++){
+					trs[i]=rows[i];//rows(i)
+				}
+				//数组排序
+				trs.sort(function(tr1,tr2){
+					var v1 = tr1.cells[tdIndex].innerHTML;
+					var v2 = tr2.cells[tdIndex].innerHTML;
+					//logger.info(v1.localeCompare(v2) + ";" + v1 + ";" + v2);
+					return dir * v1.localeCompare(v2);
+				});
+				//交换表格的行到新的顺序
+				var t = [];
+				for(var i=0;i<trs.length;i++){
+					t.push(trs[i].outerHTML);
+				}
+				$table.html(t.join(""));
+				
+				//logger.info(typeof tbody.moveRow);
+				//logger.info(typeof $this.parents("table.list")[0].moveRow);
+				logger.profile("do local sort");
+			}
+		});
 	},
 	/**重新加载窗口的内容部分
 	 * @param option url,data,callback

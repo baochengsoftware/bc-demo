@@ -139,7 +139,7 @@
 		bc.debug = <s:text name="app.debug" />;
 		if (bc.debug) {
 			jQuery(function() {
-				//logger.toggle();
+				logger.toggle();
 				logger.enable("debug");
 			});
 		}

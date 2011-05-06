@@ -20,6 +20,9 @@ table.list {
 table.list thead td{
 	text-align: center;
 }
+table.list thead td .sortableIcon{
+	float: right;
+}
 table.list td.id{
 	width:40px;
 }
