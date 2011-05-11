@@ -40,20 +40,28 @@
 	</div>
 	<div id="layout">
 		<div id="desktop">
+			<s:iterator value="shortcuts" status="stuts">
+			<a class="shortcut" data-mid='<s:property value="id" />'
+				data-type='<s:property value="module.type" />' 
+				data-url='<s:property value="module.url" />'>
+				<span class='icon <s:property value="module.iconClass" />'></span>
+				<span class="text"><s:property value="module.name" /></span>
+			</a>
+			</s:iterator>
 			<a class="shortcut" data-mid="m03"
-				data-type="2" data-url="/duty/list"> <span class="icon i0001"></span>
+				data-type="2" data-url="/bc/duty/list"> <span class="icon i0001"></span>
 				<span class="text">职务配置</span> </a>
 			<a class="shortcut" data-mid="m03"
-				data-type="2" data-url="/unit/list"> <span class="icon"></span>
+				data-type="2" data-url="/bc/unit/list"> <span class="icon"></span>
 				<span class="text">单位配置</span> </a>
 			<a class="shortcut" data-mid="m03"
-				data-type="2" data-url="/department/list"> <span class="icon"></span>
+				data-type="2" data-url="/bc/department/list"> <span class="icon"></span>
 				<span class="text">部门配置</span> </a>
 			<a class="shortcut" data-mid="m02"
-				data-type="2" data-url="/user/list"> <span class="icon i0001"></span>
+				data-type="2" data-url="/bc/user/list"> <span class="icon i0001"></span>
 				<span class="text">用户配置</span> </a> 
 			<a class="shortcut" data-mid="m01"
-				data-type="2" data-url="/module/list"> <span class="icon"></span> <span
+				data-type="2" data-url="/bc/module/list"> <span class="icon"></span> <span
 				class="text">模块配置配置配置</span> </a> 
 		</div>
 		<div id="quickbar" class="ui-widget-header">

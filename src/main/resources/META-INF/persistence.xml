@@ -8,10 +8,18 @@
 		<!-- 标识生成器 -->
 		<class>cn.bc.identity.domain.IdGenerator</class>
 		
-		<!-- Identity -->
-		<class>cn.bc.identity.domain.Duty</class>
+		<!-- security -->
+		<class>cn.bc.security.domain.Module</class>
+		<class>cn.bc.security.domain.Role</class>
+		
+		<!-- actor -->
 		<class>cn.bc.identity.domain.ActorImpl</class>
 		<class>cn.bc.identity.domain.ActorDetailImpl</class>
+		<class>cn.bc.identity.domain.ActorRelationImpl</class>
+		<class>cn.bc.identity.domain.Duty</class>
+
+		<!-- desktop -->
+		<class>cn.bc.desktop.domain.Shortcut</class>
 
 		<!-- Test
 		<class>cn.bc.one2onetest.Person</class>

@@ -36,6 +36,17 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<!-- Spring Open Session or EntityManager In View filter:这个必须放在其他filter前，否则无效 -->
+	<filter>
+		<filter-name>springOpenInViewFilter</filter-name>
+		<!--<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>-->
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springOpenInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- 配置Struts2过滤器 -->
 	<filter>

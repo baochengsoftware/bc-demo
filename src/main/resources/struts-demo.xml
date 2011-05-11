@@ -9,7 +9,7 @@
 			<result>/bc/index/index.jsp</result>
 		</action>
 		<!-- 设置空的name，使web.xml中可以通过action来配置welcome-file -->
-		<action name="" class="IndexAction">
+		<action name="" class="indexAction">
 			<result>/bc/index/desktop.jsp</result>
 		</action>
 	</package>
