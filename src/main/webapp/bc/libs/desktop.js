@@ -18,6 +18,27 @@ bc.desktop = {
 			bc.desktop.doResize();
 		});
 		
+		//开始菜单
+		var positionOpts = jQuery.extend({
+			posX: 'left', 
+			posY: 'bottom',
+			offsetX: 0,
+			offsetY: 0,
+			directionH: 'right',
+			directionV: 'down', 
+			detectH: true, // do horizontal collision detection  
+			detectV: true, // do vertical collision detection
+			linkToFront: false
+		},{directionH: 'left'});
+		$('#quickStart').menu({ 
+			content: $('#quickStartMenu').html(), 
+			flyOut: true,
+			positionOpts:positionOpts,
+			clickMenuItem:function(name, href){
+				logger.info("click:" + $(this).text() + ";name=" + name + ";href=" + href);
+			}
+		});
+		
 		//对ie，所有没有定义href属性的a，自动设置该属性为"#"，避免css中的:hover等没有效果
 		if(true || $.browser.msie){
 			$("a[href=''],a:not([href])").each(function(){
@@ -31,40 +52,6 @@ bc.desktop = {
 		
 		// 禁用桌面快捷方式的默认链接打开功能
 		shortcuts.live("click",function(){logger.debug("a:click");return false;});
-
-		// 快速工具条中条目的鼠标控制
-		$("#quickButtons .quickButton").live(
-				"click",
-				function() {
-					$this = $(this);
-					var mid = $this.attr("data-mid");
-					if ($this.hasClass("ui-state-active")) {
-						$this.removeClass("ui-state-active");
-						var options = {
-							to : "#quickButton_" + mid
-						};
-						$("#m01").effect("transfer", options, 1000, function() {
-							logger.info("transfer");
-							$("#" + mid).hide();
-						});
-					} else {
-						$this.addClass("ui-state-active");
-						var options = {
-							to : "#" + mid
-						};
-						$("#quickButton_" + mid).effect("transfer", options,
-								1000, function() {
-									logger.info("transfer");
-									$("#" + mid).show();
-								});
-					}
-					// $this.toggleClass("ui-state-active")
-					return false;
-				}).live("mouseover", function() {
-			$(this).addClass("ui-state-hover")
-		}).live("mouseout", function() {
-			$(this).removeClass("ui-state-hover")
-		});
 		
 		//允许图标拖动
 		$("a.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
@@ -78,11 +65,21 @@ bc.desktop = {
 	openModule: function(option) {
 		$this = $(this);
 		var type = $this.attr("data-type");
+		var option = $this.attr("data-option");
+		if(!option || option.length == 0) option="{}";
+		option = eval("("+option+")");
+		option.mid=$this.attr("data-mid");
+		option.iconClass=$this.attr("data-iconClass");
+		option.name=$this.attr("data-name");
+		option.order=$this.attr("data-order");
+		option.type=$this.attr("data-type");
+		option.url=$this.attr("data-url");
+		option.standalone=$this.attr("data-standalone")=="true";
 		if(logger.debugEnabled)
 			logger.debug("a:dblclick,type=" + type);
-		if(type == "2"){//打开内部链接
-			bc.page.newWin({url:$this.attr("data-url")});
-		}
+		bc.page.newWin(option);
+		//if(type == "2"){//打开内部链接
+		//}
 	}
 };
 jQuery(function($) {

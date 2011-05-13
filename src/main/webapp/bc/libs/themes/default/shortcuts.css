@@ -1,6 +1,6 @@
 /**
  * 桌面图标
- *
+ * innmm -->nn:行号，mm:列号
  * @author rongjihuang@gmail.com
  * @date 2011-04-11
  */
@@ -33,4 +33,7 @@
 }
 #desktop a.shortcut .i0009{
 	background-position: -468px 0;
+}
+#desktop a.shortcut .i0204{
+	background-position: -208px -104px;
 }

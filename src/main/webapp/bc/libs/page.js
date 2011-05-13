@@ -10,6 +10,15 @@ bc.page = {
 	 */
 	newWin: function(option) {
 		option = option || {};
+		
+		//在单独的浏览器窗口中打开
+		if(option.standalone){
+			logger.info("newWin:option.standalone=" + option.standalone);
+			window.open(option.url,"_blank");
+			return;
+		}
+		
+		//内部处理
 		logger.info("newWin:loading html from url=" + option.url);
 		bc.ajax({
 			url : option.url, data: option.data || null,

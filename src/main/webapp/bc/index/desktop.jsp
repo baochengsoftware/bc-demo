@@ -21,10 +21,17 @@
 	href="<s:url value='/bc/libs/themes/default/list.css' />" />
 <link rel="stylesheet" type="text/css"
 	href="<s:url value='/bc/libs/themes/default/boxPointer.css' />" />
+<link rel="stylesheet" type="text/css"
+	href="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.css' />" />
 <style type="text/css">
+	.fg-button { clear:left; margin:0 4px 40px 20px; padding: .4em 1em; text-decoration:none !important; 
+	cursor:pointer; position: absolute; text-align: center; zoom: 1;top: 50%; left: 50%;}
+	.fg-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
+	.fg-button-icon-right { padding-right: 2.1em; }
+	.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
 </style>
 </head>
-<body class="ui-widget-content">
+<body class="ui-widget-content desktopBody">
 	<noscript>
 		<div>请设置浏览器开启 JavaScript功能，然后重试。</div>
 	</noscript>
@@ -39,15 +46,51 @@
 		</div>
 	</div>
 	<div id="layout">
+		<div id="quickbar" class="ui-widget-header">
+			<div id="quickStart">
+				<a title="开始"></a>
+			</div>
+			<div id="quickButtons">
+				<a id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a>
+			</div>
+			<div id="quickShowHide" title="显示桌面">
+				<a></a>
+			</div>
+		</div>
 		<div id="desktop">
 			<s:iterator value="shortcuts" status="stuts">
-			<a class="shortcut" data-mid='<s:property value="id" />'
-				data-type='<s:property value="module.type" />' 
-				data-url='<s:property value="module.url" />'>
-				<span class='icon <s:property value="module.iconClass" />'></span>
-				<span class="text"><s:property value="module.name" /></span>
-			</a>
+			<s:if test="module == null">
+				<a class="shortcut" data-m="false"
+					data-id='<s:property value="id" />'
+					data-standalone='<s:property value="standalone" />'
+					data-type='0' 
+	 				data-mid='0'
+					data-option='{}' 
+					data-order='<s:property value="order" />'
+					data-iconClass='<s:property value="iconClass" />'
+					data-name='<s:property value="name" />'
+					data-url='<s:property value="url" />'>
+					<span class='icon <s:property value="iconClass" />'></span>
+					<span class="text"><s:property value="name" /></span>
+				</a>
+            </s:if>
+            <s:else>
+				<a class="shortcut" data-m="true"
+					data-id='<s:property value="id" />'
+					data-standalone='<s:property value="standalone" />'
+					data-type='<s:property value="module.type" />' 
+	 				data-mid='<s:property value="module.id" />'
+					data-option='<s:property value="module.option" />' 
+					data-order='<s:property value="order" />'
+					data-iconClass='<s:property value="module.iconClass" />'
+					data-name='<s:property value="module.name" />'
+					data-url='<s:property value="module.url" />'>
+					<span class='icon <s:property value="module.iconClass" />'></span>
+					<span class="text"><s:property value="module.name" /></span>
+				</a>
+            </s:else>
 			</s:iterator>
+			<!-- 
 			<a class="shortcut" data-mid="m03"
 				data-type="2" data-url="/bc/duty/list"> <span class="icon i0001"></span>
 				<span class="text">职务配置</span> </a>
@@ -63,21 +106,14 @@
 			<a class="shortcut" data-mid="m01"
 				data-type="2" data-url="/bc/module/list"> <span class="icon"></span> <span
 				class="text">模块配置配置配置</span> </a> 
+			<a id="flyout" tabindex="0" href="#" 
+			class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all">
+			<span class="ui-icon ui-icon-triangle-1-s"></span>flyout menu</a>
+			 -->
 		</div>
-		<div id="quickbar" class="ui-widget-header">
-			<div id="quickStart">
-				<a title="开始"></a>
-			</div>
-			<div id="quickButtons">
-				<a id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a>
-			</div>
-			<div id="quickShowHide" title="显示桌面">
-				<a></a>
-			</div>
-			<div id="copyrightBar">
-				<a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a>
-			</div>
-		</div>
+	</div>
+	<div id="copyrightBar">
+		<a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a>
 	</div>
 
 	<s:if test='{getText("app.debug") == "true"}'>
@@ -115,6 +151,8 @@
 	<script type="text/javascript"
 		src="<s:url value='/ui-libs/jquery-ui/1.8.11/jquery-ui.min.js' />"></script>
 	<script type="text/javascript"
+		src="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.js' />"></script>
+	<script type="text/javascript"
 		src="<s:url value='/bc/libs/window.js' />"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' />"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' />"></script>
@@ -147,11 +185,14 @@
 		bc.debug = <s:text name="app.debug" />;
 		if (bc.debug) {
 			jQuery(function() {
-				logger.toggle();
+				//logger.toggle();
 				logger.enable("debug");
 			});
 		}
 	</script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/themeSwitcher/switcher.js' />"></script>
+	<div id="quickStartMenu" class="hide" style="position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden;">
+		<s:property value="startMenu" />
+	</div>
 </body>
 </html>

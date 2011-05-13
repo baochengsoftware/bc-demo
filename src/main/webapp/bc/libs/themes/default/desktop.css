@@ -7,10 +7,10 @@
 html,body{
 	overflow: hidden;
 }
-body{
+body,.desktopBody{
 	/*background: url(images/bg_page.png) repeat top left;
 	background-color: #FAFAFA;*/
-	border: 0;
+	border-width: 0;
 }
 
 /*加载动画*/
@@ -55,7 +55,7 @@ body{
 #desktop {
 	position: absolute;
 	width: 100%;
-	top: 0;
+	bottom: 0;
 	overflow: auto;
 }
 
@@ -79,7 +79,7 @@ body{
 #desktop a.shortcut .icon{
 	display: block;
 	width:52px;height:52px;
-	background: url(images/shortcuts/shortcuts.png) no-repeat 0 0;
+	background: url(images/shortcuts/shortcuts.png) no-repeat -208px -156px;
 	/*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo48.png', sizingMethod='scale');*/
 	margin: auto;
 }
@@ -99,13 +99,13 @@ body{
 #quickbar {
 	position: absolute;
 	height: 30px;
-	bottom: 0;
+	top: 0;
 	background-color: #dd3;
 	width: 100%;
 	overflow: hidden;
 	/*background: url(images/bg_quickbar1.png) repeat-x top left;*/
 	z-index: 10!important;
-	border:0;
+	border-width:0 0 1px 0;
 }
 #quickStart {
 	position: relative;
@@ -162,7 +162,7 @@ body{
 #setting{
 	position: fixed;
 	_position: absolute;
-	top:10px;
+	top:40px;
 	right:20px;
 	overflow: visible;
 	z-index:100;
@@ -177,20 +177,22 @@ body{
 	position: absolute;
 	bottom: 0px;
 	left: 50%;
-	width: 270px;
+	width: 300px;
 	height: 30px;
 	line-height: 30px;
 	overflow: hidden;
-	z-index: -1;
 	margin-left:-135px;
 	overflow: hidden;
+	text-align: center;
 }
 #copyrightBar a {
-	display:block;
-	width:100%;height:100%;
+	/*display:block;
+	width:100%;height:100%;*/
 	font-size:0.75em;
 	color:#888;
 	text-decoration: none;
+	cursor: pointer;
+	margin: auto;
 }
 #poweredBy {
 	margin:5px; float:right;
