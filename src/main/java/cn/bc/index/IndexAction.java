@@ -3,12 +3,12 @@
  */
 package cn.bc.index;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
-
-import ognl.Node;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,9 +23,8 @@ import cn.bc.identity.domain.Actor;
 import cn.bc.identity.service.ActorService;
 import cn.bc.security.domain.Module;
 import cn.bc.web.ui.html.A;
-import cn.bc.web.ui.html.Li;
-import cn.bc.web.ui.html.Text;
-import cn.bc.web.ui.html.Ul;
+import cn.bc.web.ui.html.menu.Menu;
+import cn.bc.web.ui.html.menu.MenuItem;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -90,47 +89,74 @@ public class IndexAction extends ActionSupport {
 				null, modules);
 		logger.debug("shortcuts=" + shortcuts.size());
 
-		// 生成导航菜单
-		Ul menu,childMenu;
-		Li li;
-		menu = new Ul();
+		// 找到顶层模块
+		Map<Module, List<Module>> parentChildren = new LinkedHashMap<Module, List<Module>>();
+		List<Module> topModules = this.findTopModules(modules, parentChildren);
+
+		// 循环顶层模块生成菜单
+		Menu menu = this.buildMenu4Modules(topModules, parentChildren);
 		menu.addClazz("startMenu");
-		for (Module m : modules) {
-			if(m.getType() != Module.TYPE_FOLDER){//链接
-				
-			}else{//文件夹
-				
-			}
-		}
-		
-		TreeMap tree;
-		Node node;
+
 		this.startMenu = menu.toString();
 		return SUCCESS;
 	}
-	
-	private Ul addLi(Module module){
-		Li li = new Li();
-		
-		//添加基本连接
-		A a = new A();
-		if(module.getUrl() != null && module.getUrl().length() > 0)
-			a.setAttr("href", module.getUrl());
+
+	private List<Module> findTopModules(Set<Module> modules,
+			Map<Module, List<Module>> parentChildren) {
+		List<Module> topModules = new ArrayList<Module>();
+		for (Module m : modules) {
+			this.dealParentChildren(m, parentChildren, topModules);
+		}
+		return topModules;
+	}
+
+	private void dealParentChildren(Module m,
+			Map<Module, List<Module>> parentChildren, List<Module> topModules) {
+		Module parent = m.getBelong();
+		if (parent != null) {// 有隶属的父模块
+			List<Module> childModules = parentChildren.get(parent);
+			if (childModules == null) {
+				childModules = new ArrayList<Module>();
+				parentChildren.put(parent, childModules);
+			}
+			childModules.add(m);
+
+			this.dealParentChildren(parent, parentChildren, topModules);
+		} else {// 顶层模块
+			topModules.add(m);
+		}
+	}
+
+	private Menu buildMenu4Modules(List<Module> modules,
+			Map<Module, List<Module>> parentChildren) {
+		Menu menu = new Menu();
+		MenuItem menuItem;
+		for (Module m : modules) {
+			menuItem = buildMenuItem4Module(m, parentChildren);
+			menu.addMenuItem(menuItem);
+		}
+		return menu;
+	}
+
+	private MenuItem buildMenuItem4Module(Module m,
+			Map<Module, List<Module>> parentChildren) {
+		MenuItem menuItem;
+		A a;
+		menuItem = new MenuItem();
+		menuItem.setAttr("data-type", String.valueOf(m.getType()));
+		a = new A();
+		if (m.getUrl() != null && m.getUrl().length() > 0)
+			a.setAttr("href", m.getUrl());
 		else
 			a.setAttr("href", "#");
-		a.addChild(new Text(module.getName()));
-		li.addChild(a);
-		
-		//添加子菜单
-		Ul ul = null;
-		if(module.getBelong() != null){
-			//Ul pui = addLi(module.getBelong());
-			//ul.addChild(li);
-		}else{
-			ul = new Ul();
-			ul.addChild(li);
+		menuItem.setA(a);
+		if (m.getType() == Module.TYPE_FOLDER) {// 文件夹
+			List<Module> childModules = parentChildren.get(m);// 模块下的子模块
+			if (childModules != null && !childModules.isEmpty()) {
+				menuItem.setChildMenu(buildMenu4Modules(childModules,
+						parentChildren));
+			}
 		}
-		
-		return ul;
+		return menuItem;
 	}
 }
