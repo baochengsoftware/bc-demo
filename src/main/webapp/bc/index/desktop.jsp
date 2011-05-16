@@ -9,20 +9,14 @@
 <html>
 <head>
 <title><s:text name="app.title" /></title>
-<link rel="stylesheet" type="text/css"
-	href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/base/jquery.ui.all.css' />" />
-<link rel="stylesheet" type="text/css"
-	href="<s:url value='/bc/libs/themes/default/core.css' />" />
-<link rel="stylesheet" type="text/css"
-	href="<s:url value='/bc/libs/themes/default/desktop.css' />" />
-<link rel="stylesheet" type="text/css"
-	href="<s:url value='/bc/libs/themes/default/shortcuts.css' />" />
-<link rel="stylesheet" type="text/css"
-	href="<s:url value='/bc/libs/themes/default/list.css' />" />
-<link rel="stylesheet" type="text/css"
-	href="<s:url value='/bc/libs/themes/default/boxPointer.css' />" />
-<link rel="stylesheet" type="text/css"
-	href="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.css' />" />
+<script type="text/javascript">var ts = "<s:text name="app.ts" />";</script>
+<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/base/jquery.ui.all.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/core.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/desktop.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/shortcuts.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/list.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/boxPointer.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <style type="text/css">
 	.fg-button { clear:left; margin:0 4px 40px 20px; padding: .4em 1em; text-decoration:none !important; 
 	cursor:pointer; position: absolute; text-align: center; zoom: 1;top: 50%; left: 50%;}
@@ -51,7 +45,7 @@
 				<a title="开始"></a>
 			</div>
 			<div id="quickButtons">
-				<a id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a>
+<!-- 				<a id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a> -->
 			</div>
 			<div id="quickShowHide" title="显示桌面">
 				<a></a>
@@ -112,74 +106,66 @@
 			 -->
 		</div>
 	</div>
-	<div id="copyrightBar">
-		<a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a>
+	<div id="copyrightBar"><a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a></div>
+	<div id="quickStartMenu" class="hide" style="position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden;">
+		<s:property value="startMenu" escapeHtml="false"/>
 	</div>
 
 	<s:if test='{getText("app.debug") == "true"}'>
-		<div id="heavyControl" style="display: none">
-			<h1>重型控件测试</h1>
-			<form>
-				<p>
-					<input value="普通文本" style="width: 90%;" />
-				</p>
-				<p>
-					<input type="checkbox" />多选框1<input type="checkbox" />多选框2
-				</p>
-				<p>
-					<input type="radio" name="radio" />单选框1<input type="radio"
-						name="radio" />单选框2
-				</p>
-				<p>
-					<select>
-						<option>选择1</option>
-						<option>选择2</option>
-						<option>选择选择选择选择3</option>
-					</select>
-				</p>
-				<p>
-					<textarea style="width: 90%;">多行文本框</textarea>
-				</p>
-			</form>
-		</div>
+	<div id="heavyControl" style="display: none">
+		<h1>重型控件测试</h1>
+		<form>
+			<p>
+				<input value="普通文本" style="width: 90%;" />
+			</p>
+			<p>
+				<input type="checkbox" />多选框1<input type="checkbox" />多选框2
+			</p>
+			<p>
+				<input type="radio" name="radio" />单选框1<input type="radio"
+					name="radio" />单选框2
+			</p>
+			<p>
+				<select>
+					<option>选择1</option>
+					<option>选择2</option>
+					<option>选择选择选择选择3</option>
+				</select>
+			</p>
+			<p>
+				<textarea style="width: 90%;">多行文本框</textarea>
+			</p>
+		</form>
+	</div>
 	</s:if>
 
-	<script type="text/javascript"
-		src="<s:url value='/ui-libs/jquery/1.5.1/jquery.min.js' />"></script>
-	<script type="text/javascript"
-		src="<s:url value='/ui-libs/jquery-ui/1.8.11/i18n/jquery-ui-i18n.js' />"></script>
-	<script type="text/javascript"
-		src="<s:url value='/ui-libs/jquery-ui/1.8.11/jquery-ui.min.js' />"></script>
-	<script type="text/javascript"
-		src="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.js' />"></script>
-	<script type="text/javascript"
-		src="<s:url value='/bc/libs/window.js' />"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' />"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' />"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' />"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/boxPointer.js' />"></script>
-	<script type="text/javascript"
-		src="<s:url value='/bc/libs/loader.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery/1.5.1/jquery.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.11/i18n/jquery-ui-i18n.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.11/jquery-ui.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/window.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/boxPointer.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/loader.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<s:if test='{getText("app.debug") == "true"}'>
-		<link rel="stylesheet" type="text/css"
-			href="<s:url value='/bc/libs/themes/default/logger.css' />" />
-		<script type="text/javascript"
-			src="<s:url value='/bc/libs/logger.js' />"></script>
+	<link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/logger.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+	<script type="text/javascript" src="<s:url value='/bc/libs/logger.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	</s:if>
 	<s:else>
-		<script type="text/javascript">
-		if(!window['logger']){
-			/** JavaScript日志组件的幻象，实际的见logger.js */
-			window['logger'] = {
-				debugEnabled:false,infoEnabled:false,warnEnabled:false,profileEnabled:false,
-				clear:$.noop,debug:$.noop,info:$.noop,warn:$.noop,error:$.noop,
-				profile:$.noop,enable:$.noop,disabled:$.noop,show:$.noop,test:true
-			};
-		}
-		</script>
+	<script type="text/javascript">
+	if(!window['logger']){
+		/** JavaScript日志组件的幻象，实际的见logger.js */
+		window['logger'] = {
+			debugEnabled:false,infoEnabled:false,warnEnabled:false,profileEnabled:false,
+			clear:$.noop,debug:$.noop,info:$.noop,warn:$.noop,error:$.noop,
+			profile:$.noop,enable:$.noop,disabled:$.noop,show:$.noop,test:true
+		};
+	}
+	</script>
 	</s:else>
-	<script type="text/javascript"
-		src="<s:url value='/bc/libs/desktop.js' />"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/desktop.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript">
 		bc.root = "<%=request.getContextPath()%>";
 		bc.debug = <s:text name="app.debug" />;
@@ -190,9 +176,6 @@
 			});
 		}
 	</script>
-	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/themeSwitcher/switcher.js' />"></script>
-	<div id="quickStartMenu" class="hide" style="position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden;">
-		<s:property value="startMenu" />
-	</div>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/themeSwitcher/switcher.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='<s:text name="duty.form.title"/>'
 	data-type='form'
-	data-action='<s:url value="/duty/save" />'
+	data-action='<s:url value="/bc/duty/save" />'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
 		"minWidth":400,"minHeight":250,"modal":false

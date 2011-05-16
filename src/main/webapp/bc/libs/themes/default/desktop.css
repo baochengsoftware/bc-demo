@@ -98,7 +98,7 @@ body,.desktopBody{
 /**快速任务栏*/
 #quickbar {
 	position: absolute;
-	height: 30px;
+	/*height: auto;*/
 	top: 0;
 	background-color: #dd3;
 	width: 100%;
@@ -114,7 +114,7 @@ body,.desktopBody{
 	width: 40px;
 }
 #quickStart a {
-	position: absolute;
+	/*position: absolute;*/
 	float: left;
 	left: 5px;
 	top:0px;
@@ -122,7 +122,7 @@ body,.desktopBody{
 	height: 32px;
 	width: 32px;
 	z-index: 10000;
-	background: url(images/logo32.png) no-repeat;
+	background: url(images/browser/chrome32.png) no-repeat;
 	text-decoration: none;
 	display: block;
 }
@@ -151,11 +151,21 @@ body,.desktopBody{
 #quickButtons .quickButton {
 	float: left;
 	margin: 4px 0px 4px 2px;
-	padding-left:4px;padding-right:4px;
+	padding:4px;
 	border: 1px solid black;
-	font-size: 14px;
-	height:22px;
 	text-decoration: none;
+	cursor: default;
+}
+#quickButtons .quickButton .ui-icon{
+	float: left;
+	display:inline-block;
+	width:16px;height:16px;
+	margin: 2px 4px 0 0;
+	padding:0;
+	border: 0;
+}
+#quickButtons .quickButton .loading{
+	background: url(images/loader/loader01_16x16.gif) no-repeat 0 0;
 }
 
 /*设置字体大小*/

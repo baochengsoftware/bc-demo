@@ -36,6 +36,17 @@ bc.desktop = {
 			positionOpts:positionOpts,
 			clickMenuItem:function(name, href){
 				logger.info("click:" + $(this).text() + ";name=" + name + ";href=" + href);
+				$this = $(this);
+				$parent = $this.parent();
+				var option = $parent.attr("data-option");
+				if(!option || option.length == 0) option="{}";
+				option = eval("("+option+")");
+				option.mid=$parent.attr("data-mid");
+				option.name=$this.text();
+				option.type=$parent.attr("data-type");
+				option.url=$this.attr("href");
+				if(option.url && option.url.length>0 && option.url.indexOf("#")!=0)
+					bc.page.newWin(option);
 			}
 		});
 		
@@ -56,6 +67,29 @@ bc.desktop = {
 		//允许图标拖动
 		$("a.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
 		//$("#shortcuts" ).selectable();
+
+		// 快速工具条中条目的鼠标控制
+		$("#quickButtons > .quickButton").live("mouseover", function() {
+			$(this).addClass("ui-state-hover");
+		}).live("mouseout", function() {
+			$(this).removeClass("ui-state-hover");
+		}).live("click", function() {
+			$this = $(this);
+			var mid = $this.attr("data-mid");
+			var $dialogContainer = $("body>.ui-dialog>.ui-dialog-content[data-mid='" + mid + "']").parent();
+			if ($this.hasClass("ui-state-active")) {
+				$this.removeClass("ui-state-active")
+				.find(">span.ui-icon").removeClass("ui-icon-folder-open").addClass("ui-icon-folder-collapsed");
+				$dialogContainer.hide();
+			} else {
+				$this.addClass("ui-state-active")
+				.find(">span.ui-icon").removeClass("ui-icon-folder-collapsed").addClass("ui-icon-folder-open")
+				.end().siblings().toggleClass("ui-state-active",false);
+				$dialogContainer.show().end().dialog("moveToTop");
+			}
+			// $this.toggleClass("ui-state-active")
+			return false;
+		});
 	},
 	/**重新调整桌面的布局*/
 	doResize : function() {

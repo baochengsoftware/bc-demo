@@ -18,6 +18,16 @@ bc.page = {
 			return;
 		}
 		
+		// 任务栏显示正在加载的信息
+		if(bc.page.quickbar.has(option.mid)){
+			logger.info("newWin:active=" + option.mid);
+			bc.page.quickbar.active(option.mid);//仅显示现有的窗口
+			return;
+		}else{
+			logger.info("newWin:create=" + option.mid);
+			bc.page.quickbar.loading(option);
+		}
+		
 		//内部处理
 		logger.info("newWin:loading html from url=" + option.url);
 		bc.ajax({
@@ -39,7 +49,14 @@ bc.page = {
 						
 						//彻底删除所有相关的dom元素
 						$(this).dialog("destroy").remove();
-					}).attr("data-src",option.url);//.disableSelection();这个会导致表单中输入框部分浏览器无法获取输入焦点
+						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']").unbind().remove();
+					}).attr("data-src",option.url).attr("data-mid",option.mid)
+					.bind("dialogfocus", function(event, ui) {
+						logger.debug("dialogfocus");
+						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']")
+						.toggleClass("ui-state-active",true).siblings().toggleClass("ui-state-active",false);
+					});
+					//.disableSelection();这个会导致表单中输入框部分浏览器无法获取输入焦点
 					
 					//初始化表单或列表中的元数据信息：表单验证、列表的行操作处理
 					//bc.page.innerInit.call($dom[0]);
@@ -59,6 +76,9 @@ bc.page = {
 							method.call($dom, cfg);
 						}
 					}
+					
+					//通知任务栏模块加载完毕
+					bc.page.quickbar.loaded(option.mid);
 				}
 				//alert(html);
 				var dataJs = $dom.attr("data-js");
@@ -87,7 +107,7 @@ bc.page = {
 			var $this = $(this).toggleClass("ui-state-focus",true);
 			$this.find("td.id>span.ui-icon").toggleClass("ui-icon-check",true);
 			$this.siblings().removeClass("ui-state-focus").find("td.id>span.ui-icon").removeClass("ui-icon-check");
-			var $content = $this.parents(".bc-content");
+			var $content = $this.parents(".ui-dialog-content");
 			//alert($content.html());
 			bc.page.edit.call($content);
 		});
@@ -277,7 +297,9 @@ bc.page = {
 		logger.info("bc.page.create");
 		var $this = $(this);
 		bc.page.newWin({
-			url:$(this).attr("data-action-create"),
+			url: $this.attr("data-action-create"),
+			mid: $this.attr("data-mid") + ".0",
+			name: "新建" + ($this.attr("data-name") || "未定义"),
 			callback: function(data){
 				bc.page.reloadWin.call($this);
 			}
@@ -293,8 +315,11 @@ bc.page = {
 		if($tds.length == 1){
 			var data = "id=" + $tds.attr("data-id");
 			if(logger.infoEnabled) logger.info("bc.page.edit: data=" + data);
+			logger.info("bc.page.edit: name=" + $tds.attr("data-name"));
 			bc.page.newWin({
 				url:url, data: data || null,
+				mid: $this.attr("data-mid") + "." + $tds.attr("data-id"),
+				name: $tds.attr("data-name") || "未定义",
 				callback: function(status){
 					logger.info("bc.page.edit: status=" + status);
 					if(status == "saved")
@@ -440,5 +465,45 @@ bc.validator = {
 		minLen: "这里最多只能输入 {0}个字符！",
 		max: "这个值不能小于 {0}！",
 		min: "这个值不能大于 {0}！"
+	}
+};
+bc.page.quickbar={
+	id:"#quickButtons",
+	/**  
+	 * 判断指定的模块当前是否已经加载
+	 * @param mid 模块的id
+	 */
+	has: function(mid){
+		return $(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + mid + "']").length > 0;
+	},
+	/**  
+	 * 激活已经加载的现有模块
+	 * @param mid 模块的id
+	 */
+	active: function(mid){
+		$(".ui-dialog>.ui-dialog-content[data-mid='" + mid + "']").parent().show()
+		.end().siblings().toggleClass("ui-state-active",false)
+		.end().dialog("moveToTop");
+	},
+	/**  
+	 * 设置指定的模块开始加载中
+	 * @param option 模块的配置
+	 */
+	loading: function(option){
+		$(bc.page.quickbar.id).append('<a id="quickButton-'+option.mid
+				+'" class="quickButton ui-corner-all ui-state-default" data-mid="'+option.mid
+				+'" data-name="'+option.name+'">'
+				+'<span class="ui-icon loading"></span>'
+				+'<span class="text">正在加载：'+option.name+'</span></a>');
+	},
+	/**  
+	 * 设置指定的模块加载完毕
+	 * @param mid 模块的id
+	 */
+	loaded: function(mid){
+		var $item = $(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + mid + "']");
+		$item.find(">span.text").text($item.attr("data-name"));
+		$item.find(">span.ui-icon").removeClass("loading").addClass("ui-icon-folder-open");
+		$item.toggleClass("ui-state-active",true).siblings().toggleClass("ui-state-active",false);
 	}
 };

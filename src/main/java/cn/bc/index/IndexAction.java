@@ -3,11 +3,11 @@
  */
 package cn.bc.index;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -22,7 +22,6 @@ import cn.bc.desktop.service.ShortcutService;
 import cn.bc.identity.domain.Actor;
 import cn.bc.identity.service.ActorService;
 import cn.bc.security.domain.Module;
-import cn.bc.web.ui.html.A;
 import cn.bc.web.ui.html.menu.Menu;
 import cn.bc.web.ui.html.menu.MenuItem;
 
@@ -87,23 +86,42 @@ public class IndexAction extends ActionSupport {
 		Set<Module> modules = new LinkedHashSet<Module>();// 有权限使用的模块
 		this.shortcuts = this.shortcutService.findByActor(user.getId(), null,
 				null, modules);
-		logger.debug("shortcuts=" + shortcuts.size());
+		if (logger.isDebugEnabled()) {
+			logger.debug("shortcuts=" + shortcuts.size());
+			int i = 0;
+			for (Module m : modules) {
+				logger.debug(++i + ") " + m);
+			}
+		}
 
 		// 找到顶层模块
-		Map<Module, List<Module>> parentChildren = new LinkedHashMap<Module, List<Module>>();
-		List<Module> topModules = this.findTopModules(modules, parentChildren);
+		Map<Module, Set<Module>> parentChildren = new LinkedHashMap<Module, Set<Module>>();
+		Set<Module> topModules = this.findTopModules(modules, parentChildren);
+		if (logger.isDebugEnabled()) {
+			int i = 0;
+			for (Module m : topModules) {
+				logger.debug(++i + ") " + m);
+			}
+			i = 0;
+			for (Entry<Module, Set<Module>> m : parentChildren.entrySet()) {
+				logger.debug(++i + ") " + m.getKey() + " "
+						+ m.getValue().size());
+			}
+		}
 
 		// 循环顶层模块生成菜单
 		Menu menu = this.buildMenu4Modules(topModules, parentChildren);
 		menu.addClazz("startMenu");
 
 		this.startMenu = menu.toString();
+		if (logger.isDebugEnabled())
+			logger.debug("startMenu=" + startMenu);
 		return SUCCESS;
 	}
 
-	private List<Module> findTopModules(Set<Module> modules,
-			Map<Module, List<Module>> parentChildren) {
-		List<Module> topModules = new ArrayList<Module>();
+	private Set<Module> findTopModules(Set<Module> modules,
+			Map<Module, Set<Module>> parentChildren) {
+		Set<Module> topModules = new LinkedHashSet<Module>();
 		for (Module m : modules) {
 			this.dealParentChildren(m, parentChildren, topModules);
 		}
@@ -111,12 +129,12 @@ public class IndexAction extends ActionSupport {
 	}
 
 	private void dealParentChildren(Module m,
-			Map<Module, List<Module>> parentChildren, List<Module> topModules) {
+			Map<Module, Set<Module>> parentChildren, Set<Module> topModules) {
 		Module parent = m.getBelong();
 		if (parent != null) {// 有隶属的父模块
-			List<Module> childModules = parentChildren.get(parent);
+			Set<Module> childModules = parentChildren.get(parent);
 			if (childModules == null) {
-				childModules = new ArrayList<Module>();
+				childModules = new LinkedHashSet<Module>();
 				parentChildren.put(parent, childModules);
 			}
 			childModules.add(m);
@@ -127,8 +145,8 @@ public class IndexAction extends ActionSupport {
 		}
 	}
 
-	private Menu buildMenu4Modules(List<Module> modules,
-			Map<Module, List<Module>> parentChildren) {
+	private Menu buildMenu4Modules(Set<Module> modules,
+			Map<Module, Set<Module>> parentChildren) {
 		Menu menu = new Menu();
 		MenuItem menuItem;
 		for (Module m : modules) {
@@ -139,19 +157,14 @@ public class IndexAction extends ActionSupport {
 	}
 
 	private MenuItem buildMenuItem4Module(Module m,
-			Map<Module, List<Module>> parentChildren) {
+			Map<Module, Set<Module>> parentChildren) {
 		MenuItem menuItem;
-		A a;
 		menuItem = new MenuItem();
-		menuItem.setAttr("data-type", String.valueOf(m.getType()));
-		a = new A();
-		if (m.getUrl() != null && m.getUrl().length() > 0)
-			a.setAttr("href", m.getUrl());
-		else
-			a.setAttr("href", "#");
-		menuItem.setA(a);
+		menuItem.setUrl(m.getUrl()).setLabel(m.getName())
+				.setType(String.valueOf(m.getType())).setAction("menuItem")
+				.setAttr("data-mid", m.getId().toString());//.addStyle("z-index", "10000");
 		if (m.getType() == Module.TYPE_FOLDER) {// 文件夹
-			List<Module> childModules = parentChildren.get(m);// 模块下的子模块
+			Set<Module> childModules = parentChildren.get(m);// 模块下的子模块
 			if (childModules != null && !childModules.isEmpty()) {
 				menuItem.setChildMenu(buildMenu4Modules(childModules,
 						parentChildren));

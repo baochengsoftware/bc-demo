@@ -65,6 +65,9 @@
 	<category name="cn.bc">
 	  <priority value="DEBUG" />
 	</category>
+	<category name="cn.bc.web.ui.AbstractComponent">
+	  <priority value="ERROR" />
+	</category>
     	
   	<!-- 设置默认的日志级别(该设置必须放在最后,否则加载会解析出错) -->
 	<!-- 优先级别:OFF/FATAL/ERROR/WARN /INFO /DEBUG /ALL -->
