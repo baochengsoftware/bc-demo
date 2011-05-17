@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div title='<s:text name="duty.form.title"/>'
+<div title='<s:text name="duty.title"/>'
 	data-type='form'
 	data-action='<s:url value="/bc/duty/save" />'
 	data-option='{

@@ -10,7 +10,7 @@
 <head>
 <title><s:text name="app.title" /></title>
 <script type="text/javascript">var ts = "<s:text name="app.ts" />";</script>
-<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/base/jquery.ui.all.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/%{personalConfig.theme}/jquery.ui.all.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/core.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/desktop.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/shortcuts.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
@@ -25,7 +25,7 @@
 	.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
 </style>
 </head>
-<body class="ui-widget-content desktopBody">
+<body style='font-size:<s:property value="personalConfig.font" />px;'>
 	<noscript>
 		<div>请设置浏览器开启 JavaScript功能，然后重试。</div>
 	</noscript>
@@ -40,17 +40,17 @@
 		</div>
 	</div>
 	<div id="layout">
-		<div id="quickbar" class="ui-widget-header">
-			<div id="quickStart">
-				<a title="开始"></a>
-			</div>
-			<div id="quickButtons">
-<!-- 				<a id="quickButton-m01" class="quickButton ui-state-default ui-corner-all" data-mid="m01">组织管理</a> -->
-			</div>
-			<div id="quickShowHide" title="显示桌面">
-				<a></a>
-			</div>
-		</div>
+		<!-- 任务条 -->
+		<table id="quickbar" class="" cellpadding="0" cellspacing="0" border="0">
+			<tbody >
+			<tr>
+				<td id="quickStart"><a title="开始"></a></td>
+				<td id="quickButtons">&nbsp;</td>
+				<td id="quickShowHide" title="显示桌面"><a>&nbsp;</a></td>
+			</tr>
+			</tbody>
+		</table>
+		<!-- 桌面图标 -->
 		<div id="desktop">
 			<s:iterator value="shortcuts" status="stuts">
 			<s:if test="module == null">

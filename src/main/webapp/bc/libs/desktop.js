@@ -90,6 +90,19 @@ bc.desktop = {
 			// $this.toggleClass("ui-state-active")
 			return false;
 		});
+
+		// 显示桌面的控制
+		$("#quickShowHide").click(function() {
+			var $this = $(this);
+			var $dialogContainer = $("body>.ui-dialog");
+			if ($this.attr("data-hide") == "true") {
+				$this.attr("data-hide","false");
+				$dialogContainer.show();
+			} else {
+				$this.attr("data-hide","true");
+				$dialogContainer.hide();
+			}
+		});
 	},
 	/**重新调整桌面的布局*/
 	doResize : function() {
@@ -121,7 +134,7 @@ jQuery(function($) {
 	
 	//字体设置:初始化为14px=0.87em(浏览器默认为1em=16px)
 	var curSize = $("body").css("fontSize");
-	curSize= parseInt(curSize.replace("px","")) || 16;
+	curSize= parseInt(curSize.replace("px","")) || 14;
 	$("#fontSize").html(curSize+"");
 	//$("body").css("fontSize", 14/16 + 'em');
 	$( "#fontSlider" ).slider({
@@ -130,6 +143,16 @@ jQuery(function($) {
 			$("#fontSize").html(ui.value);
 			$("body").css("fontSize",ui.value + 'px');
 			logger.info(ui.value);
+			
+			//使用ajax保存数据
+			var data = "font=" + ui.value;
+			bc.ajax({
+				url: bc.root + "/bc/desktop/personalConfig/update", data: data, dataType: "json",
+				success: function(json) {
+					if(logger.debugEnabled)logger.debug("save success.json=" + jQuery.param(json));
+					bc.msg.slide(json.msg);
+				}
+			});
 		}
 	});
 	

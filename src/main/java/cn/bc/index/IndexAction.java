@@ -17,7 +17,10 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import cn.bc.core.exception.CoreException;
+import cn.bc.desktop.domain.PersonalConfig;
 import cn.bc.desktop.domain.Shortcut;
+import cn.bc.desktop.service.PersonalConfigService;
 import cn.bc.desktop.service.ShortcutService;
 import cn.bc.identity.domain.Actor;
 import cn.bc.identity.service.ActorService;
@@ -39,9 +42,11 @@ public class IndexAction extends ActionSupport {
 	private String msg;
 	private ActorService actorService;
 	private ShortcutService shortcutService;
+	private PersonalConfigService personalConfigService;
 	private List<Shortcut> shortcuts;
 	private String startMenu;// 开始菜单
-
+	private PersonalConfig personalConfig;//个人配置
+	
 	@Autowired
 	public void setShortcutService(ShortcutService shortcutService) {
 		this.shortcutService = shortcutService;
@@ -50,6 +55,19 @@ public class IndexAction extends ActionSupport {
 	@Autowired
 	public void setActorService(ActorService actorService) {
 		this.actorService = actorService;
+	}
+
+	@Autowired
+	public void setPersonalConfigService(PersonalConfigService personalConfigService) {
+		this.personalConfigService = personalConfigService;
+	}
+
+	public PersonalConfig getPersonalConfig() {
+		return personalConfig;
+	}
+
+	public void setPersonalConfig(PersonalConfig personalConfig) {
+		this.personalConfig = personalConfig;
 	}
 
 	public String getStartMenu() {
@@ -82,7 +100,13 @@ public class IndexAction extends ActionSupport {
 
 		String userLoginName = "admin";
 		Actor user = this.actorService.loadByCode(userLoginName);
+		
+		//个人配置
+		this.personalConfig = this.personalConfigService.loadByActor(user.getId(),true);
+		if (this.personalConfig == null)
+			throw new CoreException("缺少配置信息！");
 
+		//快捷方式
 		Set<Module> modules = new LinkedHashSet<Module>();// 有权限使用的模块
 		this.shortcuts = this.shortcutService.findByActor(user.getId(), null,
 				null, modules);

@@ -6,10 +6,15 @@
  */
 html,body{
 	overflow: hidden;
+	height: 100%;
+	width: 100%;
 }
-body,.desktopBody{
+body{
 	/*background: url(images/bg_page.png) repeat top left;
 	background-color: #FAFAFA;*/
+	background-color: #CCD9C8;
+}
+body.ui-widget-content{
 	border-width: 0;
 }
 
@@ -98,54 +103,53 @@ body,.desktopBody{
 /**快速任务栏*/
 #quickbar {
 	position: absolute;
-	/*height: auto;*/
+	z-index: 10000;
+	height: 40px;/*这个不设置的话会导致元素高度全部计算诡异*/
 	top: 0;
-	background-color: #dd3;
+	background-color: #9EB1A3;
 	width: 100%;
-	overflow: hidden;
-	/*background: url(images/bg_quickbar1.png) repeat-x top left;*/
+	/*overflow: hidden;
+	background: url(images/bg_quickbar1.png) repeat-x top left;*/
 	z-index: 10!important;
 	border-width:0 0 1px 0;
+	table-layout: fixed;
+	margin:0;padding:0;
+}
+#quickbar > tbody,#quickbar > tbody > tr{
+	margin:0;padding:0;
 }
 #quickStart {
-	position: relative;
-	float: left;
-	height: 100%;
 	width: 40px;
+	vertical-align: middle;
 }
 #quickStart a {
-	/*position: absolute;*/
-	float: left;
-	left: 5px;
-	top:0px;
 	cursor: pointer;
 	height: 32px;
 	width: 32px;
-	z-index: 10000;
 	background: url(images/browser/chrome32.png) no-repeat;
 	text-decoration: none;
 	display: block;
 }
+#quickStart.ui-state-active{
+	border:0;
+}
 #quickShowHide {
-	float: right;
-	height: 100%;
 	width: 12px;
+	vertical-align: top;
+	height:100%;
 }
 #quickShowHide a {
-	background: url(images/showHide.png) no-repeat 0 0;
+	background: url(images/showHide.png) repeat-y 0 0;
 	display:block;
-	width:100%;height:100%;
+	width:100%;
+	height:100%;
 	text-decoration: none;
 }
 #quickShowHide a:HOVER {
 	background-position: -24px 0;
 }
 #quickButtons {
-	float: left;
-	list-style: none;
 	height: 100%;
-	min-width: 600px;
-	overflow:hidden;
 	vertical-align: middle;
 }
 #quickButtons .quickButton {
@@ -206,6 +210,9 @@ body,.desktopBody{
 }
 #poweredBy {
 	margin:5px; float:right;
+}
+.bc-slide,.bc-slide.ui-state-high {
+	border:2px solid red;
 }
 #poweredBy span{
 	display: block;width:83px;height:34px;
