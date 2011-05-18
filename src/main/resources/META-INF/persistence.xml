@@ -20,7 +20,7 @@
 
 		<!-- desktop -->
 		<class>cn.bc.desktop.domain.Shortcut</class>
-		<class>cn.bc.desktop.domain.PersonalConfig</class>
+		<class>cn.bc.desktop.domain.Personal</class>
 
 		<!-- Test
 		<class>cn.bc.one2onetest.Person</class>

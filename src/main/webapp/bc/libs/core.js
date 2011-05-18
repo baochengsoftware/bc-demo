@@ -78,4 +78,14 @@ bc.getNested=function(nestedName){
 bc.getStringActualLen=function(sourceString){  
     return sourceString.replace(/[^\x00-\xff]/g,"xx").length;  
 };
-
+/** 向指定的url路径末端添加参数
+ * @param url url路径
+ * @param keyValue 名值对，格式为“key=value”
+ * @return 添加参数/值后的url
+ */
+bc.addParamToUrl=function(url,keyValue){  
+    if (url == null) return url;
+    if (!keyValue) return url;
+    var hasParam = (url.indexOf("?") != -1);
+    return url + (hasParam?"&":"?") + keyValue;
+};

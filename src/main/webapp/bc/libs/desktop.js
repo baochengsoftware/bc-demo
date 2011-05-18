@@ -102,6 +102,7 @@ bc.desktop = {
 				$this.attr("data-hide","true");
 				$dialogContainer.hide();
 			}
+			return false;
 		});
 	},
 	/**重新调整桌面的布局*/

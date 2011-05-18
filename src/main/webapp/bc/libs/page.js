@@ -71,7 +71,6 @@ bc.page = {
 					logger.debug("initMethod="+method);
 					if(method){
 						method = bc.getNested(method);
-						logger.debug("initMethodType=" + (typeof method));
 						if(typeof method == "function"){
 							method.call($dom, cfg);
 						}

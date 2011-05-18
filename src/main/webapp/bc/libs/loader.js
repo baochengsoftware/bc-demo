@@ -79,7 +79,13 @@ bc.loader = {
 			return;//避免重复加载和解析
 		}
 		s = m.q[n] = m.c.createElement(k[t].t);
-		s.setAttribute(k[t].a, u[0]);
+		var file = u[0];
+		if(bc.debug)
+			file = bc.addParamToUrl(file,"ts="+bc.ts);//首次打开主页的时间
+		else
+			file = bc.addParamToUrl(file,"ts="+bc.buildTime);//系统编译发布的时间
+			
+		s.setAttribute(k[t].a, file);
 		// Fix: CSS links do not fire onload events - Richard Lopes
 		// Images do. Limitation: no callback function possible after CSS loads
 		if (k[t].r){

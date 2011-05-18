@@ -169,6 +169,8 @@
 	<script type="text/javascript">
 		bc.root = "<%=request.getContextPath()%>";
 		bc.debug = <s:text name="app.debug" />;
+		bc.buildTime = "<s:text name="app.ts" />";
+		bc.ts = new Date().getTime();
 		if (bc.debug) {
 			jQuery(function() {
 				//logger.toggle();
