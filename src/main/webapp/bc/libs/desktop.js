@@ -158,7 +158,7 @@ jQuery(function($) {
 	});
 	
 	//主题设置
-	$('#themeSwitcher').themeswitcher({closeOnSelect:false,height:340,root:bc.root});
+	//$('#themeSwitcher').themeswitcher({closeOnSelect:false,height:340,root:bc.root});
 	
 	//显示设置
 	//$("#setting").show();

@@ -169,13 +169,14 @@
 	<script type="text/javascript">
 		bc.root = "<%=request.getContextPath()%>";
 		bc.debug = <s:text name="app.debug" />;
-		bc.buildTime = "<s:text name="app.ts" />";
-		bc.ts = new Date().getTime();
 		if (bc.debug) {
+			bc.ts = new Date().getTime();//首次打开主页的时间
 			jQuery(function() {
 				//logger.toggle();
 				logger.enable("debug");
 			});
+		}else{
+			bc.ts = "<s:text name="app.ts" />";//系统编译发布的时间
 		}
 	</script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/themeSwitcher/switcher.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>

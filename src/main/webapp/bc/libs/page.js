@@ -32,17 +32,26 @@ bc.page = {
 		logger.info("newWin:loading html from url=" + option.url);
 		bc.ajax({
 			url : option.url, data: option.data || null,
-			dataType : "text",
+			dataType : "html",
 			success : function(html) {
 				logger.info("success loaded html");
+//				var tc = document.getElementById("tempContainer");
+//				if(!tc){
+//					tc=$('<div id="tempContainer" class="hide"></div>').appendTo("body")[0];
+//				}
+//				tc.innerHTML=html;
 				var $dom = $(html);
+				if($dom.size() > 1){
+					//logger.error("error page. try set theme='simple' for struts2 tag");
+					alert("error page dom. try set theme='simple' for struts2 tag");
+				}
 				function _init(){
 					//从dom构建并显示桌面组件
 					var cfg = jQuery.parseJSON($dom.attr("data-option"));	
 					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog";
 					//cfg.callback=option.callback || null;//传入该窗口关闭后的回调函数
-					$dom.dialog(bc.page._rebuildWinOption.call($dom,cfg))
-					.bind("dialogclose",function(event,ui){
+					$dom.dialog(bc.page._rebuildWinOption.call($dom,cfg));
+					$dom.bind("dialogclose",function(event,ui){
 						logger.debug("dialogclose");
 						//调用回调函数
 						if(option.callback) option.callback($dom.attr("data-status"));
@@ -81,9 +90,11 @@ bc.page = {
 				}
 				//alert(html);
 				var dataJs = $dom.attr("data-js");
-				if(dataJs){
+				if(dataJs && dataJs.length > 0){
 					//先加载js文件后执行模块指定的初始化方法
-					bc.load([dataJs,_init]);
+					dataJs = dataJs.split(",");//逗号分隔多个文件
+					dataJs.push(_init);
+					bc.load(dataJs);
 				}else{
 					//执行模块指定的初始化方法
 					_init();

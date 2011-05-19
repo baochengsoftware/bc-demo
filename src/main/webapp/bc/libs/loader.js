@@ -24,6 +24,7 @@ bc.loader = {
 			m.s = m.f = 0; // Reset counters: completed, created, timeout function
 			m.i = setInterval(
 				function() { 
+					//logger.info("setInterval0");
 					// If the timeout counter dips below zero, or the amount of completed scripts equals the amount 
 					// of created script-tags, we can clear the interval
 					if (m.o < 0 || m.s == 0) { 
@@ -33,6 +34,7 @@ bc.loader = {
 						(m.s > 0 && m.f) && m.f(m.q)
 					} 
 					m.o--
+					//logger.info("setInterval1");
 				},
 				m.o = 50 // Set the initial ticks at 50, as well as the interval at 50ms
 			);
@@ -53,6 +55,7 @@ bc.loader = {
 		// If an options array was provided, proceed to interpret it
 		if (a&&a.shift) {
 			while (i < a.length) { // Loop through the options
+				//logger.info("i="+i);
 				b = a[i]; // Get the current element
 				c = a[i+1]; // Get the next element
 				x = 'function';
@@ -71,6 +74,7 @@ bc.loader = {
 		}
 	},
 	a: function(u,l) {
+		//logger.info("call a");
 		var s, t, m = this, n = u[0].replace(/.+\/|\.min\.js|\.js|\?.+|\W/g, ''), k = {js: {t: "script", a: "src"}, css: {t: "link", a: "href", r: "stylesheet"}, "i": {t: "img", a: "src"}}; // Clean up the name of the script for storage in the queue
 		t = u[0].match(/\.(js|css).*$/i); t = (t) ? t[1] : "i";
 		if(m.q[n] === true){
@@ -80,10 +84,7 @@ bc.loader = {
 		}
 		s = m.q[n] = m.c.createElement(k[t].t);
 		var file = u[0];
-		if(bc.debug)
-			file = bc.addParamToUrl(file,"ts="+bc.ts);//首次打开主页的时间
-		else
-			file = bc.addParamToUrl(file,"ts="+bc.buildTime);//系统编译发布的时间
+		file = bc.addParamToUrl(file,"ts="+bc.ts);// 附加时间挫
 			
 		s.setAttribute(k[t].a, file);
 		// Fix: CSS links do not fire onload events - Richard Lopes
@@ -91,13 +92,16 @@ bc.loader = {
 		if (k[t].r){
 			s.setAttribute("rel", k[t].r);
 			m.q[n] = true;//强制设为true
+			clearInterval(m.i); 
+			if(logger.debugEnabled)logger.debug("loader: loading css '" + file + "'" + (l ? " and call the callback" : ""));
 			l && l(); // Call the callback function l
 		}else {
 			// When this script completes loading, it will trigger a callback function consisting of two things:
 			// 1. It will call nbl.l() with the remaining items in u[1] (if there are any)
 			// 2. It will execute the function l (if it is a function)
-			s.onload = s.onreadystatechange = function(){
-				if(logger.debugEnabled)logger.debug("loader: finished loaded '" + u[0] + "' and call the callback");
+			s.onload = function(){
+				clearInterval(m.i); 
+				if(logger.debugEnabled)logger.debug("loader: finished loaded js'" + file + "'" + (l ? " and call the callback" : ""));
 				var s = this, d = function(){
 					var s = m, r = u[1]; 
 					s.q[n] = true; // Set the entry for this script in the script-queue to true
@@ -106,12 +110,15 @@ bc.loader = {
 					s.s--
 				};
 				if ( !s.readyState || /de|te/.test( s.readyState ) ) {
-					s.onload = s.onreadystatechange = m.n; d() // On completion execute the callback function as defined above
+					s.onload = m.n;
+					s.onreadystatechange = m.n;
+					d(); // On completion execute the callback function as defined above
 				}
 			};
+			s.onreadystatechange = s.onload;
 			m.s++
 		}
-		if(logger.debugEnabled)logger.debug("loader: append '" + u[0] + "' to head");
+		if(logger.debugEnabled)logger.debug("loader: append '" + file + "' to head");
 		m.h.appendChild(s) // Add the script to the document
 	}
 };
