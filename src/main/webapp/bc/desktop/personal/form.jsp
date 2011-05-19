@@ -6,7 +6,7 @@
 	data-action='<s:url value="/bc/personal/save" />'
 	data-initMethod='bc.personal.init'
 	data-option='{
-		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
+		"buttons":[{"text":"<s:text name="label.save"/>","click":"bc.personal.save"}],
 		"minWidth":560,"minHeight":250,"modal":false
 	}'>
 	<s:form name="personalForm" theme="simple">

@@ -16,6 +16,7 @@ td.theme div {
 	overflow: hidden;
 	white-space: nowrap;
 	color: #cccccc;
+	text-align: center;
 }
 td.theme.over {
 	background-color: #0078a3;

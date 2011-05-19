@@ -239,7 +239,7 @@ bc.page = {
 		return _option;
 	},
 	/**保存表单数据，上下文为dialog的原始dom元素*/
-	save: function(option) {
+	save: function(callback) {
 		$this = $(this);
 		if(logger.debugEnabled)logger.debug("bc.page.save");
 		var url=$this.attr("data-action");
@@ -257,11 +257,15 @@ bc.page = {
 			success: function(json) {
 				if(logger.debugEnabled)logger.debug("save success.json=" + jQuery.param(json));
 				if(json.id){
-					$form.find("input[name='b.id']").val(json.id);
+					$form.find("input[name='entity.id']").val(json.id);
 				}
 				bc.msg.slide(json.msg);
 				//记录已保存状态
 				$this.attr("data-status","saved");
+				
+				//调用回调函数
+				if(typeof callback == "function")
+					callback.call($this[0],json);
 			}
 		});
 	},

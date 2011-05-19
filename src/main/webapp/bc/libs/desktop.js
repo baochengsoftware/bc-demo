@@ -91,7 +91,7 @@ bc.desktop = {
 			return false;
 		});
 
-		// 显示桌面的控制
+		// 显示隐藏桌面的控制
 		$("#quickShowHide").click(function() {
 			var $this = $(this);
 			var $dialogContainer = $("body>.ui-dialog");
@@ -104,10 +104,19 @@ bc.desktop = {
 			}
 			return false;
 		});
+		
+		// 桌面日历
+		$("#indexCalendar").datepicker({
+			showWeek: true,showButtonPanel: true,
+			firstDay: 1
+		});
 	},
 	/**重新调整桌面的布局*/
 	doResize : function() {
 		$("#desktop").height($("#layout").height() - $("#quickbar").height())
+		
+		// 桌面右侧边栏
+		$("#rightPanel").css("top",$("#quickbar").height());
 	},
 	/**双击打开桌面快捷方式*/
 	openModule: function(option) {
@@ -134,28 +143,28 @@ jQuery(function($) {
 	bc.desktop.init();
 	
 	//字体设置:初始化为14px=0.87em(浏览器默认为1em=16px)
-	var curSize = $("body").css("fontSize");
-	curSize= parseInt(curSize.replace("px","")) || 14;
-	$("#fontSize").html(curSize+"");
-	//$("body").css("fontSize", 14/16 + 'em');
-	$( "#fontSlider" ).slider({
-		value:curSize,min: 12,max: 20,step: 2,
-		slide: function( event, ui ) {
-			$("#fontSize").html(ui.value);
-			$("body").css("fontSize",ui.value + 'px');
-			logger.info(ui.value);
-			
-			//使用ajax保存数据
-			var data = "font=" + ui.value;
-			bc.ajax({
-				url: bc.root + "/bc/desktop/personalConfig/update", data: data, dataType: "json",
-				success: function(json) {
-					if(logger.debugEnabled)logger.debug("save success.json=" + jQuery.param(json));
-					bc.msg.slide(json.msg);
-				}
-			});
-		}
-	});
+//	var curSize = $("body").css("fontSize");
+//	curSize= parseInt(curSize.replace("px","")) || 14;
+//	$("#fontSize").html(curSize+"");
+//	//$("body").css("fontSize", 14/16 + 'em');
+//	$( "#fontSlider" ).slider({
+//		value:curSize,min: 12,max: 20,step: 2,
+//		slide: function( event, ui ) {
+//			$("#fontSize").html(ui.value);
+//			$("body").css("fontSize",ui.value + 'px');
+//			logger.info(ui.value);
+//			
+//			//使用ajax保存数据
+//			var data = "font=" + ui.value;
+//			bc.ajax({
+//				url: bc.root + "/bc/desktop/personalConfig/update", data: data, dataType: "json",
+//				success: function(json) {
+//					if(logger.debugEnabled)logger.debug("save success.json=" + jQuery.param(json));
+//					bc.msg.slide(json.msg);
+//				}
+//			});
+//		}
+//	});
 	
 	//主题设置
 	//$('#themeSwitcher').themeswitcher({closeOnSelect:false,height:340,root:bc.root});

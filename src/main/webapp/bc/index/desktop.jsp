@@ -88,23 +88,12 @@
 			<a class="shortcut" data-mid="m03"
 				data-type="2" data-url="/bc/duty/list"> <span class="icon i0001"></span>
 				<span class="text">职务配置</span> </a>
-			<a class="shortcut" data-mid="m03"
-				data-type="2" data-url="/bc/unit/list"> <span class="icon"></span>
-				<span class="text">单位配置</span> </a>
-			<a class="shortcut" data-mid="m03"
-				data-type="2" data-url="/bc/department/list"> <span class="icon"></span>
-				<span class="text">部门配置</span> </a>
-			<a class="shortcut" data-mid="m02"
-				data-type="2" data-url="/bc/user/list"> <span class="icon i0001"></span>
-				<span class="text">用户配置</span> </a> 
-			<a class="shortcut" data-mid="m01"
-				data-type="2" data-url="/bc/module/list"> <span class="icon"></span> <span
-				class="text">模块配置配置配置</span> </a> 
-			<a id="flyout" tabindex="0" href="#" 
-			class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all">
-			<span class="ui-icon ui-icon-triangle-1-s"></span>flyout menu</a>
 			 -->
 		</div>
+	</div>
+	<div id="rightPanel">
+		<div class="item" id="indexCalendar"></div>
+		<div class="item" id="bulletinBoard"></div>
 	</div>
 	<div id="copyrightBar"><a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a></div>
 	<div id="quickStartMenu" class="hide" style="position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden;">

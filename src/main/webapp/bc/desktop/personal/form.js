@@ -76,5 +76,11 @@ bc.personal={
 			default:
 			return "未知";
 		}
+	},
+	save:function(){
+		bc.page.save.call(this,function(json){
+			logger.info("json.id=" + json.id);
+			//$(this).find("input[name='entity.actor.id']").val(json.id);
+		});
 	}
 };

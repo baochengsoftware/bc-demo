@@ -17,7 +17,10 @@ body{
 body.ui-widget-content{
 	border-width: 0;
 }
-
+body .ui-widget-overlay {
+	opacity: .40;
+	filter: Alpha(Opacity=40);
+}
 /*加载动画*/
 #loader {
 	height: 32px;
@@ -76,7 +79,7 @@ body.ui-widget-content{
 	border-radius: 8px; 
 	cursor: default;
 	_text-align: center;/*fixed ie6:使内部内容水平居中*/
-	width:4.5em;
+	width:5.5em;
 }
 #desktop a.shortcut:HOVER{
 	border-color: green;
@@ -87,11 +90,12 @@ body.ui-widget-content{
 	background: url(images/shortcuts/shortcuts.png) no-repeat -208px -156px;
 	/*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo48.png', sizingMethod='scale');*/
 	margin: auto;
+	margin-top:2px;
 }
 #desktop a.shortcut .text{
 	margin: auto;
 	display: block;
-	width:4.1em;
+	width:5em;
 	/*color: white;*/
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -181,6 +185,7 @@ body.ui-widget-content{
 	overflow: visible;
 	z-index:100;
 	*width:150px;/*ie6,ie7*/
+	display: none;
 }
 #fontSliderContainer{
 	margin-bottom:10px;
@@ -217,6 +222,14 @@ body.ui-widget-content{
 #poweredBy span{
 	display: block;width:83px;height:34px;
 	background: url(images/poweredBy.png) 0 0 no-repeat;
+}
+#rightPanel{
+	position:absolute;
+	right:0;
+	top:50px;
+}
+#rightPanel .item{
+	margin:4px;
 }
 .imgtest{
 	display:block;
