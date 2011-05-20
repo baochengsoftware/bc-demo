@@ -4,19 +4,42 @@
 	data-action='<s:url value="/bc/unit/save" />'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
-		"minWidth":270,"width":270,"minHeight":250,"modal":false
+		"minWidth":270,"minHeight":250,"modal":false
 	}'>
-	<s:form name="unitForm">
-		<s:textfield name="entity.name" key="label.name" />
-		<s:textfield name="entity.code" key="label.code" />
-		<s:textfield name="entity.phone" key="label.phone" />
-		<s:textfield name="entity.email" key="label.email" />
-		<s:textfield name="entity.order" key="label.order" />
-
-		<s:hidden name="entity.type" value="2"/>
+	<s:form name="unitForm" theme="simple">
+		<table class="formTable" cellspacing="2">
+			<tbody>
+				<tr>
+					<td class="label"><s:text name="unit.belong"/>:</td>
+					<td class="value"><s:textfield name="belong.name" cssClass='{"field":"belong.id","required":false}' cssStyle="float:left;width:14em;"/><span id="selectUnit" class="ui-icon ui-icon-search"></span></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.name"/>:</td>
+					<td class="value"><s:textfield name="entity.name" data-validate="required"/></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.code"/>:</td>
+					<td class="value"><s:textfield name="entity.code" data-validate="required"/></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.phone"/>:</td>
+					<td class="value"><s:textfield name="entity.phone" data-validate='{"type":"phone","required":false}'/></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.email"/>:</td>
+					<td class="value"><s:textfield name="entity.email" data-validate='{"type":"email","required":false}'/></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.order"/>:</td>
+					<td class="value"><s:textfield name="entity.order"/></td>
+				</tr>
+			</tbody>
+		</table>
+		<s:hidden name="entity.type"/>
 		<s:hidden name="entity.status" />
 		<s:hidden name="entity.inner" />
 		<s:hidden name="entity.uid" />
 		<s:hidden name="entity.id" />
+		<s:hidden name="belong.id" />
 	</s:form>
 </div>

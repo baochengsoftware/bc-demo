@@ -35,19 +35,19 @@ bc.page = {
 			dataType : "html",
 			success : function(html) {
 				logger.info("success loaded html");
-//				var tc = document.getElementById("tempContainer");
-//				if(!tc){
-//					tc=$('<div id="tempContainer" class="hide"></div>').appendTo("body")[0];
-//				}
-//				tc.innerHTML=html;
+				var tc = document.getElementById("tempContainer");
+				if(!tc){
+					tc=$('<div id="tempContainer"></div>').appendTo("body")[0];
+				}
+				//tc.innerHTML=html;
 				var $dom = $(html);
 				if($dom.size() > 1){
 					//logger.error("error page. try set theme='simple' for struts2 tag");
-					alert("error page dom. try set theme='simple' for struts2 tag");
+					alert("error page dom. try set theme='simple' for struts2 tag: size=" + $dom.size());
 				}
 				function _init(){
 					//从dom构建并显示桌面组件
-					var cfg = jQuery.parseJSON($dom.attr("data-option"));	
+					var cfg = jQuery.parseJSON($dom.attr("data-option"));
 					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog";
 					//cfg.callback=option.callback || null;//传入该窗口关闭后的回调函数
 					$dom.dialog(bc.page._rebuildWinOption.call($dom,cfg));
@@ -385,11 +385,13 @@ bc.validator = {
 	 * 6) date 日期 TODO
 	 * 7) datetime 日期时间 TODO
 	 * 8) time 时间 TODO
+	 * 9) phone 电话号码
 	 * min的值控制数字的最小值
 	 * max的值控制数字的最大值
 	 * minLen的值控制字符串的最小长度(中文按两个字符长度计算)
 	 * maxLen的值控制字符串的最大长度(中文按两个字符长度计算)
 	 * 如果无需配置其他属性，type的值可以直接配置为validate的值，如<input ... data-validate="number"/>
+	 * required的值控制是否必须填写true|false
 	 * @$form 表单form的jquery对象
 	 */
 	validate: function($form) {
@@ -400,15 +402,23 @@ bc.validator = {
 			if(logger.infoEnabled)
 				logger.info(this.nodeName + "," + this.name + "," + this.value + "," + validate);
 			if(validate && $.trim(validate).length > 0){
-				if(!/^\{/.test(validate)){
-					validate = "{type:'" + validate + "'}";
+				if(!/^\{/.test(validate)){//不是以字符{开头
+					validate = '{"required":true,"type":"' + validate + '"}';//默认必填
 				}
-				validate = eval("(" + validate + ")");
+				logger.info("-01--"+validate.type);
+				validate = jQuery.parseJSON(validate);
+				logger.info("-02--"+validate.type);
 				var method = bc.validator.methods[validate.type];
 				if(method){
-					ok = method.call(validate, this, $form);
-					if(!ok){//验证不通过，增加界面的提示
-						bc.validator.remind(this,validate.type);
+					logger.info("-1--"+validate.type);
+					var value = $(this).val();
+					logger.info("-2--"+validate.type);
+					if(validate.required || (value && value.length > 0)){//必填或有值时
+						logger.info("-3--"+validate.type);
+						ok = method.call(validate, this, $form);
+						if(!ok){//验证不通过，增加界面的提示
+							bc.validator.remind(this,validate.type);
+						}
 					}
 					return ok;
 				}else{
@@ -439,6 +449,12 @@ bc.validator = {
 		number: function(element) {
 			return /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(element.value);
 		},
+		/**电话号码与手机号码同时验证
+		 * 匹配格式：11位手机号码;3-4位区号、7-8位直播号码、1－4位分机号
+		 */
+		phone: function(element) {
+			return /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(element.value);
+		},
 		/**正数*/
 		digits: function(element) {
 			return /^\d+$/.test(element.value);
@@ -458,6 +474,10 @@ bc.validator = {
 		/**最大值*/
 		max: function(element) {
 			return element.value <= this.maxValue;
+		},
+		/**email*/
+		email: function(element) {
+			return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(element.value);
 		}
 	},
 	/**
@@ -470,11 +490,14 @@ bc.validator = {
 	},
 	messages:{
 		required:"这里必须填写哦！",
-		number: "这里必须填写数字哦！",
-		digits: "这里必须填写整数哦！",
-		email: "请输入正确格式的电子邮件",
-		url: "请输入正确格式的网址",
-		date: "请输入正确格式的日期",
+		number: "这里必须填写数字哦！<br>如 12、1.2。",
+		digits: "这里必须填写整数哦！<br>如 12。",
+		email: "请输入正确格式的电子邮件！<br>如 bc@163.com。",
+		phone: "请输入正确格式的电话号码！<br>如 13011112222、88887777、88887777-800、020-88887777-800。",
+		url: "请输入正确格式的网址！<br>如 http://www.google.com。",
+		date: "请输入正确格式的日期！<br>如 2011-01-01。",
+		datetime: "请输入正确格式的日期时间！<br>如 2011-01-01 13:30。",
+		time: "请输入正确格式的时间！<br>如 13:30。",
 		maxLen: "这里至少需要输入 {0}个字符！",
 		minLen: "这里最多只能输入 {0}个字符！",
 		max: "这个值不能小于 {0}！",

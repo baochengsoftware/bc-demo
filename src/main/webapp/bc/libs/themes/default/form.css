@@ -1,0 +1,39 @@
+/**
+ * 表单样式
+ *
+ * @author rongjihuang@gmail.com
+ * @date 2011-05-20
+ */
+table.formTable {
+	table-layout: fixed;/**/
+	border-spacing: 0;
+	background: none;
+	padding:0;
+	margin:0;
+	cursor: default;
+}
+
+table.formTable td.label{
+	text-align: right;
+	vertical-align: middle;
+	min-width: 6em;
+	_width: 6em;
+}
+
+table.formTable td.top{
+	vertical-align: top;
+}
+
+table.formTable td.value{
+	text-align: left;
+}
+
+table.formTable td.value input{
+	width: 15em;
+}
+table.formTable td.value .ui-icon{
+	float: left;
+	margin-top: 4px;
+}
+
+
