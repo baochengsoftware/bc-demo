@@ -72,3 +72,33 @@ body {
 .bc-slide .ui-widget-content {
 	cursor: default;
 }
+.clickToSelect{
+	cursor: pointer;	
+}
+.bc-toolbar{
+	position:relative;
+	padding:0.2em;
+}
+.bc-buttonGroup,.bc-separatorButton,.bc-searchButton{
+	display: inline-block;	
+}
+.bc-toolbar .ui-button-text{
+	/*padding-top: 0.2em;
+	padding-bottom: 0.2em;*/
+}
+.bc-searchButton{
+	position: absolute;
+	top: 0.4em;
+	right: 0.4em;
+}
+.bc-searchButton a{
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+	left: 0.12em;
+}
+.bc-searchButton input{
+	padding-left: 1.4em;
+	width: 180px;
+}
+

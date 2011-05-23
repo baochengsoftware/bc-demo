@@ -189,6 +189,15 @@ bc.page = {
 				logger.profile("do local sort");
 			}
 		});
+		
+		//工具条按钮控制
+		$("button.bc-button").live("mouseover", function() {
+			$(this).addClass("ui-state-hover");
+		}).live("mouseout", function() {
+			$(this).removeClass("ui-state-hover");
+		}).live("click", function() {
+			logger.info("click bc-button");
+		});
 	},
 	/**重新加载窗口的内容部分
 	 * @param option url,data,callback

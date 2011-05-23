@@ -6,25 +6,25 @@
 	data-js='<s:url value="/bc/identity/unit/select.js" />'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.ok"/>","click":"bc.unit.select.ok"}],
-		"minWidth":200,"minHeight":250,"height":400,"modal":true
+		"minHeight":250,"height":400,"modal":true
 	}'>
-	<table class="selectUnit" cellspacing="0">
+	<table class="list selectUnit" cellspacing="0">
 		<thead class="ui-widget-header">
 			<tr class='row'>
 				<td class="first id"><span class="ui-icon ui-icon-info"></span>
 				</td>
-				<td class="middle"><s:text name="unit.name" />
+				<td class="middle"><s:text name="actor.name" />
 				</td>
-				<td class="middle" style="width:80px"><s:text name="unit.phone" />
+				<td class="middle" style="width:80px"><s:text name="actor.phone" />
 				</td>
-				<td class="last" style="width:80px"><s:text name="unit.email" />
+				<td class="last" style="width:80px"><s:text name="actor.email" />
 				</td>
 			</tr>
 		</thead>
 		<tbody>
 			<s:iterator value="entities" status="stuts">
 				<tr class='ui-state-default row <s:if test="#stuts.odd == true"> odd</s:if>'>
-					<td class="first id" data-id='<s:property value="id" />'><span class="ui-icon"></span><s:property value="#stuts.index+1" /></td>
+					<td class="first id" data-id='<s:property value="id" />'><span class="ui-icon "></span><s:property value="#stuts.index+1" /></td>
 					<td class="middle"><s:property value="name" /></td>
 					<td class="middle"><s:property value="phone" /></td>
 					<td class="last"><s:property value="email" /></td>

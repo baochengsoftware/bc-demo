@@ -11,7 +11,9 @@
 			<tbody>
 				<tr>
 					<td class="label"><s:text name="unit.belong"/>:</td>
-					<td class="value"><s:textfield name="belong.name" cssClass='{"field":"belong.id","required":false}' cssStyle="float:left;width:14em;"/><span id="selectUnit" class="ui-icon ui-icon-search"></span></td>
+					<td class="value"><s:textfield name="belong.name" cssClass='{"field":"belong.id","required":false}' 
+					cssStyle="float:left;width:14em;"/><span id="selectUnit" class="clickToSelect ui-icon ui-icon-search" 
+					title='<s:text name="title.select"/>'></span></td>
 				</tr>
 				<tr>
 					<td class="label"><s:text name="label.name"/>:</td>
