@@ -51,12 +51,16 @@ body {
 /**修改字体*/
 .ui-widget {font-family: "微软雅黑", "宋体", sans-serif;}
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {font-family: "微软雅黑", "宋体", sans-serif;}
-/**修改对话框
+/**修改对话框*/
 .bc-ui-dialog {padding: 0;}
 .bc-ui-dialog .ui-widget-header {border-width: 0;}
-.bc-ui-dialog .ui-widget-header.ui-corner-all {border-radius: 0;}*/
+.bc-ui-dialog .ui-widget-header.ui-corner-all {border-bottom-right-radius: 0;border-bottom-left-radius: 0;}
 .bc-ui-dialog .ui-dialog-content {
-	padding: 2px 0;
+	padding: 0;
+	margin: 0 8px 8px 8px;
+}
+.bc-ui-dialog .bc-toolbar.ui-widget-content  {
+	border-bottom:0;
 }
 
 .bc-slide {
@@ -75,6 +79,23 @@ body {
 .clickToSelect{
 	cursor: pointer;	
 }
+
+
+.bc-content,.bc-content.ui-dialog-content{
+	overflow: hidden;
+}
+.bc-autoScroll{
+	overflow: auto;
+}
+.bc-autoScroll-x{
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.bc-autoScroll-y{
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
 .bc-toolbar{
 	position:relative;
 	padding:0.2em;

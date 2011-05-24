@@ -48,7 +48,7 @@ bc.page = {
 				function _init(){
 					//从dom构建并显示桌面组件
 					var cfg = jQuery.parseJSON($dom.attr("data-option"));
-					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog";
+					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog ui-widget-header";
 					//cfg.callback=option.callback || null;//传入该窗口关闭后的回调函数
 					$dom.dialog(bc.page._rebuildWinOption.call($dom,cfg));
 					$dom.bind("dialogclose",function(event,ui){
@@ -64,8 +64,29 @@ bc.page = {
 						logger.debug("dialogfocus");
 						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']")
 						.toggleClass("ui-state-active",true).siblings().toggleClass("ui-state-active",false);
+					})
+					.bind("dialogresize", function(event, ui) {
+						logger.debug("dialogresize");
+						bc.page.resizeWinContent.call($dom);
 					});
 					//.disableSelection();这个会导致表单中输入框部分浏览器无法获取输入焦点
+					
+					var $grid = $dom.find(".bc-grid");
+					if($grid.size()){//表格的额外处理
+						//滚动条处理
+						$grid.find(".data .right").scroll(function(){
+							//logger.info("scroll");
+							$dom.find(".data .left").scrollTop($(this).scrollTop());
+							$dom.find(".header .right").scrollLeft($(this).scrollLeft());
+						});
+						//记录表格的原始宽度
+						var $data_table = $grid.find(".data .right .table");
+						var originWidth = $data_table.width();
+						$data_table.data("originWidth", originWidth);
+						
+						//触发一下对话框的resize事件
+						$dom.trigger("dialogresize");
+					}
 					
 					//初始化表单或列表中的元数据信息：表单验证、列表的行操作处理
 					//bc.page.innerInit.call($dom[0]);
@@ -101,6 +122,45 @@ bc.page = {
 				}
 			}
 		});
+	},
+	/**
+	 * 改变对话框大小时的处理，上下文为当前对话框内容的jquery对象
+	 */
+	resizeWinContent: function() {
+		var $grid = this.find(".bc-grid");
+		if($grid.size()){//表格的额外处理
+			//data宽度
+			var $data_right = $grid.find(".data .right");
+			var $header_right = $grid.find(".header .right");
+			var sw = 0, sh = 0 ;
+			if($.support.boxModel){
+				sw = $grid.outerWidth()-$grid.width();
+				sh = $grid.outerHeight()-$grid.height();
+			}
+			$data_right.width(this.width()-$grid.find(".data .left").width()-sw);
+			var $data_table = $data_right.find(".table");
+			var originWidth = $data_table.data("originWidth");//原始宽度
+			var newTableWidth = Math.max(originWidth,$data_right[0].clientWidth);
+			$data_table.width(newTableWidth);
+			$header_right.find(".table").width(newTableWidth);
+			
+			//header宽度(要减去data区的垂直滚动条宽度)
+			$header_right.width($data_right[0].clientWidth);
+			
+			//其他元素高度累计
+			var otherHeight = 0;
+			$grid.siblings().each(function(){
+				otherHeight += $(this).outerHeight(true);//累计表格兄弟的高度
+			});
+			$grid.height(this.height()-otherHeight-sh);//重设表格的高度
+			$data_right.parent().siblings().each(function(){
+				otherHeight += $(this).outerHeight(true);//再累计表格头和分页条的高度
+			});
+			
+			//data高度(id列要减去data区的水平滚动条高度)
+			$data_right.height(this.height()-otherHeight - sh);
+			$grid.find(".data .left").height($data_right[0].clientHeight);
+		}
 	},
 	/**
 	 * 初始化表单或列表中的元数据信息：表单验证、列表的行操作处理
@@ -244,6 +304,7 @@ bc.page = {
 				if(typeof btn.click == "string")
 					btn.click = bc.getNested(btn.click);
 			}
+			delete _option.buttons;
 		}
 		return _option;
 	},
