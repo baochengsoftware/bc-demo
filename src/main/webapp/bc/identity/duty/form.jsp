@@ -7,7 +7,7 @@
 		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
 		"minWidth":400,"minHeight":250,"modal":false
 	}'>
-	<s:form name="dutyForm">
+	<s:form name="dutyForm" cssClass="ui-widget-content bc-form">
 		<s:textfield name="b.name" key="duty.name" data-validate="required"/>
 		<s:textfield name="b.code" key="duty.code" data-validate="required" />
 		

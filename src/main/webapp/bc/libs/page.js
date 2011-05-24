@@ -52,7 +52,7 @@ bc.page = {
 					//cfg.callback=option.callback || null;//传入该窗口关闭后的回调函数
 					$dom.dialog(bc.page._rebuildWinOption.call($dom,cfg));
 					$dom.bind("dialogclose",function(event,ui){
-						logger.debug("dialogclose");
+						//logger.debug("dialogclose");
 						//调用回调函数
 						if(option.callback) option.callback($dom.attr("data-status"));
 						
@@ -61,12 +61,12 @@ bc.page = {
 						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']").unbind().remove();
 					}).attr("data-src",option.url).attr("data-mid",option.mid)
 					.bind("dialogfocus", function(event, ui) {
-						logger.debug("dialogfocus");
+						//logger.debug("dialogfocus");
 						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']")
 						.toggleClass("ui-state-active",true).siblings().toggleClass("ui-state-active",false);
 					})
 					.bind("dialogresize", function(event, ui) {
-						logger.debug("dialogresize");
+						//logger.debug("dialogresize");
 						bc.page.resizeWinContent.call($dom);
 					});
 					//.disableSelection();这个会导致表单中输入框部分浏览器无法获取输入焦点
@@ -86,6 +86,9 @@ bc.page = {
 						
 						//触发一下对话框的resize事件
 						$dom.trigger("dialogresize");
+						
+						//禁止选择文字
+						$grid.disableSelection();
 					}
 					
 					//初始化表单或列表中的元数据信息：表单验证、列表的行操作处理
@@ -168,25 +171,35 @@ bc.page = {
 	 */
 	innerInit: function() {
 		//单击行切换样式
-		jQuery("table.list>tbody>tr.row").live("click",function(){
-			$(this).toggleClass("ui-state-focus").find("td.id>span.ui-icon").toggleClass("ui-icon-check");
+		jQuery(".bc-grid>.data>.right tr.row").live("click",function(){
+			var $this = $(this);
+			var index = $this.toggleClass("ui-state-focus").index();
+			$this.parents(".right").prev()
+				.find("tr.row:eq("+index+")").toggleClass("ui-state-focus")
+				.find("td.id>span.ui-icon").toggleClass("ui-icon-check");
 		});
 		
 		//双击行执行编辑
-		jQuery("table.list>tbody>tr.row").live("dblclick",function(){
-			var $this = $(this).toggleClass("ui-state-focus",true);
-			$this.find("td.id>span.ui-icon").toggleClass("ui-icon-check",true);
-			$this.siblings().removeClass("ui-state-focus").find("td.id>span.ui-icon").removeClass("ui-icon-check");
+		jQuery(".bc-grid>.data>.right tr.row").live("dblclick",function(){
+			var $this = $(this);
+			var index = $this.toggleClass("ui-state-focus",true).index();
+			var $row = $this.parents(".right").prev()
+				.find("tr.row:eq("+index+")").add(this);
+			$row.toggleClass("ui-state-focus",true)
+				.siblings().removeClass("ui-state-focus")
+				.find("td.id>span.ui-icon").removeClass("ui-icon-check");
+			$row.find("td.id>span.ui-icon").toggleClass("ui-icon-check",true);
+
 			var $content = $this.parents(".ui-dialog-content");
 			//alert($content.html());
 			bc.page.edit.call($content);
 		});
 		
 		//全选与反选
-		jQuery("table.list>thead>tr.row>td.id>span.ui-icon").live("click",function(){
-			var $this = $(this).toggleClass("ui-icon-info ui-icon-circle-check");
-			var check = $this.hasClass("ui-icon-circle-check");
-			$this.parents("table.list").find(">tbody>tr.row")
+		jQuery(".bc-grid>.header td.id>span.ui-icon").live("click",function(){
+			var $this = $(this).toggleClass("ui-icon-notice ui-icon-check");
+			var check = $this.hasClass("ui-icon-check");
+			$this.parents(".header").next().find("tr.row")
 			.toggleClass("ui-state-focus",check)
 			.find("td.id>span.ui-icon").toggleClass("ui-icon-check",check);
 		});
@@ -391,11 +404,11 @@ bc.page = {
 	},
 	/**编辑*/
 	edit: function(){
-		logger.info("bc.page.edit");
+		//logger.info("bc.page.edit");
 		var $this = $(this);
 		var url = $this.attr("data-action-edit");
 		logger.info("bc.page.edit: url=" + url);
-		var $tds = $("table.list>tbody>tr.ui-state-focus>td.id",$this);
+		var $tds = $this.find(".bc-grid>.data>.left tr.ui-state-focus>td.id");
 		if($tds.length == 1){
 			var data = "id=" + $tds.attr("data-id");
 			if(logger.infoEnabled) logger.info("bc.page.edit: data=" + data);

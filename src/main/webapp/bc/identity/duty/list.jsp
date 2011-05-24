@@ -40,7 +40,7 @@
 				<table class="table" cellspacing="0" cellpadding="0">
 					<tbody>
 						<tr class='ui-state-default row'>
-							<td class="id"><span class="ui-icon ui-icon-info"></span>
+							<td class="id" title='<s:text name="title.toggleSelect"/>'><span class="ui-icon ui-icon-notice"></span>
 							</td>
 						</tr>
 					</tbody>

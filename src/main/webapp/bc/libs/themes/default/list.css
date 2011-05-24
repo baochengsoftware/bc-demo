@@ -54,11 +54,11 @@ table.table{
 .bc-grid .data .right{
 	overflow: auto;
 	height: 100px;
-	width: 200px;
+	/*width: 200px;*/
 }
 .bc-grid .header .right{
 	overflow: hidden;
-	width: 183px;
+	/*width: 183px;*/
 }
 .bc-grid .header.ui-state-default{
 	border: 0;
@@ -104,7 +104,7 @@ table.table{
 .bc-grid td.id span.ui-icon{
 	display:none;
 }
-.bc-grid td.id span.ui-icon-check{
+.bc-grid td.id span.ui-icon-check,.bc-grid td.id span.ui-icon-notice{
 	display:inline-block;
 	*display:block;/*ie6,ie7*/
 	*float: left;/*ie6,ie7*/
