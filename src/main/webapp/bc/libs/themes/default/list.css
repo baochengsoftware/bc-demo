@@ -31,13 +31,22 @@ table.table{
 /**表格数据列表*/
 .bc-grid .data {
 	position: relative;
-	height: 100px;
+	/*height: 100px;*/
 }
 .bc-grid .header td{
 	text-align: center;
 }
+.bc-grid .header td .wrapper{
+	position: relative;/*用于sortableIcon的定位*/
+}
 .bc-grid .header td .sortableIcon{
-	float: right;
+	position: absolute;
+	right:0;
+	top:50%;
+	margin-top: -8px;
+}
+.bc-grid .left{
+	border-right: 1px solid #ccc;
 }
 
 .bc-grid .left,.bc-grid .left table.table,.bc-grid .left table.table td.id{
@@ -49,11 +58,11 @@ table.table{
 }
 
 .bc-grid .data .left{
-	height: 83px;
+	/*height: 83px;*/
 }
 .bc-grid .data .right{
 	overflow: auto;
-	height: 100px;
+	/*height: 100px;*/
 	/*width: 200px;*/
 }
 .bc-grid .header .right{
@@ -64,16 +73,7 @@ table.table{
 	border: 0;
 }
 .bc-grid .right table.table{
-	width: 300px;
-}
-.bc-grid .leftBottomMarker{
-	/*display: none;*/
-	position: absolute;
-	left:0;
-	bottom:0;
-	width:40px;
-	height:17px;
-	background-color: blue;
+	/*width: 300px;*/
 }
 
 .bc-grid td.first,.bc-grid td.middle,.bc-grid td.last,.bc-grid td.empty,.bc-grid td.id{
@@ -99,7 +99,7 @@ table.table{
 	height:1.8em;
 }
 .bc-grid td.id{
-	border-right: 1px solid #ccc;
+	/*border-right: 1px solid #ccc;*/
 }
 .bc-grid td.id span.ui-icon{
 	display:none;
@@ -113,8 +113,55 @@ table.table{
 	margin:auto;/*现代浏览器居中处理*/
 }
 .bc-grid .pager{
-	float:left;
-	clear:left;
-	display: none;
+	clear: both;
+	padding: 0.2em;
+}
+.bc-grid .pager.ui-widget-content{
+	border-left-width:0;
+	border-right-width:0;
+	border-bottom-width:0;
 }
 
+.bc-grid .pager {
+	display: block;
+	margin: 0;
+	padding: 0;
+	clear: both;
+}
+.bc-grid .pager li {
+	position: relative;
+	margin: 2px;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
+}
+.bc-grid .pager li span.ui-icon {
+	float: left;
+	margin: 0 4px;
+}
+.bc-grid .pager .pagerIconGroup{
+	padding: 2px 2px;
+}
+.bc-grid .pager .pagerIconGroup a.pagerIcon{
+	margin: 0;
+	border: 0;
+}
+.bc-grid .pager .pagerIconGroup span.ui-icon{
+	margin: 2px;
+}
+.bc-grid .pager li span.pageNo,.bc-grid .pager li span.pageSize {
+	float: left;
+	height: 16px;
+	font-size: 12px;
+}
+.bc-grid .pager li span.pageNo {
+	margin: 2px 4px;
+}
+.bc-grid .pager li span.pageSize {
+	margin: 2px 4px;
+}
+.bc-grid .pager li a {
+	float: left;
+	display: block;
+}

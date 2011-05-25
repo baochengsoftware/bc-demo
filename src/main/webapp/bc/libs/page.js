@@ -48,7 +48,7 @@ bc.page = {
 				function _init(){
 					//从dom构建并显示桌面组件
 					var cfg = jQuery.parseJSON($dom.attr("data-option"));
-					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog ui-widget-header";
+					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog";// ui-widget-header";
 					//cfg.callback=option.callback || null;//传入该窗口关闭后的回调函数
 					$dom.dialog(bc.page._rebuildWinOption.call($dom,cfg));
 					$dom.bind("dialogclose",function(event,ui){
@@ -64,31 +64,12 @@ bc.page = {
 						//logger.debug("dialogfocus");
 						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']")
 						.toggleClass("ui-state-active",true).siblings().toggleClass("ui-state-active",false);
-					})
-					.bind("dialogresize", function(event, ui) {
-						//logger.debug("dialogresize");
-						bc.page.resizeWinContent.call($dom);
 					});
 					//.disableSelection();这个会导致表单中输入框部分浏览器无法获取输入焦点
 					
 					var $grid = $dom.find(".bc-grid");
 					if($grid.size()){//表格的额外处理
-						//滚动条处理
-						$grid.find(".data .right").scroll(function(){
-							//logger.info("scroll");
-							$dom.find(".data .left").scrollTop($(this).scrollTop());
-							$dom.find(".header .right").scrollLeft($(this).scrollLeft());
-						});
-						//记录表格的原始宽度
-						var $data_table = $grid.find(".data .right .table");
-						var originWidth = $data_table.width();
-						$data_table.data("originWidth", originWidth);
-						
-						//触发一下对话框的resize事件
-						$dom.trigger("dialogresize");
-						
-						//禁止选择文字
-						$grid.disableSelection();
+						bc.grid.init($dom);
 					}
 					
 					//初始化表单或列表中的元数据信息：表单验证、列表的行操作处理
@@ -127,150 +108,12 @@ bc.page = {
 		});
 	},
 	/**
-	 * 改变对话框大小时的处理，上下文为当前对话框内容的jquery对象
-	 */
-	resizeWinContent: function() {
-		var $grid = this.find(".bc-grid");
-		if($grid.size()){//表格的额外处理
-			//data宽度
-			var $data_right = $grid.find(".data .right");
-			var $header_right = $grid.find(".header .right");
-			var sw = 0, sh = 0 ;
-			if($.support.boxModel){
-				sw = $grid.outerWidth()-$grid.width();
-				sh = $grid.outerHeight()-$grid.height();
-			}
-			$data_right.width(this.width()-$grid.find(".data .left").width()-sw);
-			var $data_table = $data_right.find(".table");
-			var originWidth = $data_table.data("originWidth");//原始宽度
-			var newTableWidth = Math.max(originWidth,$data_right[0].clientWidth);
-			$data_table.width(newTableWidth);
-			$header_right.find(".table").width(newTableWidth);
-			
-			//header宽度(要减去data区的垂直滚动条宽度)
-			$header_right.width($data_right[0].clientWidth);
-			
-			//其他元素高度累计
-			var otherHeight = 0;
-			$grid.siblings().each(function(){
-				otherHeight += $(this).outerHeight(true);//累计表格兄弟的高度
-			});
-			$grid.height(this.height()-otherHeight-sh);//重设表格的高度
-			$data_right.parent().siblings().each(function(){
-				otherHeight += $(this).outerHeight(true);//再累计表格头和分页条的高度
-			});
-			
-			//data高度(id列要减去data区的水平滚动条高度)
-			$data_right.height(this.height()-otherHeight - sh);
-			$grid.find(".data .left").height($data_right[0].clientHeight);
-		}
-	},
-	/**
 	 * 初始化表单或列表中的元数据信息：表单验证、列表的行操作处理
 	 * 上下文为插入到对话框中的元素
+	 * TODO 迁移到分散的组件文件中各自定义
 	 */
 	innerInit: function() {
-		//单击行切换样式
-		jQuery(".bc-grid>.data>.right tr.row").live("click",function(){
-			var $this = $(this);
-			var index = $this.toggleClass("ui-state-focus").index();
-			$this.parents(".right").prev()
-				.find("tr.row:eq("+index+")").toggleClass("ui-state-focus")
-				.find("td.id>span.ui-icon").toggleClass("ui-icon-check");
-		});
-		
-		//双击行执行编辑
-		jQuery(".bc-grid>.data>.right tr.row").live("dblclick",function(){
-			var $this = $(this);
-			var index = $this.toggleClass("ui-state-focus",true).index();
-			var $row = $this.parents(".right").prev()
-				.find("tr.row:eq("+index+")").add(this);
-			$row.toggleClass("ui-state-focus",true)
-				.siblings().removeClass("ui-state-focus")
-				.find("td.id>span.ui-icon").removeClass("ui-icon-check");
-			$row.find("td.id>span.ui-icon").toggleClass("ui-icon-check",true);
 
-			var $content = $this.parents(".ui-dialog-content");
-			//alert($content.html());
-			bc.page.edit.call($content);
-		});
-		
-		//全选与反选
-		jQuery(".bc-grid>.header td.id>span.ui-icon").live("click",function(){
-			var $this = $(this).toggleClass("ui-icon-notice ui-icon-check");
-			var check = $this.hasClass("ui-icon-check");
-			$this.parents(".header").next().find("tr.row")
-			.toggleClass("ui-state-focus",check)
-			.find("td.id>span.ui-icon").toggleClass("ui-icon-check",check);
-		});
-		
-		//列表的排序
-		jQuery("table.list>thead>tr.row>td.sortable").live("click",function(){
-			//标记当前列出与排序状态
-			var $this = $(this).toggleClass("current",true);
-			
-			//将其他列的排序去除
-			$this.siblings(".current").removeClass("current")
-			.find("span.ui-icon").addClass("hide");
-			
-			var $icon = $this.find("span.ui-icon");
-			//切换排序图标
-			var dir = 0;
-			if($icon.hasClass("ui-icon-triangle-1-n")){//正序
-				$icon.removeClass("hide ui-icon-triangle-1-n").addClass("ui-icon-triangle-1-s");
-				dir = -1;
-			}else if($icon.hasClass("ui-icon-triangle-1-s")){//逆序
-				$icon.removeClass("hide ui-icon-triangle-1-s").addClass("ui-icon-triangle-1-n");
-				dir = 1;
-			}else{
-				$icon.removeClass("hide").addClass("ui-icon-triangle-1-s");//逆序
-			}
-			
-			//排序列表中的行
-			var $table = $this.parents("table.list").find(">tbody");//要排序的表格
-			var tdIndex = this.cellIndex;//要排序的列索引
-			var remoteSort = $table.attr("remoteSort") === "true";//是否远程排序，默认本地排序
-			if(remoteSort){//远程排序
-				logger.profile("do remote sort");
-				//TODO
-				
-				logger.profile("do remote sort");
-			}else{//本地排序
-				logger.profile("do local sort");
-				var tbody = $table[0];
-				var rows = tbody.rows;
-				var trs = new Array(rows.length);
-				for(var i=0;i<trs.length;i++){
-					trs[i]=rows[i];//rows(i)
-				}
-				//数组排序
-				trs.sort(function(tr1,tr2){
-					var v1 = tr1.cells[tdIndex].innerHTML;
-					var v2 = tr2.cells[tdIndex].innerHTML;
-					//logger.info(v1.localeCompare(v2) + ";" + v1 + ";" + v2);
-					return dir * v1.localeCompare(v2);
-				});
-				//交换表格的行到新的顺序
-				var t = [];
-				for(var i=0;i<trs.length;i++){
-					t.push(trs[i].outerHTML);
-				}
-				$table.html(t.join(""));
-				
-				//logger.info(typeof tbody.moveRow);
-				//logger.info(typeof $this.parents("table.list")[0].moveRow);
-				logger.profile("do local sort");
-			}
-		});
-		
-		//工具条按钮控制
-		$("button.bc-button").live("mouseover", function() {
-			$(this).addClass("ui-state-hover");
-		}).live("mouseout", function() {
-			$(this).removeClass("ui-state-hover");
-		}).live("click", function() {
-			logger.info("click bc-button");
-		});
 	},
 	/**重新加载窗口的内容部分
 	 * @param option url,data,callback
@@ -317,7 +160,7 @@ bc.page = {
 				if(typeof btn.click == "string")
 					btn.click = bc.getNested(btn.click);
 			}
-			delete _option.buttons;
+			//delete _option.buttons;
 		}
 		return _option;
 	},

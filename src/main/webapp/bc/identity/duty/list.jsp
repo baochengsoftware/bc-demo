@@ -4,37 +4,31 @@
 	data-type='list' data-action-delete='<s:url value="/bc/duty/delete" />'
 	data-action-edit='<s:url value="/bc/duty/edit" />'
 	data-action-create='<s:url value="/bc/duty/create" />'
-	data-option='{
-		"buttons":[
-			{"text":"<s:text name="label.delete"/>","action":"delete"},
-			{"text":"<s:text name="label.edit"/>","action":"edit"},
-			{"text":"<s:text name="label.create"/>","action":"create"}
-		],"minWidth":350,"width":500,"minHeight":200,"height":400,"modal":false
-	}'>
-	<div class="ui-widget-content bc-toolbar">
+	data-option='{"minWidth":250,"width":500,"minHeight":200,"height":400,"modal":false}'>
+	<div class="bc-toolbar ui-widget-content">
 		<button
 			class="bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary {}"
 			data-action="create">
-			<span class="ui-button-icon-primary ui-icon ui-icon-locked"></span><span
+			<span class="ui-button-icon-primary ui-icon ui-icon-document"></span><span
 				class="ui-button-text">新建</span>
 		</button>
 		<button
-			class="bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only {}"
+			class="bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary {}"
 			data-action="edit">
+			<span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span>
 			<span class="ui-button-text">编辑</span>
 		</button>
-		<span class="bc-separatorButton ui-icon ui-icon-grip-dotted-vertical"></span>
 		<button
 			class="bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary {}"
 			data-action="delete">
-			<span class="ui-button-icon-primary ui-icon ui-icon-unlocked"></span><span
+			<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span><span
 				class="ui-button-text">删除</span>
 		</button>
 		<span class="bc-searchButton"><a href="#"
 			class="ui-icon ui-icon-search"></a><input type="text">
 		</span>
 	</div>
-	<div class="ui-widget-content bc-grid multipleSelect" name="单位" data-dblclickrow="bc.page.edit">
+	<div class="bc-grid multipleSelect" name="单位" data-dblclickrow="bc.page.edit">
 		<div class="ui-state-default header">
 			<div class="left">
 				<table class="table" cellspacing="0" cellpadding="0">
@@ -47,14 +41,18 @@
 				</table>
 			</div>
 			<div class="right">
-				<table class="table" cellspacing="0" cellpadding="0">
+				<table class="table" cellspacing="0" cellpadding="0" style="width:300px;">
 					<tbody>
 						<tr class='ui-state-default row'>
-							<td class="first" style="width: 60px"><s:text name="duty.code" />
+							<td class="first sortable" style="width: 60px">
+								<div class="wrapper"><s:text name="duty.code" />
+								<span class="sortableIcon ui-icon ui-icon-triangle-1-n"></span></div>
 							</td>
-							<td class="middle" style="width: 60px"><s:text name="duty.code" />
+							<td class="middle" style="width: 60px"><div class="wrapper"><s:text name="duty.code" /></div>
 							</td>
-							<td class="last" style="width: 100px"><s:text name="duty.name" /></td>
+							<td class="last sortable" style="width: 100px"><div class="wrapper"><s:text name="duty.name" />
+								<span class="sortableIcon ui-icon hide"></span></div>
+							</td>
 							<td class="empty">&nbsp;</td>
 						</tr>
 					</tbody>
@@ -65,7 +63,7 @@
 			<div class="left">
 				<table class="table" cellspacing="0" cellpadding="0">
 					<tbody>
-						<s:iterator value="bs" status="stuts">
+						<s:iterator value="es" status="stuts">
 							<tr
 								class='ui-state-default row <s:if test="#stuts.odd == true">odd</s:if>'>
 								<td class="id" data-id='<s:property value="id" />'
@@ -79,9 +77,9 @@
 				</table>
 			</div>
 			<div class="right">
-				<table class="table" cellspacing="0" cellpadding="0">
+				<table class="table" cellspacing="0" cellpadding="0" style="width:300px;">
 					<tbody>
-						<s:iterator value="bs" status="stuts">
+						<s:iterator value="es" status="stuts">
 							<tr
 								class='ui-state-default row <s:if test="#stuts.odd == true">odd</s:if>'>
 								<td class="first" style="width: 60px"><s:property value="code" />
@@ -96,7 +94,22 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="pager">pager</div>
 		</div>
+			<ul class="pager ui-widget-content ui-widget ui-helper-clearfix">
+				<li class="pagerIconGroup seek ui-state-default ui-corner-all">
+					<a class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first" title="首页"></span></a>
+					<a class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev" title="上一页"></span></a>
+					<span class="pageNo" title="点击选择页码">1/3</span>
+					<a class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-next" title="下一页"></span></a>
+					<a class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end" title="尾页"></span></a>
+				</li>
+				<li class="pagerIconGroup size ui-state-default ui-corner-all" title="每页显示的数量">
+					<a class="pagerIcon ui-state-default ui-state-active ui-corner-all"><span class="pageSize">25</span></a>
+					<a class="pagerIcon ui-state-default ui-corner-all"><span class="pageSize">50</span></a>
+					<a class="pagerIcon ui-state-default ui-corner-all"><span class="pageSize">100</span></a>
+				</li>
+				<li class="pagerIcon ui-state-default ui-corner-all" title="导出"><span class="ui-icon ui-icon-transferthick-e-w"></span></li>
+				<li class="pagerIcon ui-state-default ui-corner-all" title="打印"><span class="ui-icon ui-icon-print"></span></li>
+			</ul>
 	</div>
 </div>

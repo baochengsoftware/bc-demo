@@ -107,7 +107,8 @@ bc.desktop = {
 		
 		// 桌面日历
 		$("#indexCalendar").datepicker({
-			showWeek: true,showButtonPanel: true,
+			showWeek: true,
+			//showButtonPanel: true,//现时今天按钮
 			firstDay: 1
 		});
 	},

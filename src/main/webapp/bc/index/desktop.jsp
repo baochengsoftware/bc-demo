@@ -10,7 +10,7 @@
 <head>
 <title><s:text name="app.title" /></title>
 <script type="text/javascript">var ts = "<s:text name="app.ts" />";</script>
-<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/1.8.11/themes/%{personalConfig.theme}/jquery.ui.all.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/1.8.13/themes/%{personalConfig.theme}/jquery.ui.all.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/core.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/desktop.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/shortcuts.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
@@ -131,19 +131,21 @@
 
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery/1.5.1/jquery.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery/plugins/metadata/jquery.metadata.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
-	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.11/i18n/jquery-ui-i18n.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
-	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.11/jquery-ui.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.13/ui/minified/i18n/jquery-ui-i18n.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.13/ui/minified/jquery-ui.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/window.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/list.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/ui.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/boxPointer.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/loader.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<s:if test='{getText("app.debug") == "true"}'>
 	<link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/logger.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 	<script type="text/javascript" src="<s:url value='/bc/libs/logger.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/debug.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	</s:if>
 	<s:else>
 	<script type="text/javascript">
