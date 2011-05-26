@@ -107,6 +107,48 @@ bc.grid = {
 		//tbody.innerHTML = t.join("");//ie中不支持，tbody的innerHTML为只读
 		
 		return trs;//返回排好序的tr列表
+	},
+	/**重新加载表格的数据部分
+	 * @param $page 页面dom的jquery对象
+	 * @param option 特殊配置参数
+	 * @option url 加载数据的url
+	 * @option data 请求将附加的数据
+	 */
+	reloadData: function($page,option) {
+		option = option || {};
+		var url=option.url || $page.attr("data-namespace") + "/data";
+		logger.info("reloadWin:loading grid data from url=" + url);
+		
+		var data = option.data || {};
+		
+		//附加分页参数
+		var $pager = $page.find("ul.pager");
+		if($pager.size()){
+			data["page.pageNo"] = $pager.find("#pageNo").text();
+			data["page.pageSize"] = $pager.find("li.size>a.ui-state-active>span.pageSize").text();
+		}
+		
+		// TODO 附加搜索条件的参数
+		
+		//重新加载数据
+		bc.ajax({
+			url : url, data: data,
+			dataType : "html",
+			success : function(html) {
+				var $data = $page.find(".bc-grid .data");
+				$data.empty().append(html);
+				bc.grid.init($page);
+				
+				//如果总页数变了，就更新一下
+				var newPageCount = $data.find(".left").attr("data-pageCount");
+				if(newPageCount){
+					var $pageCount = $page.find("#pageCount");
+					if($pageCount.text() != newPageCount)
+						$pageCount.text(newPageCount);
+					//logger.info(newPageCount + "," + $pageCount.text());
+				}
+			}
+		});
 	}
 }
 
@@ -122,12 +164,58 @@ $("ul li.pagerIcon").live("click", function() {
 });
 //点击分页按钮
 $("ul li.pagerIconGroup.seek>.pagerIcon").live("click", function() {
-	logger.info("click seek.pagerIcon");
+	var $this = $(this);
+	var $seek = $this.parent();
+	var $pageNo = $seek.find("#pageNo");
+	var curPageNo = parseInt($pageNo.text());
+	var curPageCount = parseInt($seek.find("#pageCount").text());
+	
+	var reload = false;
+	switch (this.id){
+	case "toFirstPage"://首页
+		if(curPageNo > 1){
+			$pageNo.text(1);
+			reload = true;
+		}
+		break;
+	case "toPrevPage"://上一页
+		if(curPageNo > 1){
+			$pageNo.text(curPageNo - 1);
+			reload = true;
+		}
+		break;
+	case "toNextPage"://下一页
+		if(curPageNo < curPageCount){
+			$pageNo.text(curPageNo + 1);
+			reload = true;
+		}
+		break;
+	case "toLastPage"://尾页
+		if(curPageNo < curPageCount){
+			$pageNo.text(curPageCount);
+			reload = true;
+		}
+		break;
+	default :
+		//do nothing
+	}
+	logger.info("reload=" + reload + ",id=" + this.id + ",curPageNo=" + curPageNo + ",curPageCount=" + curPageCount);
+	
+	//重新加载列表数据
+	if(reload) bc.grid.reloadData($seek.parents(".bc-page"));
 });
 //点击pageSize按钮
 $("ul li.pagerIconGroup.size>.pagerIcon").live("click", function() {
-	logger.info("click size.pagerIcon");
-	$(this).addClass("ui-state-active").siblings().removeClass("ui-state-active");
+	var $this = $(this);
+	if($this.hasClass("ui-state-active")) return;//不处理重复的点击
+	
+	$this.addClass("ui-state-active").siblings().removeClass("ui-state-active");
+	
+	//重设置为第一页
+	$this.parents("ul.pager").find("#pageNo").text(1);
+
+	//重新加载列表数据
+	bc.grid.reloadData($this.parents(".bc-page"));
 });
 
 //单击行切换样式

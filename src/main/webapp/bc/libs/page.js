@@ -123,31 +123,6 @@ bc.page = {
 	innerInit: function() {
 
 	},
-	/**重新加载窗口的内容部分
-	 * @param option url,data,callback
-	 */
-	reloadWin: function(option) {
-		option = option || {};
-		var $this = $(this);
-		var url=option.url || $this.attr("data-src");
-		logger.info("reloadWin:loading html from url=" + url);
-		bc.ajax({
-			url : url, data: option.data || null,
-			dataType : "html",
-			success : function(html) {
-				logger.info("reloadWin:success loaded html");
-				var $html = $(html);
-				$this.empty().append($html.children());
-				$html.empty().remove();
-				
-				if($this.find(".bc-grid").size()){
-					bc.grid.init($this);
-				}
-				
-				//TODO 调用初始化方法
-			}
-		});
-	},
 	_rebuildWinOption: function(option){
 		var _option = option || {};
 		if(_option.buttons){
@@ -237,7 +212,7 @@ bc.page = {
 					if(logger.debugEnabled)logger.debug("delete success.json=" + jQuery.param(json));
 					bc.msg.slide(json.msg);
 					//重新加载列表
-					bc.page.reloadWin.call($this);
+					bc.grid.reloadData($this);
 				}
 			});
 		});
@@ -254,7 +229,7 @@ bc.page = {
 			mid: $this.attr("data-mid") + ".0",
 			name: "新建" + ($this.attr("data-name") || "未定义"),
 			afterClose: function(status){
-				if(status)bc.page.reloadWin.call($this);
+				if(status)bc.grid.reloadData($this);
 			},
 			afterOpen: callback
 		});
@@ -272,7 +247,7 @@ bc.page = {
 				name: $tds.attr("data-name") || "未定义",
 				afterClose: function(status){
 					if(status == "saved")
-						bc.page.reloadWin.call($this);
+						bc.grid.reloadData($this);
 				}
 			});
 		}else if($tds.length > 1){

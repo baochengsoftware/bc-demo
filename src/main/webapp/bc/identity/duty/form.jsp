@@ -9,7 +9,7 @@
 		<button
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary 
 				{action:"save",callback:"callback4save"}'>
-			<span class="ui-button-icon-primary ui-icon ui-icon-locked"></span><span
+			<span class="ui-button-icon-primary ui-icon ui-icon-disk"></span><span
 				class="ui-button-text">保存</span>
 		</button>
 	</div>

@@ -109,5 +109,25 @@
 				</table>
 			</div>
 		</div>
+		<!-- 表格分页条 -->
+		<ul class="pager ui-widget-content ui-widget ui-helper-clearfix">
+			<!-- 表格分页条：分页按钮 -->
+			<li id="seek" class="pagerIconGroup seek ui-state-default ui-corner-all">
+				<a id="toFirstPage" class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first" title="首页"></span></a>
+				<a id="toPrevPage" class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev" title="上一页"></span></a>
+				<span class="pageNo" title="点击选择页码"><span id="pageNo">${page.pageNo}</span>/<span id="pageCount">${page.pageCount}</span></span>
+				<a id="toNextPage" class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-next" title="下一页"></span></a>
+				<a id="toLastPage" class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end" title="尾页"></span></a>
+			</li>
+			<!-- 表格分页条：每页数量切换按钮 -->
+			<li id="size" class="pagerIconGroup size ui-state-default ui-corner-all" title="每页显示的数量">
+				<a class="pagerIcon ui-state-default ${page.pageSize==25 ? 'ui-state-active ' : ''}ui-corner-all"><span class="pageSize">25</span></a>
+				<a class="pagerIcon ui-state-default ${page.pageSize==50 ? 'ui-state-active ' : ''}ui-corner-all"><span class="pageSize">50</span></a>
+				<a class="pagerIcon ui-state-default ${page.pageSize==100 ? 'ui-state-active ' : ''}ui-corner-all"><span class="pageSize">100</span></a>
+			</li>
+			<!-- 表格分页条：扩展按钮 -->
+			<li id="export" class='pagerIcon ui-state-default ui-corner-all {action:"export"}' title="导出"><span class="ui-icon ui-icon-transferthick-e-w"></span></li>
+			<li id="print" class='pagerIcon ui-state-default ui-corner-all {action:"print"}' title="打印"><span class="ui-icon ui-icon-print"></span></li>
+		</ul>
 	</div>
 </div>
