@@ -18,6 +18,14 @@ table.table{
 	overflow: visible;
 }
 
+/**表格的数据加载动画*/
+#bc-grid-loader{
+	position: absolute;
+	width:32px;height:32px;
+	background: url("images/loader/loader01_32x32.gif") no-repeat;
+	padding:0;margin:0;
+}
+
 /**表格*/
 .bc-grid{
 	padding:0;

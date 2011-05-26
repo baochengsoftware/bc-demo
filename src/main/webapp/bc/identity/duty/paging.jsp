@@ -15,28 +15,28 @@
 				{action:"create",callback:"callback4create"}'
 			data-action="create">
 			<span class="ui-button-icon-primary ui-icon ui-icon-document"></span><span
-				class="ui-button-text">新建</span>
+				class="ui-button-text"><s:text name="label.create"/></span>
 		</button>
 		<button
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary 
 				{action:"edit",callback:"callback4edit"}'
 			data-action="edit">
 			<span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span>
-			<span class="ui-button-text">编辑</span>
+			<span class="ui-button-text"><s:text name="label.edit"/></span>
 		</button>
 		<button
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary
 				{action:"delete"}'
 			data-action="delete">
 			<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span><span
-				class="ui-button-text">删除</span>
+				class="ui-button-text"><s:text name="label.delete"/></span>
 		</button>
-		<span class="bc-searchButton"><a href="#"
-			class="ui-icon ui-icon-search"></a><input type="text">
+		<span class="bc-searchButton"><a href="#" title='<s:text name="title.click2search"/>'
+			class="ui-icon ui-icon-search" id="searchBtn"></a><input id="searchText" type="text">
 		</span>
 	</div>
 	<!-- 表格 -->
-	<div class="bc-grid multipleSelect" name="单位" data-dblclickrow="bc.page.edit">
+	<div class="bc-grid multipleSelect">
 		<!-- 表格头 -->
 		<div class="ui-state-default header">
 			<!-- 表格头：id -->
@@ -111,6 +111,7 @@
 		</div>
 		<!-- 表格分页条 -->
 		<ul class="pager ui-widget-content ui-widget ui-helper-clearfix">
+			<li id="refresh" class='pagerIcon ui-state-default ui-corner-all' title="刷新"><span class="ui-icon ui-icon-refresh"></span></li>
 			<!-- 表格分页条：分页按钮 -->
 			<li id="seek" class="pagerIconGroup seek ui-state-default ui-corner-all">
 				<a id="toFirstPage" class="pagerIcon ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first" title="首页"></span></a>
@@ -126,8 +127,8 @@
 				<a class="pagerIcon ui-state-default ${page.pageSize==100 ? 'ui-state-active ' : ''}ui-corner-all"><span class="pageSize">100</span></a>
 			</li>
 			<!-- 表格分页条：扩展按钮 -->
-			<li id="export" class='pagerIcon ui-state-default ui-corner-all {action:"export"}' title="导出"><span class="ui-icon ui-icon-transferthick-e-w"></span></li>
-			<li id="print" class='pagerIcon ui-state-default ui-corner-all {action:"print"}' title="打印"><span class="ui-icon ui-icon-print"></span></li>
+			<li id="export" class='pagerIcon ui-state-default ui-corner-all' title="导出"><span class="ui-icon ui-icon-arrowthickstop-1-s"></span></li>
+			<li id="print" class='pagerIcon ui-state-default ui-corner-all' title="打印"><span class="ui-icon ui-icon-print"></span></li>
 		</ul>
 	</div>
 </div>

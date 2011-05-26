@@ -42,4 +42,32 @@ $(".bc-toolbar .bc-button").live("mouseover", function() {
 	}
 });
 
+
+//右侧的搜索框处理：回车执行搜索（TODO alt+enter执行本地搜索）
+$(".bc-toolbar #searchText").live("keyup", function(e) {
+	var $this = $(this);
+	if(e.which == 13){//按下回车键
+		//logger.info("e:which="+e.which + ",ctrlKey=" + e.ctrlKey);
+		
+		var $page = $this.parents(".bc-page");
+		
+		//重设置为第一页
+		$page.find("ul.pager #pageNo").text(1);
+		
+		//重新加载列表数据
+		bc.grid.reloadData($page);
+	}
+});
+$(".bc-toolbar #searchBtn").live("click", function(e) {
+	var $page = $(this).parents(".bc-page");
+	
+	//重设置为第一页
+	$page.find("ul.pager #pageNo").text(1);
+	
+	//重新加载列表数据
+	bc.grid.reloadData($page);
+	
+	return false;
+});
+
 })(jQuery);

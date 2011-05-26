@@ -31,8 +31,8 @@
 			<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span><span
 				class="ui-button-text">删除</span>
 		</button>
-		<span class="bc-searchButton"><a href="#"
-			class="ui-icon ui-icon-search"></a><input type="text">
+		<span class="bc-searchButton"><a href="#" title='<s:text name="title.click2search"/>'
+			class="ui-icon ui-icon-search"></a><input id="searchText" type="text">
 		</span>
 	</div>
 	<!-- 表格 -->

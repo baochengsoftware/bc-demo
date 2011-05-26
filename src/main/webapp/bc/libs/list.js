@@ -53,12 +53,9 @@ bc.grid = {
 			$data_right.width(container.width()-$data_left.width()-sw);
 			var $data_table = $data_right.find(".table");
 			var originWidth = $data_table.data("originWidth");//原始宽度
-			var newTableWidth = Math.max(originWidth,$data_right[0].clientWidth);
+			var clientWidth = $data_right[0].clientWidth;
+			var newTableWidth = Math.max(originWidth, clientWidth);
 			$data_table.width(newTableWidth);
-			$header_right.find(".table").width(newTableWidth);
-			
-			//header宽度(要减去data区的垂直滚动条宽度)
-			$header_right.width($data_right[0].clientWidth);
 			
 			//其他元素高度累计
 			var otherHeight = 0;
@@ -72,6 +69,17 @@ bc.grid = {
 			
 			//data高度(id列要减去data区的水平滚动条高度)
 			$data_right.height(container.height()-otherHeight - sh);
+			
+			//如果导致滚动条切换显示了，再重新计算一下
+			var _clientWidth = $data_right[0].clientWidth;
+			if(_clientWidth != clientWidth){//从无垂直滚动条到出现滚动条的处理
+				logger.info("clientWidth");
+				$data_table.width(_clientWidth);
+			}
+			//header宽度(要减去data区的垂直滚动条宽度)
+			$header_right.width($data_right[0].clientWidth);
+			$header_right.find(".table").width(newTableWidth);
+			
 			$grid.find(".data .left").height($data_right[0].clientHeight);
 		}
 	},
@@ -115,6 +123,14 @@ bc.grid = {
 	 * @option data 请求将附加的数据
 	 */
 	reloadData: function($page,option) {
+		// 显示加载动画
+		var $win = $page.parent();
+		var $loader = $win.append('<div id="bc-grid-loader"></div>').find("#bc-grid-loader");
+		$loader.css({
+			top: ($win.height() - $loader.height())/2,
+			left: ($win.width() - $loader.width())/2
+		});
+		
 		option = option || {};
 		var url=option.url || $page.attr("data-namespace") + "/data";
 		logger.info("reloadWin:loading grid data from url=" + url);
@@ -128,7 +144,11 @@ bc.grid = {
 			data["page.pageSize"] = $pager.find("li.size>a.ui-state-active>span.pageSize").text();
 		}
 		
-		// TODO 附加搜索条件的参数
+		//附加搜索条件的参数  TODO 高级搜索
+		var $search = $page.find(".bc-toolbar #searchText");
+		if($search.size()){
+			data.search = $search.val();
+		}
 		
 		//重新加载数据
 		bc.ajax({
@@ -147,6 +167,9 @@ bc.grid = {
 						$pageCount.text(newPageCount);
 					//logger.info(newPageCount + "," + $pageCount.text());
 				}
+				
+				//删除加载动画
+				$loader.remove();
 			}
 		});
 	}
@@ -216,6 +239,15 @@ $("ul li.pagerIconGroup.size>.pagerIcon").live("click", function() {
 
 	//重新加载列表数据
 	bc.grid.reloadData($this.parents(".bc-page"));
+});
+//点击刷新按钮
+$("ul #refresh").live("click", function() {
+	//重新加载列表数据
+	bc.grid.reloadData($(this).parents(".bc-page"));
+});
+//点击打印按钮
+$("ul #print").live("click", function() {
+	window.print();
 });
 
 //单击行切换样式

@@ -3,7 +3,7 @@
 <div title='<s:text name="personal.title"/>' style='font-size: 12px;' 
 	data-type='form'
 	data-js='<s:url value="/bc/desktop/personal/form.css" />,<s:url value="/bc/desktop/personal/form.js" />'
-	data-action='<s:url value="/bc/personal/save" />'
+	data-saveUrl='<s:url value="/bc/personal/save" />'
 	data-initMethod='bc.personal.init'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.save"/>","click":"bc.personal.save"}],
