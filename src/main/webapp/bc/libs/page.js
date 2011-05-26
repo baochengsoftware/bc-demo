@@ -6,7 +6,11 @@
  */
 bc.page = {
 	/**创建窗口
-	 * @param option url,data,callback
+	 * @param {Object} option
+	 * @option {String} url 地址
+	 * @option {String} data 附加的数据
+	 * @option {String} afterOpen 窗口新建好后的回调函数
+	 * @option {String} afterClose 窗口关闭后的回调函数
 	 */
 	newWin: function(option) {
 		option = option || {};
@@ -49,12 +53,12 @@ bc.page = {
 					//从dom构建并显示桌面组件
 					var cfg = jQuery.parseJSON($dom.attr("data-option"));
 					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog";// ui-widget-header";
-					//cfg.callback=option.callback || null;//传入该窗口关闭后的回调函数
-					$dom.dialog(bc.page._rebuildWinOption.call($dom,cfg));
+					//cfg.afterClose=option.afterClose || null;//传入该窗口关闭后的回调函数
+					$dom.dialog(bc.page._rebuildWinOption(cfg));
 					$dom.bind("dialogclose",function(event,ui){
-						//logger.debug("dialogclose");
+						var status = $dom.attr("data-status");
 						//调用回调函数
-						if(option.callback) option.callback($dom.attr("data-status"));
+						if(option.afterClose) option.afterClose(status);
 						
 						//彻底删除所有相关的dom元素
 						$(this).dialog("destroy").remove();
@@ -62,8 +66,9 @@ bc.page = {
 					}).attr("data-src",option.url).attr("data-mid",option.mid)
 					.bind("dialogfocus", function(event, ui) {
 						//logger.debug("dialogfocus");
-						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']")
-						.toggleClass("ui-state-active",true).siblings().toggleClass("ui-state-active",false);
+						var cur = $(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']");
+						if(!cur.hasClass("ui-state-active"))
+							cur.addClass("ui-state-active").siblings().toggleClass("ui-state-active",false);
 					});
 					//.disableSelection();这个会导致表单中输入框部分浏览器无法获取输入焦点
 					
@@ -92,6 +97,9 @@ bc.page = {
 					
 					//通知任务栏模块加载完毕
 					bc.page.quickbar.loaded(option.mid);
+					
+					//调用回调函数
+					if(option.afterOpen) option.afterOpen();
 				}
 				//alert(html);
 				var dataJs = $dom.attr("data-js");
@@ -125,12 +133,16 @@ bc.page = {
 		logger.info("reloadWin:loading html from url=" + url);
 		bc.ajax({
 			url : url, data: option.data || null,
-			dataType : "text",
+			dataType : "html",
 			success : function(html) {
 				logger.info("reloadWin:success loaded html");
 				var $html = $(html);
 				$this.empty().append($html.children());
 				$html.empty().remove();
+				
+				if($this.find(".bc-grid").size()){
+					bc.grid.init($this);
+				}
 				
 				//TODO 调用初始化方法
 			}
@@ -167,9 +179,8 @@ bc.page = {
 	/**保存表单数据，上下文为dialog的原始dom元素*/
 	save: function(callback) {
 		$this = $(this);
-		if(logger.debugEnabled)logger.debug("bc.page.save");
-		var url=$this.attr("data-action");
-		logger.info("save url=" + url);
+		var url=$this.attr("data-saveUrl");
+		logger.info("saveUrl=" + url);
 		var $form = $("form",this);
 		
 		//表单验证
@@ -185,23 +196,27 @@ bc.page = {
 				if(json.id){
 					$form.find("input[name='entity.id']").val(json.id);
 				}
-				bc.msg.slide(json.msg);
 				//记录已保存状态
 				$this.attr("data-status","saved");
 				
 				//调用回调函数
-				if(typeof callback == "function")
-					callback.call($this[0],json);
+				var showMsg = true;
+				if(typeof callback == "function"){
+					//返回false将禁止保存提示信息的显示
+					if(callback.call($this[0],json) === false)
+						showMsg = false;;
+				}
+				if(showMsg)
+					bc.msg.slide(json.msg);
 			}
 		});
 	},
 	/**删除*/
 	delete_: function() {
 		var $this = $(this);
-		var url=$this.attr("data-action-delete");
-		logger.info("bc.page.delete_: url=" + url);
+		var url=$this.attr("data-deleteUrl");
 		var data=null;
-		var $tds = $("table.list>tbody>tr.ui-state-focus>td.id",this);
+		var $tds = $this.find(".bc-grid>.data>.left tr.ui-state-focus>td.id");
 		if($tds.length == 1){
 			data = "id=" + $tds.attr("data-id");
 		}else if($tds.length > 1){
@@ -229,39 +244,33 @@ bc.page = {
 	},
 	/**关闭表单对话框，上下文为dialog的原始dom元素*/
 	cancel: function(option){
-		logger.info("bc.page.cancel");
 		$(this).dialog("destroy").remove();
 	},
 	/**新建表单*/
-	create: function(){
-		logger.info("bc.page.create");
+	create: function(callback){
 		var $this = $(this);
 		bc.page.newWin({
-			url: $this.attr("data-action-create"),
+			url: $this.attr("data-createUrl"),
 			mid: $this.attr("data-mid") + ".0",
 			name: "新建" + ($this.attr("data-name") || "未定义"),
-			callback: function(data){
-				bc.page.reloadWin.call($this);
-			}
+			afterClose: function(status){
+				if(status)bc.page.reloadWin.call($this);
+			},
+			afterOpen: callback
 		});
 	},
 	/**编辑*/
 	edit: function(){
-		//logger.info("bc.page.edit");
 		var $this = $(this);
-		var url = $this.attr("data-action-edit");
-		logger.info("bc.page.edit: url=" + url);
+		var url = $this.attr("data-editUrl");
 		var $tds = $this.find(".bc-grid>.data>.left tr.ui-state-focus>td.id");
 		if($tds.length == 1){
 			var data = "id=" + $tds.attr("data-id");
-			if(logger.infoEnabled) logger.info("bc.page.edit: data=" + data);
-			logger.info("bc.page.edit: name=" + $tds.attr("data-name"));
 			bc.page.newWin({
 				url:url, data: data || null,
 				mid: $this.attr("data-mid") + "." + $tds.attr("data-id"),
 				name: $tds.attr("data-name") || "未定义",
-				callback: function(status){
-					logger.info("bc.page.edit: status=" + status);
+				afterClose: function(status){
 					if(status == "saved")
 						bc.page.reloadWin.call($this);
 				}
@@ -325,22 +334,17 @@ bc.validator = {
 		$form.find(":input:enabled:not(:hidden):not(:button)")
 		.each(function(i, n){
 			var validate = $(this).attr("data-validate");
-			if(logger.infoEnabled)
-				logger.info(this.nodeName + "," + this.name + "," + this.value + "," + validate);
+			if(logger.debugEnabled)
+				logger.debug(this.nodeName + "," + this.name + "," + this.value + "," + validate);
 			if(validate && $.trim(validate).length > 0){
 				if(!/^\{/.test(validate)){//不是以字符{开头
 					validate = '{"required":true,"type":"' + validate + '"}';//默认必填
 				}
-				logger.info("-01--"+validate.type);
 				validate = jQuery.parseJSON(validate);
-				logger.info("-02--"+validate.type);
 				var method = bc.validator.methods[validate.type];
 				if(method){
-					logger.info("-1--"+validate.type);
 					var value = $(this).val();
-					logger.info("-2--"+validate.type);
 					if(validate.required || (value && value.length > 0)){//必填或有值时
-						logger.info("-3--"+validate.type);
 						ok = method.call(validate, this, $form);
 						if(!ok){//验证不通过，增加界面的提示
 							bc.validator.remind(this,validate.type);

@@ -110,15 +110,6 @@ bc.grid = {
 	}
 }
 
-//顶部工具条按钮控制
-$(".bc-toolbar .bc-button").live("mouseover", function() {
-	$(this).addClass("ui-state-hover");
-}).live("mouseout", function() {
-	$(this).removeClass("ui-state-hover");
-}).live("click", function() {
-	logger.info("click bc-button");
-});
-
 //表格分页条按钮控制
 $("ul .pagerIcon").live("mouseover", function() {
 	$(this).addClass("ui-state-hover");

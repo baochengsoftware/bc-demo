@@ -81,7 +81,7 @@ body {
 }
 
 
-.bc-content,.bc-content.ui-dialog-content{
+.bc-page,.bc-page.ui-dialog-content{
 	overflow: hidden;
 }
 .bc-autoScroll{

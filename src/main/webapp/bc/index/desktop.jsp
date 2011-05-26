@@ -64,7 +64,7 @@
 					data-order='<s:property value="order" />'
 					data-iconClass='<s:property value="iconClass" />'
 					data-name='<s:property value="name" />'
-					data-url='<s:property value="url" />'>
+					data-url='<s:url value="%{url}" />'>
 					<span class='icon <s:property value="iconClass" />'></span>
 					<span class="text"><s:property value="name" /></span>
 				</a>
@@ -79,7 +79,7 @@
 					data-order='<s:property value="order" />'
 					data-iconClass='<s:property value="module.iconClass" />'
 					data-name='<s:property value="module.name" />'
-					data-url='<s:property value="module.url" />'>
+					data-url='<s:url value="%{module.url}" />'>
 					<span class='icon <s:property value="module.iconClass" />'></span>
 					<span class="text"><s:property value="module.name" /></span>
 				</a>
@@ -134,11 +134,11 @@
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.13/ui/minified/i18n/jquery-ui-i18n.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.13/ui/minified/jquery-ui.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/window.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/list.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/toolbar.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/ui.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/boxPointer.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/loader.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
@@ -167,7 +167,7 @@
 			bc.ts = new Date().getTime();//首次打开主页的时间
 			jQuery(function() {
 				//logger.toggle();
-				logger.enable("debug");
+				//logger.enable("debug");
 			});
 		}else{
 			bc.ts = "<s:text name="app.ts" />";//系统编译发布的时间
