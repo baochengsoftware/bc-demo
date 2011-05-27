@@ -32,7 +32,7 @@
 				class="ui-button-text">删除</span>
 		</button>
 		<span class="bc-searchButton"><a href="#" title='<s:text name="title.click2search"/>'
-			class="ui-icon ui-icon-search"></a><input id="searchText" type="text">
+			class="ui-icon ui-icon-search" id="searchBtn"></a><input id="searchText" type="text">
 		</span>
 	</div>
 	<!-- 表格 -->

@@ -59,6 +59,7 @@ $(".bc-toolbar #searchText").live("keyup", function(e) {
 	}
 });
 $(".bc-toolbar #searchBtn").live("click", function(e) {
+	logger.info("searchBtn0");
 	var $page = $(this).parents(".bc-page");
 	
 	//重设置为第一页
@@ -66,6 +67,7 @@ $(".bc-toolbar #searchBtn").live("click", function(e) {
 	
 	//重新加载列表数据
 	bc.grid.reloadData($page);
+	logger.info("searchBtn1");
 	
 	return false;
 });
