@@ -36,6 +36,9 @@
 	
 	<!-- 项目的数据库连接及事务管理配置 -->
 	<import resource="classpath:spring-db.xml" />
+	
+	<!-- web通用 -->
+	<import resource="classpath:cn/bc/web/spring.xml" />
 
 	<!-- 标准的crud事务拦截配置：拦截所有实现CrudService接口的类 -->
 	<import resource="classpath:cn/bc/core/spring.xml" />

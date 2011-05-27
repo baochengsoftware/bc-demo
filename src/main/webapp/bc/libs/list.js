@@ -121,6 +121,7 @@ bc.grid = {
 	 * @param option 特殊配置参数
 	 * @option url 加载数据的url
 	 * @option data 请求将附加的数据
+	 * @option callback 请求数据完毕后的处理函数
 	 */
 	reloadData: function($page,option) {
 		// 显示加载动画
@@ -170,10 +171,14 @@ bc.grid = {
 				
 				//删除加载动画
 				$loader.remove();
+				
+				//调用回调函数
+				if(typeof option.callback == "function")
+					option.callback.call($page[0]);
 			}
 		});
 	}
-}
+};
 
 //表格分页条按钮控制
 $("ul .pagerIcon").live("mouseover", function() {
@@ -183,7 +188,30 @@ $("ul .pagerIcon").live("mouseover", function() {
 });
 //点击扩展按钮
 $("ul li.pagerIcon").live("click", function() {
-	logger.info("click li.pagerIcon");
+	var $this = $(this);
+	var action = $this.attr("data-action");//内定的操作
+	var callback = $this.attr("data-callback");//回调函数
+	callback = callback ? bc.getNested(callback) : undefined;//转换为函数
+	var $page = $this.parents(".bc-page");
+	switch (action){
+	case "refresh"://刷新视图
+		//重新加载列表数据
+		bc.grid.reloadData($page);
+		break;
+	case "print"://打印视图
+		window.print();
+		break;
+	case "export"://导出视图
+		alert("TODO: export");
+		break;
+	default ://调用自定义的函数
+		var click = $this.attr("data-click");
+		if(typeof click == "string")
+			click = bc.getNested(click);//将函数名称转换为函数
+		if(typeof click == "function")
+			click.call(pageEl,callback);
+		break;
+	}
 });
 //点击分页按钮
 $("ul li.pagerIconGroup.seek>.pagerIcon").live("click", function() {
@@ -240,6 +268,7 @@ $("ul li.pagerIconGroup.size>.pagerIcon").live("click", function() {
 	//重新加载列表数据
 	bc.grid.reloadData($this.parents(".bc-page"));
 });
+/*
 //点击刷新按钮
 $("ul #refresh").live("click", function() {
 	//重新加载列表数据
@@ -249,6 +278,7 @@ $("ul #refresh").live("click", function() {
 $("ul #print").live("click", function() {
 	window.print();
 });
+*/
 
 //单击行切换样式
 $(".bc-grid>.data>.right tr.row").live("click",function(){

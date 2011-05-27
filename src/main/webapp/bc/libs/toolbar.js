@@ -7,6 +7,38 @@
  */
 (function($) {
 
+bc.toolbar = {
+	/**执行搜索操作
+	 * @param $page 页面dom的jquery对象
+	 * @param option 
+	 * @option action 
+	 * @option callback 
+	 * @option click 
+	 */
+	doSearch: function($page,option) {
+		var action = option.action;//内定的操作
+		var callback = option.callback;//回调函数
+		callback = callback ? bc.getNested(callback) : undefined;//转换为函数
+
+		switch (action){
+		case "search"://内置的搜索处理
+			//重设置为第一页
+			$page.find("ul.pager #pageNo").text(1);
+			
+			//重新加载列表数据
+			bc.grid.reloadData($page, callback);
+			break;
+		default ://调用自定义的函数
+			var click = option.click;
+			if(typeof click == "string")
+				click = bc.getNested(click);//将函数名称转换为函数
+			if(typeof click == "function")
+				click.call($page[0],{callback:callback});
+			break;
+		}
+	}
+};
+	
 //顶部工具条按钮控制
 $(".bc-toolbar .bc-button").live("mouseover", function() {
 	$(this).addClass("ui-state-hover");
@@ -14,10 +46,11 @@ $(".bc-toolbar .bc-button").live("mouseover", function() {
 	$(this).removeClass("ui-state-hover");
 }).live("click", function() {
 	var $this = $(this);
-	var cfg = $this.metadata();
-	var callback = cfg.callback ? bc.getNested(cfg.callback) : undefined;
+	var action = $this.attr("data-action");//内定的操作
+	var callback = $this.attr("data-callback");//回调函数
+	callback = callback ? bc.getNested(callback) : undefined;//转换为函数
 	var pageEl = $this.parents(".bc-page")[0];
-	switch (cfg.action){
+	switch (action){
 	case "create"://新建--视图中
 		bc.page.create.call(pageEl,callback);
 		break;
@@ -34,10 +67,11 @@ $(".bc-toolbar .bc-button").live("mouseover", function() {
 		bc.page.cancel.call(pageEl,callback);
 		break;
 	default ://调用自定义的函数
-		if(typeof cfg.click == "string")
-			cfg.click = bc.getNested(cfg.click);//将函数名称转换为函数
-		if(typeof cfg.click == "function")
-			cfg.click.call(pageEl,callback);
+		var click = $this.attr("data-click");
+		if(typeof click == "string")
+			click = bc.getNested(click);//将函数名称转换为函数
+		if(typeof click == "function")
+			click.call(pageEl,callback);
 		break;
 	}
 });
@@ -47,27 +81,24 @@ $(".bc-toolbar .bc-button").live("mouseover", function() {
 $(".bc-toolbar #searchText").live("keyup", function(e) {
 	var $this = $(this);
 	if(e.which == 13){//按下回车键
-		//logger.info("e:which="+e.which + ",ctrlKey=" + e.ctrlKey);
-		
 		var $page = $this.parents(".bc-page");
-		
-		//重设置为第一页
-		$page.find("ul.pager #pageNo").text(1);
-		
-		//重新加载列表数据
-		bc.grid.reloadData($page);
+		var $search = $this.parent();
+		bc.toolbar.doSearch($page,{
+			action: $search.attr("data-action"),//内定的操作
+			callback: $search.attr("data-callback"),//回调函数
+			click: $search.attr("data-click")//自定义的函数
+		});
 	}
 });
 $(".bc-toolbar #searchBtn").live("click", function(e) {
-	logger.info("searchBtn0");
-	var $page = $(this).parents(".bc-page");
-	
-	//重设置为第一页
-	$page.find("ul.pager #pageNo").text(1);
-	
-	//重新加载列表数据
-	bc.grid.reloadData($page);
-	logger.info("searchBtn1");
+	var $this = $(this);
+	var $page = $this.parents(".bc-page");
+	var $search = $this.parent();
+	bc.toolbar.doSearch($page,{
+		action: $search.attr("data-action"),//内定的操作
+		callback: $search.attr("data-callback"),//回调函数
+		click: $search.attr("data-click")//自定义的函数
+	});
 	
 	return false;
 });
