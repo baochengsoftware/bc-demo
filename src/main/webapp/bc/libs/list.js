@@ -138,10 +138,10 @@ bc.grid = {
 		var data = option.data || {};
 		
 		//附加分页参数
-		var $pager = $page.find("ul.pager");
-		if($pager.size()){
-			data["page.pageNo"] = $pager.find("#pageNo").text();
-			data["page.pageSize"] = $pager.find("li.size>a.ui-state-active>span.pageSize").text();
+		var $pager_seek = $page.find("ul.pager>li.seek");
+		if($pager_seek.size()){
+			data["page.pageNo"] = $pager_seek.find("#pageNo").text();
+			data["page.pageSize"] = $pager_seek.parent().find("li.size>a.ui-state-active>span.pageSize").text();
 		}
 		
 		//附加搜索条件的参数  TODO 高级搜索
