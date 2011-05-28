@@ -67,6 +67,11 @@
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>cn.bc</groupId>
+			<artifactId>bc-report</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		
 		<!-- for provided -->
 		<dependency>

@@ -79,7 +79,8 @@
 		dataLabels: {
 			enabled: false
 		}
-	}]
+	}],
+	exporting:{url:'<s:url value="/bc/exportsvg" />'}
 }
 </pre>
 </div>

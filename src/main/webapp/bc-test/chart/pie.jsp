@@ -53,7 +53,8 @@
 			['Opera',     6.2],
 			['Others',   0.7]
 		]
-	}]
+	}],
+	exporting:{url:'<s:url value="/bc/exportsvg" />'}
 }
 </pre>
 </div>

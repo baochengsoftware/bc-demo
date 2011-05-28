@@ -4,7 +4,7 @@
 	class="bc-page chart"
 	data-type='chart' 
 	data-js='<s:url value="/ui-libs/highcharts/2.1.4/highcharts.min.js" />,<s:url value="/ui-libs/highcharts/2.1.4/modules/exporting.min.js" />,<s:url value="/bc-test/chart/bar.js" />'
-	data-initMethod='bc.pieDemo.init'
+	data-initMethod='bc.barDemo.init'
 	data-option='{"width":500,"height":300}'>
 <div class="chartContainer" style="height:100%;width:100%;"></div>
 <pre class="config hide">
@@ -42,7 +42,8 @@
 	}, {
 		name: '老李',
 		data: [3, 4, 4, -2, 5]
-	}]
+	}],
+	exporting:{url:'<s:url value="/bc/exportsvg" />'}
 }
 </pre>
 </div>
