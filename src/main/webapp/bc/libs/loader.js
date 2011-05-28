@@ -80,6 +80,10 @@ bc.loader = {
 		if(m.q[n] === true){
 			if(logger.debugEnabled)logger.debug("loader: skip load '" + u[0] + "'");
 			l && l(); // Call the callback function l
+			if(u[1]){
+				logger.debug("loader: start load next after skip '" + u[0] + "'");
+				m.l(u[1]);
+			}
 			return;//避免重复加载和解析
 		}
 		s = m.q[n] = m.c.createElement(k[t].t);
@@ -105,7 +109,12 @@ bc.loader = {
 				var s = this, d = function(){
 					var s = m, r = u[1]; 
 					s.q[n] = true; // Set the entry for this script in the script-queue to true
-					r && s.l(r); // Call nbl.l() with the remaining elements of the original array
+					//r && s.l(r); // Call nbl.l() with the remaining elements of the original array
+					if(r){
+						logger.debug("loader: start load next after loaded '" + file + "'");
+						s.l(r);
+					}
+					
 					l && l(); // Call the callback function l
 					s.s--
 				};
@@ -123,4 +132,68 @@ bc.loader = {
 	}
 };
 bc.loader.l();
-bc.load=bc.loader.l;//快捷方式
+//bc.load=bc.loader.l;//快捷方式
+
+/** 简易调用方式的封装，如果参数不是如下格式请直接调用bc.loader.l：
+ * 将[a1.js,a2.js,...,an.js,fn]转换为[[a1.js, [[a2.js, [[...[an.js,fn]...]] ]] ]]格式，
+ * 保证所有js按顺序加载，并在全部加载完毕后再调用fn函数
+ */
+bc.load = function(args){
+	function rebuildArgs(args,lastIsFn){
+		//用数组的第1个元素和剩余元素组成的数组生成新的数组
+		args=[args.shift(),args];
+		
+		//如果依然超过2个元素，递归处理
+		if(args[1].length > (lastIsFn ? 3 : 2)){
+			args[1] = rebuildArgs(args[1],lastIsFn);
+		}
+		return args;
+	};
+	if(args && args.shift && args.length > 2){//参数为数组,且长度大于2，执行转换
+		var lastIsFn = (typeof args[args.length - 1] == "function");
+		if(lastIsFn){
+			if(args.length > 3){
+				args = rebuildArgs(args,true);
+				//if(logger.debugEnabled)logger.debug("newArgs=" + array2string(args));
+			}
+		}else{
+			args = rebuildArgs(args,false);
+		}
+		bc.loader.l([args]);
+	}
+}
+/*
+function array2string(array){
+	//alert("0:" + array);
+	var t=["["];
+	for(var i=0;i<array.length;i++){
+		if(i>0 && i<array.length)
+			t.push(",");
+		if(typeof array[i] != "function"){
+			if(array[i].shift){
+				//alert("1:" + array[i]);
+				t.push(array2string(array[i]));
+			}else{
+				t.push(array[i]);
+			}
+		}else{
+			t.push("fn");
+		}
+	}
+	t.push("]");
+	return t.join("");
+}
+function rebuildArgs1(args,lastIsFn){
+	//用数组的第1个元素和剩余元素组成的数组生成新的数组
+	args=[args.shift(),args];
+	
+	//如果依然超过2个元素，递归处理
+	if(args[1].length > (lastIsFn ? 3 : 2)){
+		args[1] = rebuildArgs1(args[1],lastIsFn);
+	}
+	return args;
+};
+var a = ["a","b","c",function(){}];
+a = [rebuildArgs1(a,false)];
+alert(array2string(a));
+*/

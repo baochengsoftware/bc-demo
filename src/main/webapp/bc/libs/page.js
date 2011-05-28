@@ -54,6 +54,8 @@ bc.page = {
 					var cfg = jQuery.parseJSON($dom.attr("data-option"));
 					cfg.dialogClass=cfg.dialogClass || "bc-ui-dialog";// ui-widget-header";
 					//cfg.afterClose=option.afterClose || null;//传入该窗口关闭后的回调函数
+					if(!$dom.attr("title"))
+						cfg.title=option.name;
 					$dom.dialog(bc.page._rebuildWinOption(cfg));
 					$dom.bind("dialogclose",function(event,ui){
 						var status = $dom.attr("data-status");
@@ -92,6 +94,8 @@ bc.page = {
 						method = bc.getNested(method);
 						if(typeof method == "function"){
 							method.call($dom, cfg);
+						}else{
+							alert("undefined function: " + $dom.attr("data-initMethod"));
 						}
 					}
 					

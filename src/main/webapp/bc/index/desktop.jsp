@@ -40,6 +40,10 @@
 			<div id="themeSwitcher"></div>
 		</div>
 	</div>
+	<div id="rightPanel">
+		<div class="item" id="indexCalendar"></div>
+		<div class="item" id="bulletinBoard"></div>
+	</div>
 	<div id="layout">
 		<!-- 任务条 -->
 		<table id="quickbar" class="" cellpadding="0" cellspacing="0" border="0">
@@ -59,7 +63,7 @@
 					data-id='<s:property value="id" />'
 					data-standalone='<s:property value="standalone" />'
 					data-type='0' 
-	 				data-mid='0'
+	 				data-mid='shortcut-<s:property value="id" />'
 					data-option='{}' 
 					data-order='<s:property value="order" />'
 					data-iconClass='<s:property value="iconClass" />'
@@ -91,10 +95,6 @@
 				<span class="text">职务配置</span> </a>
 			 -->
 		</div>
-	</div>
-	<div id="rightPanel">
-		<div class="item" id="indexCalendar"></div>
-		<div class="item" id="bulletinBoard"></div>
 	</div>
 	<div id="copyrightBar"><a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a></div>
 	<div id="quickStartMenu" class="hide" style="position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden;">

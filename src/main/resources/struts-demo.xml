@@ -13,4 +13,20 @@
 			<result>/bc/index/desktop.jsp</result>
 		</action>
 	</package>
+	
+	<!-- 图表 -->
+	<package name="chart" extends="bc-default" namespace="/bc/chart">
+		<action name="pie" class="chartDemoAction" method="pie">
+			<result name="pie">/bc-test/chart/pie.jsp</result>
+		</action>
+		<action name="bar" class="chartDemoAction" method="bar">
+			<result name="bar">/bc-test/chart/bar.jsp</result>
+		</action>
+		<action name="spline" class="chartDemoAction" method="spline">
+			<result name="spline">/bc-test/chart/spline.jsp</result>
+		</action>
+		<action name="mix" class="chartDemoAction" method="mix">
+			<result name="mix">/bc-test/chart/mix.jsp</result>
+		</action>
+	</package>
 </struts>
