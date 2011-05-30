@@ -10,28 +10,28 @@
 	data-option='{"minWidth":250,"width":500,"minHeight":200,"height":400,"modal":false}'>
 	<!-- 工具条 -->
 	<div class="bc-toolbar ui-widget-content">
-		<button
+		<button type="button"
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary 
 				{action:"create",callback:"callback4create"}'
 			data-action="create">
 			<span class="ui-button-icon-primary ui-icon ui-icon-document"></span><span
 				class="ui-button-text">新建</span>
 		</button>
-		<button
+		<button type="button"
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary 
 				{action:"edit",callback:"callback4edit"}'
 			data-action="edit">
 			<span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span>
 			<span class="ui-button-text">编辑</span>
 		</button>
-		<button
+		<button type="button"
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary
 				{action:"delete"}'
 			data-action="delete">
 			<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span><span
 				class="ui-button-text">删除</span>
 		</button>
-		<span class="bc-searchButton"><a href="#" title='<s:text name="title.click2search"/>'
+		<span class="bc-searchButton" data-action="search"><a href="#" title='<s:text name="title.click2search"/>'
 			class="ui-icon ui-icon-search" id="searchBtn"></a><input id="searchText" type="text">
 		</span>
 	</div>

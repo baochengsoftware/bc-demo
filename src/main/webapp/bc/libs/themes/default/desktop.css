@@ -158,19 +158,25 @@ body .ui-widget-overlay {
 }
 #quickButtons .quickButton {
 	float: left;
-	margin: 4px 0px 4px 2px;
-	padding:4px;
+	margin: 2px 0px 2px 2px;
+	padding: 8px;
 	border: 1px solid black;
 	text-decoration: none;
 	cursor: default;
+	position: relative;
 }
 #quickButtons .quickButton .ui-icon{
-	float: left;
-	display:inline-block;
+	position: absolute;
+	display:block;
 	width:16px;height:16px;
-	margin: 2px 4px 0 0;
+	top:50%;
+	margin-top: -8px;
 	padding:0;
 	border: 0;
+}
+#quickButtons .quickButton .text{
+	padding-left: 20px;
+	padding-right: 2px;
 }
 #quickButtons .quickButton .loading{
 	background: url(images/loader/loader01_16x16.gif) no-repeat 0 0;

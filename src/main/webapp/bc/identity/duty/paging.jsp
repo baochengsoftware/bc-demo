@@ -10,19 +10,19 @@
 	data-option='{"minWidth":250,"width":500,"minHeight":200,"height":400,"modal":false}'>
 	<!-- 工具条 -->
 	<div class="bc-toolbar ui-widget-content">
-		<button
+		<button type="button"
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary'
 			data-action="create" data-callback="callback4create">
 			<span class="ui-button-icon-primary ui-icon ui-icon-document"></span><span
 				class="ui-button-text"><s:text name="label.create"/></span>
 		</button>
-		<button
+		<button type="button"
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary '
 			data-action="edit">
 			<span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span>
 			<span class="ui-button-text"><s:text name="label.edit"/></span>
 		</button>
-		<button
+		<button type="button"
 			class='bc-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary'
 			data-action="delete">
 			<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span><span
