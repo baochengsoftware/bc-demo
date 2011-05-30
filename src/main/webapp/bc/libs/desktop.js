@@ -13,7 +13,6 @@ bc.desktop = {
 	/**桌面布局的初始化*/
 	init : function(option) {
 		// 执行桌面布局
-		bc.desktop.doResize();
 		$(window).resize(function() {
 			bc.desktop.doResize();
 		});
@@ -111,13 +110,17 @@ bc.desktop = {
 			//showButtonPanel: true,//现时今天按钮
 			firstDay: 1
 		});
+		
+		bc.desktop.doResize();
 	},
 	/**重新调整桌面的布局*/
 	doResize : function() {
-		$("#desktop").height($("#layout").height() - $("#quickbar").height())
+		$("#desktop").height($("#layout").height() - $("#quickbar").height());
 		
 		// 桌面右侧边栏
 		$("#rightPanel").css("top",$("#quickbar").height());
+		
+		$("#desktop").width($("#layout").width() - $("#rightPanel").width());
 	},
 	/**双击打开桌面快捷方式*/
 	openModule: function(option) {

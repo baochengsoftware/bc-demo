@@ -10,7 +10,7 @@
 <head>
 <title><s:text name="app.title" /></title>
 <script type="text/javascript">var ts = "<s:text name="app.ts" />";</script>
-<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/1.8.13/themes/%{personalConfig.theme}/jquery.ui.all.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
+<link rel="stylesheet" type="text/css" href="<s:url value='/ui-libs/jquery-ui/1.8.13/themes/%{personalConfig.theme}/jquery-ui.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/core.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/desktop.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
 <link rel="stylesheet" type="text/css" href="<s:url value='/bc/libs/themes/default/shortcuts.css' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>" />
@@ -39,10 +39,6 @@
 		<div id="themeSwitcherContainer">
 			<div id="themeSwitcher"></div>
 		</div>
-	</div>
-	<div id="rightPanel">
-		<div class="item" id="indexCalendar"></div>
-		<div class="item" id="bulletinBoard"></div>
 	</div>
 	<div id="layout">
 		<!-- 任务条 -->
@@ -95,6 +91,10 @@
 				<span class="text">职务配置</span> </a>
 			 -->
 		</div>
+	</div>
+	<div id="rightPanel">
+		<div class="item" id="indexCalendar"></div>
+		<div class="item" id="bulletinBoard"></div>
 	</div>
 	<div id="copyrightBar"><a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a></div>
 	<div id="quickStartMenu" class="hide" style="position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden;">

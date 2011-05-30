@@ -53,7 +53,7 @@ body .ui-widget-overlay {
 #layout {
 	height: 100%;
 	width: 100%;
-	overflow: auto;
+	overflow: hidden;
 	border: 0;
 	position: absolute;
 	z-index: 0;
@@ -62,8 +62,8 @@ body .ui-widget-overlay {
 /*桌面区域*/
 #desktop {
 	position: absolute;
-	width: 100%;
-	bottom: 0;
+	/*width: 100%;*/
+	top: 40px;
 	overflow: auto;
 }
 

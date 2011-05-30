@@ -4,7 +4,7 @@
 	class="bc-page chart" style="overflow: auto;"
 	data-type='chart' 
 	data-js='<s:url value="/ui-libs/highcharts/2.1.4/highcharts.min.js" />,<s:url value="/bc-test/chart/spline.js" />'
-	data-initMethod='bc.pieDemo.init'
+	data-initMethod='bc.splineDemo.init'
 	data-option='{"width":600,"height":350}'>
 <div class="chartContainer" style="height:100%;width:100%;"></div>
 <pre class="config hide">

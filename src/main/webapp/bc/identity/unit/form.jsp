@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='<s:text name="unit.title"/>' data-type='form'
-	data-action='<s:url value="/bc/unit/save" />'
+	data-saveUrl='<s:url value="/bc/unit/save" />'
+	data-js='<s:url value="/bc/identity/unit/form.js" />'
+	data-initMethod='bc.unitForm.init'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
 		"minWidth":270,"minHeight":250,"modal":false
@@ -17,31 +19,31 @@
 				</tr>
 				<tr>
 					<td class="label"><s:text name="label.name"/>:</td>
-					<td class="value"><s:textfield name="entity.name" data-validate="required"/></td>
+					<td class="value"><s:textfield name="e.name" data-validate="required"/></td>
 				</tr>
 				<tr>
 					<td class="label"><s:text name="label.code"/>:</td>
-					<td class="value"><s:textfield name="entity.code" data-validate="required"/></td>
+					<td class="value"><s:textfield name="e.code" data-validate="required"/></td>
 				</tr>
 				<tr>
 					<td class="label"><s:text name="label.phone"/>:</td>
-					<td class="value"><s:textfield name="entity.phone" data-validate='{"type":"phone","required":false}'/></td>
+					<td class="value"><s:textfield name="e.phone" data-validate='{"type":"phone","required":false}'/></td>
 				</tr>
 				<tr>
 					<td class="label"><s:text name="label.email"/>:</td>
-					<td class="value"><s:textfield name="entity.email" data-validate='{"type":"email","required":false}'/></td>
+					<td class="value"><s:textfield name="e.email" data-validate='{"type":"email","required":false}'/></td>
 				</tr>
 				<tr>
 					<td class="label"><s:text name="label.order"/>:</td>
-					<td class="value"><s:textfield name="entity.order"/></td>
+					<td class="value"><s:textfield name="e.order"/></td>
 				</tr>
 			</tbody>
 		</table>
-		<s:hidden name="entity.type"/>
-		<s:hidden name="entity.status" />
-		<s:hidden name="entity.inner" />
-		<s:hidden name="entity.uid" />
-		<s:hidden name="entity.id" />
+		<s:hidden name="e.type"/>
+		<s:hidden name="e.status" />
+		<s:hidden name="e.inner" />
+		<s:hidden name="e.uid" />
+		<s:hidden name="e.id" />
 		<s:hidden name="belong.id" />
 	</s:form>
 </div>

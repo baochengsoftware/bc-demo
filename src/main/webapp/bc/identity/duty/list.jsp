@@ -111,10 +111,10 @@
 		</div>
 		<!-- 表格分页条 -->
 		<ul class="pager ui-widget-content ui-widget ui-helper-clearfix">
-			<li id="refresh" class='pagerIcon ui-state-default ui-corner-all' title="刷新"><span class="ui-icon ui-icon-refresh"></span></li>
+			<li data-action="refresh" class='pagerIcon ui-state-default ui-corner-all' title="刷新"><span class="ui-icon ui-icon-refresh"></span></li>
 			<!-- 表格分页条：扩展按钮 -->
-			<li id="export" class='pagerIcon ui-state-default ui-corner-all' title="导出"><span class="ui-icon ui-icon-arrowthickstop-1-s"></span></li>
-			<li id="print" class='pagerIcon ui-state-default ui-corner-all' title="打印"><span class="ui-icon ui-icon-print"></span></li>
+			<li data-action="export" class='pagerIcon ui-state-default ui-corner-all' title="导出"><span class="ui-icon ui-icon-arrowthickstop-1-s"></span></li>
+			<li data-action="print" class='pagerIcon ui-state-default ui-corner-all' title="打印"><span class="ui-icon ui-icon-print"></span></li>
 		</ul>
 	</div>
 </div>

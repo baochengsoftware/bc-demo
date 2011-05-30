@@ -268,6 +268,7 @@ bc.page = {
 bc.ajax = function(option){
 	option = option || {};
 	$.extend(option,{
+		type: "POST",
 		error: function(request, textStatus, errorThrown) {
 			var msg = "bc.ajax: textStatus=" + textStatus + ";errorThrown=" + errorThrown;
 			logger.error(msg);
