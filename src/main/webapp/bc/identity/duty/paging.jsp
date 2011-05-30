@@ -61,7 +61,7 @@
 							<td class="last sortable" style="width: 100px"><div class="wrapper"><s:text name="duty.name" />
 								<span class="sortableIcon ui-icon hide"></span></div>
 							</td>
-							<td class="empty">&nbsp;</td>
+<!-- 							<td class="empty">&nbsp;</td> -->
 						</tr>
 					</tbody>
 				</table>
@@ -99,7 +99,7 @@
 								</td>
 								<td class="last" style="width: 100px"><s:property value="name" />
 								</td>
-								<td class="empty">&nbsp;</td>
+<!-- 								<td class="empty">&nbsp;</td> -->
 							</tr>
 						</s:iterator>
 					</tbody>

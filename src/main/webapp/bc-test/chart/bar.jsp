@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='柱图演示'' 
-	class="bc-page chart"
+	class="bc-page chart" style="overflow: auto;"
 	data-type='chart' 
 	data-js='<s:url value="/ui-libs/highcharts/2.1.4/highcharts.min.js" />,<s:url value="/ui-libs/highcharts/2.1.4/modules/exporting.min.js" />,<s:url value="/bc-test/chart/bar.js" />'
 	data-initMethod='bc.barDemo.init'

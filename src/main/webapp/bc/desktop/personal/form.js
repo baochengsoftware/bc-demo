@@ -9,7 +9,7 @@ bc.personal={
 		$slider.slider({
 			value:curValue,min: 12,max: 20,step: 2,
 			slide: function( event, ui ) {
-				$form.find("[name='entity.font']").val(ui.value);
+				$form.find("[name='e.font']").val(ui.value);
 				$form.find("#fontSize").html(bc.personal.getFontSizeDesc(ui.value));
 				$("body").css("fontSize",ui.value + 'px');
 				logger.info(ui.value);
@@ -17,7 +17,7 @@ bc.personal={
 		});
 		
 		//主题选择
-		var curTheme = $form.find("input[name='entity.theme']").val();
+		var curTheme = $form.find("input[name='e.theme']").val();
 		logger.info("curTheme=" + curTheme);
 		var $themes = $form.find("td.theme");
 		$themes.filter("[data-theme='" + curTheme + "']").toggleClass("active",true);
@@ -38,7 +38,7 @@ bc.personal={
 			
 			//记录选定的主题
 			var themeName = $this.attr("data-theme");
-			$form.find("input[name='entity.theme']").val(themeName);
+			$form.find("input[name='e.theme']").val(themeName);
 			
 			//动态切换主题
 			var css = $this.attr("data-css");
@@ -80,7 +80,7 @@ bc.personal={
 	save:function(){
 		bc.page.save.call(this,function(json){
 			logger.info("json.id=" + json.id);
-			//$(this).find("input[name='entity.actor.id']").val(json.id);
+			//$(this).find("input[name='e.actor.id']").val(json.id);
 		});
 	}
 };

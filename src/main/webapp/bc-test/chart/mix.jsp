@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='混合图表'' 
-	class="bc-page chart"
+	class="bc-page chart" style="overflow: auto;"
 	data-type='chart' 
 	data-js='<s:url value="/ui-libs/highcharts/2.1.4/highcharts.min.js" />,<s:url value="/bc-test/chart/mix.js" />'
 	data-initMethod='bc.mixChartDemo.init'

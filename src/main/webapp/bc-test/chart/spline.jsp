@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='动态曲线图'' 
-	class="bc-page chart"
+	class="bc-page chart" style="overflow: auto;"
 	data-type='chart' 
 	data-js='<s:url value="/ui-libs/highcharts/2.1.4/highcharts.min.js" />,<s:url value="/bc-test/chart/spline.js" />'
 	data-initMethod='bc.pieDemo.init'

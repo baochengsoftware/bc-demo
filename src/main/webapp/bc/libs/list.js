@@ -148,20 +148,23 @@ bc.grid = {
 		//附加搜索条件的参数  TODO 高级搜索
 		var $search = $page.find(".bc-toolbar #searchText");
 		if($search.size()){
-			data.search = $search.val();
+			var searchText = $search.val();
+			if(searchText && searchText.length > 0)data.search = searchText;
 		}
 		
 		//重新加载数据
 		bc.ajax({
 			url : url, data: data,
 			dataType : "html",
+			type: "POST",
 			success : function(html) {
 				var $data = $page.find(".bc-grid .data");
-				$data.empty().append(html);
+				$data.empty().replaceWith(html);//整个data更换
 				bc.grid.init($page);
 				
 				//如果总页数变了，就更新一下
-				var newPageCount = $data.find(".left").attr("data-pageCount");
+				//var newPageCount = $data.find(".left").attr("data-pageCount");
+				var newPageCount = $data.attr("data-pageCount");
 				if(newPageCount){
 					var $pageCount = $page.find("#pageCount");
 					if($pageCount.text() != newPageCount)
@@ -212,6 +215,8 @@ $("ul li.pagerIcon").live("click", function() {
 			click.call(pageEl,callback);
 		break;
 	}
+	
+	return false;
 });
 //点击分页按钮
 $("ul li.pagerIconGroup.seek>.pagerIcon").live("click", function() {
@@ -254,6 +259,8 @@ $("ul li.pagerIconGroup.seek>.pagerIcon").live("click", function() {
 	
 	//重新加载列表数据
 	if(reload) bc.grid.reloadData($seek.parents(".bc-page"));
+	
+	return false;
 });
 //点击pageSize按钮
 $("ul li.pagerIconGroup.size>.pagerIcon").live("click", function() {
@@ -267,6 +274,8 @@ $("ul li.pagerIconGroup.size>.pagerIcon").live("click", function() {
 
 	//重新加载列表数据
 	bc.grid.reloadData($this.parents(".bc-page"));
+	
+	return false;
 });
 /*
 //点击刷新按钮

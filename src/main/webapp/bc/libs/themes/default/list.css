@@ -84,7 +84,7 @@ table.table{
 	/*width: 300px;*/
 }
 
-.bc-grid td.first,.bc-grid td.middle,.bc-grid td.last,.bc-grid td.empty,.bc-grid td.id{
+.bc-grid td.first,.bc-grid td.middle,.bc-grid td.last,.bc-grid td.id{
 	border-bottom: 1px solid #ccc;
 	padding-left: 0.25em;
 	padding-right: 0.25em;
@@ -99,6 +99,11 @@ table.table{
 	-webkit-text-overflow: ellipsis;
 	white-space:nowrap;
 	-moz-binding: url('ellipsis.xml#ellipsis');
+}
+
+.bc-grid .header td.empty{
+	border-bottom: 1px solid #ccc;
+	padding: 0;
 }
 .bc-grid td.middle,.bc-grid td.last{
 	border-left: 1px solid #ccc;

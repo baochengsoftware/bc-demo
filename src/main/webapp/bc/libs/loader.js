@@ -17,6 +17,7 @@ bc.loader = {
 	// Called with an array, it will interpret the options array
 	// Called without an array it will try to load the options from the script-tag's data-nbl attribute
 	l: function(a) { 
+		//alert(a);
 		var b, c, x, y, z, s, l, i = j = 0, m = bc.loader; m.h = m.c.head || m.c.body;
 		
 		// The timeout counter, counts backwards every 50ms from 50 ticks (50*50=2500ms by default)
@@ -69,7 +70,7 @@ bc.loader = {
 				// as well as the callback function l
 				b.shift && m.a([b.shift(), b], l); 
 				if (!m.f && l) m.f = l; // Store the function l as the timeout function if it hasn't been set yet
-				i++
+				i++;
 			}
 		}
 	},
@@ -97,21 +98,26 @@ bc.loader = {
 			s.setAttribute("rel", k[t].r);
 			m.q[n] = true;//强制设为true
 			clearInterval(m.i); 
-			if(logger.debugEnabled)logger.debug("loader: loading css '" + file + "'" + (l ? " and call the callback" : ""));
+			if(logger.debugEnabled)logger.debug("loader|css: loading css '" + file + "'" + (l ? " and call the callback" : ""));
 			l && l(); // Call the callback function l
+			if(logger.debugEnabled)logger.debug("loader|css: append '" + file + "' to head");
+			if(u[1]){
+				logger.debug("loader|css: start load next after loaded '" + file + "'");
+				m.l(u[1]);
+			}
 		}else {
 			// When this script completes loading, it will trigger a callback function consisting of two things:
 			// 1. It will call nbl.l() with the remaining items in u[1] (if there are any)
 			// 2. It will execute the function l (if it is a function)
 			s.onload = function(){
 				clearInterval(m.i); 
-				if(logger.debugEnabled)logger.debug("loader: finished loaded js'" + file + "'" + (l ? " and call the callback" : ""));
+				if(logger.debugEnabled)logger.debug("loader|js: finished loaded js'" + file + "'" + (l ? " and call the callback" : ""));
 				var s = this, d = function(){
 					var s = m, r = u[1]; 
 					s.q[n] = true; // Set the entry for this script in the script-queue to true
 					//r && s.l(r); // Call nbl.l() with the remaining elements of the original array
 					if(r){
-						logger.debug("loader: start load next after loaded '" + file + "'");
+						logger.debug("loader|js: start load next after loaded '" + file + "'");
 						s.l(r);
 					}
 					
@@ -125,9 +131,9 @@ bc.loader = {
 				}
 			};
 			s.onreadystatechange = s.onload;
-			m.s++
+			m.s++;
+			if(logger.debugEnabled)logger.debug("loader|js: append '" + file + "' to head");
 		}
-		if(logger.debugEnabled)logger.debug("loader: append '" + file + "' to head");
 		m.h.appendChild(s) // Add the script to the document
 	}
 };
@@ -162,7 +168,6 @@ bc.load = function(args){
 		bc.loader.l([args]);
 	}
 }
-/*
 function array2string(array){
 	//alert("0:" + array);
 	var t=["["];
@@ -183,6 +188,7 @@ function array2string(array){
 	t.push("]");
 	return t.join("");
 }
+/*
 function rebuildArgs1(args,lastIsFn){
 	//用数组的第1个元素和剩余元素组成的数组生成新的数组
 	args=[args.shift(),args];
