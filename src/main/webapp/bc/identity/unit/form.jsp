@@ -14,15 +14,15 @@
 				<tr>
 					<td class="label"><s:text name="unit.belong"/>:</td>
 					<td class="value"><s:textfield name="belong.name" cssClass='{"field":"belong.id","required":false}' 
-					cssStyle="float:left;width:14em;"/><span id="selectUnit" class="clickToSelect ui-icon ui-icon-search" 
+					cssStyle="float:left;width:14em;"/><span id="selectBelong" class="clickToSelect ui-icon ui-icon-search" 
 					title='<s:text name="title.select"/>'></span></td>
 				</tr>
 				<tr>
-					<td class="label"><s:text name="label.name"/>:</td>
+					<td class="label">* <s:text name="label.name"/>:</td>
 					<td class="value"><s:textfield name="e.name" data-validate="required"/></td>
 				</tr>
 				<tr>
-					<td class="label"><s:text name="label.code"/>:</td>
+					<td class="label">* <s:text name="label.code"/>:</td>
 					<td class="value"><s:textfield name="e.code" data-validate="required"/></td>
 				</tr>
 				<tr>

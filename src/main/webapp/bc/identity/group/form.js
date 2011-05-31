@@ -1,4 +1,4 @@
-bc.userForm = {
+bc.groupForm = {
 	init : function() {
 		var $form = $(this);
 		//绑定选择上级的按钮事件处理

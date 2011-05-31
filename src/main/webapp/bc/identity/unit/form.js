@@ -1,8 +1,8 @@
 bc.unitForm = {
 	init : function() {
 		var $form = $(this);
-		//绑定选择单位的按钮事件处理
-		$form.find("#selectUnit").click(function(){
+		//绑定选择上级的按钮事件处理
+		$form.find("#selectBelong").click(function(){
 			var data = {};
 			var selected = $form.find(":input[name='belong.id']").val();
 			var myId = $form.find(":input[name='e.id']").val();
@@ -24,9 +24,5 @@ bc.unitForm = {
 				}
 			});
 		});
-	},
-	//用户选中单位信息后
-	afterSelected : function() {
-		// 获取选中的值
 	}
 };

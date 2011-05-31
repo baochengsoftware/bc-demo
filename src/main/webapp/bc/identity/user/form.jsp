@@ -1,19 +1,49 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div title='<s:text name="user.form.title"/>' 
-	data-js='<s:url value="/bc/identity/user/form.js" />'
-	data-css='<s:url value="/bc/identity/user/form.css" />'
-	data-method='userForm.init' data-option='{mid:"user01",closeOnEscape: false,modal:true,minWidth:400
-	,dialogClass:"bc-ui-dialog"
-	,buttons:[{text:"确认",click:function(){logger.info("click 确认");}}
-		,{text:"取消",click:function(){logger.info("click 取消");}}
-	]}'>
-	<s:form>
-		<s:textfield key="user.firstName" />
-		<s:textfield key="user.lastName" />
-		<s:textfield key="user.email" />
-		<s:textfield key="user.phone" />
-		<s:textfield key="user.id" readonly="true"/>
-		<s:textfield key="user.type" readonly="true" />
+<div title='<s:text name="user.title"/>' data-type='form'
+	data-saveUrl='<s:url value="/bc/user/save" />'
+	data-js='<s:url value="/bc/identity/user/form.js" />,<s:url value="/bc/identity/identity.js" />'
+	data-initMethod='bc.userForm.init'
+	data-option='{
+		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
+		"minWidth":270,"minHeight":250,"modal":false
+	}'>
+	<s:form name="userForm" theme="simple">
+		<table class="formTable" cellspacing="2">
+			<tbody>
+				<tr>
+					<td class="label">* <s:text name="user.belong"/>:</td>
+					<td class="value"><s:textfield name="belong.name" data-validate="required"
+					cssStyle="float:left;width:14em;" readonly="true"/><span id="selectBelong" class="clickToSelect ui-icon ui-icon-search" 
+					title='<s:text name="title.select"/>'></span></td>
+				</tr>
+				<tr>
+					<td class="label">* <s:text name="user.name"/>:</td>
+					<td class="value"><s:textfield name="e.name" data-validate="required"/></td>
+				</tr>
+				<tr>
+					<td class="label">* <s:text name="user.code"/>:</td>
+					<td class="value"><s:textfield name="e.code" data-validate="required"/></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.phone"/>:</td>
+					<td class="value"><s:textfield name="e.phone" data-validate='{"type":"phone","required":false}'/></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.email"/>:</td>
+					<td class="value"><s:textfield name="e.email" data-validate='{"type":"email","required":false}'/></td>
+				</tr>
+				<tr>
+					<td class="label"><s:text name="label.order"/>:</td>
+					<td class="value"><s:textfield name="e.order"/></td>
+				</tr>
+			</tbody>
+		</table>
+		<s:hidden name="e.type"/>
+		<s:hidden name="e.status" />
+		<s:hidden name="e.inner" />
+		<s:hidden name="e.uid" />
+		<s:hidden name="e.id" />
+		<s:hidden name="belong.id" />
 	</s:form>
 </div>
