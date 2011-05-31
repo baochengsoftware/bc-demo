@@ -31,7 +31,7 @@
 					<td class="value"><s:textfield name="e.url"/></td>
 				</tr>
 				<tr>
-					<td class="label">* <s:text name="label.order"/>:</td>
+					<td class="label">* <s:text name="label.code"/>:</td>
 					<td class="value"><s:textfield name="e.code" data-validate="required"/></td>
 				</tr>
 				<tr>
