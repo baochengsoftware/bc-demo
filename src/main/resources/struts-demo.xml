@@ -3,15 +3,32 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<!-- 主页配置 -->
-	<package name="index" extends="struts-default" namespace="/">
-		<action name="index" class="IndexAction">
-			<result>/bc/index/index.jsp</result>
+	<!-- 登录 -->
+	<package name="login" extends="struts-default" namespace="/">
+		<action name="doLogin" class="loginAction" method="doLogin">
+			<result>/bc/login/loginResult.jsp</result>
 		</action>
 		<!-- 设置空的name，使web.xml中可以通过action来配置welcome-file -->
+		<action name="" class="loginAction">
+			<result>/bc/login/login.jsp</result>
+		</action>
+		<action name="login" class="loginAction">
+			<result>/bc/login/login.jsp</result>
+		</action>
+		<action name="logout" class="loginAction" method="doLogout">
+			<result type="redirect">/login.action</result>
+		</action>
+	</package>
+	<!-- 主页配置 -->
+	<package name="index" extends="struts-default" namespace="/">
+		<action name="index" class="indexAction">
+			<result>/bc/index/desktop.jsp</result>
+			<result name="redirect" type="redirect">/login.action</result>
+		</action>
+		<!-- 设置空的name，使web.xml中可以通过action来配置welcome-file
 		<action name="" class="indexAction">
 			<result>/bc/index/desktop.jsp</result>
-		</action>
+		</action> -->
 	</package>
 	
 	<!-- 图表 -->

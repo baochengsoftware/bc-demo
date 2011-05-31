@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -36,7 +37,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class IndexAction extends ActionSupport {
+public class IndexAction extends ActionSupport implements SessionAware {
 	private static final long serialVersionUID = 1L;
 	private static Log logger = LogFactory.getLog(IndexAction.class);
 	private String msg;
@@ -45,8 +46,13 @@ public class IndexAction extends ActionSupport {
 	private PersonalService personalConfigService;
 	private List<Shortcut> shortcuts;
 	private String startMenu;// 开始菜单
-	private Personal personalConfig;//个人配置
-	
+	private Personal personalConfig;// 个人配置
+	private Map<String, Object> session;
+
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+
 	@Autowired
 	public void setShortcutService(ShortcutService shortcutService) {
 		this.shortcutService = shortcutService;
@@ -95,18 +101,23 @@ public class IndexAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
-		logger.debug("IndexAction.execute");
-		msg = "Hello World in BC!";
+		// 检测用户是否登录,未登录则跳转到登录页面
+		Actor user = (Actor) session.get("user");
+		if(user == null){
+			logger.info("redirect");
+			return "redirect";
+		}
 
-		String userLoginName = "admin";
-		Actor user = this.actorService.loadByCode(userLoginName);
-		
-		//个人配置
-		this.personalConfig = this.personalConfigService.loadByActor(user.getId(),true);
+		//String userLoginName = "admin";
+		//Actor user = this.actorService.loadByCode(userLoginName);
+
+		// 个人配置
+		this.personalConfig = this.personalConfigService.loadByActor(
+				user.getId(), true);
 		if (this.personalConfig == null)
 			throw new CoreException("缺少配置信息！");
 
-		//快捷方式
+		// 快捷方式
 		Set<Module> modules = new LinkedHashSet<Module>();// 有权限使用的模块
 		this.shortcuts = this.shortcutService.findByActor(user.getId(), null,
 				null, modules);
@@ -186,7 +197,8 @@ public class IndexAction extends ActionSupport {
 		menuItem = new MenuItem();
 		menuItem.setUrl(m.getUrl()).setLabel(m.getName())
 				.setType(String.valueOf(m.getType())).setAction("menuItem")
-				.setAttr("data-mid", m.getId().toString());//.addStyle("z-index", "10000");
+				.setAttr("data-mid", m.getId().toString());// .addStyle("z-index",
+															// "10000");
 		if (m.getType() == Module.TYPE_FOLDER) {// 文件夹
 			Set<Module> childModules = parentChildren.get(m);// 模块下的子模块
 			if (childModules != null && !childModules.isEmpty()) {

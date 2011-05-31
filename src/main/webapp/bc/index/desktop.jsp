@@ -172,6 +172,8 @@
 		}else{
 			bc.ts = "<s:text name="app.ts" />";//系统编译发布的时间
 		}
+		var userCode = '<s:property value="#session.user.code" />';
+		var userName = '<s:property value="#session.user.name" />';
 	</script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/themeSwitcher/switcher.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 </body>

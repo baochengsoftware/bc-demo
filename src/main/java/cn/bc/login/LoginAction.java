@@ -1,0 +1,93 @@
+/**
+ * 
+ */
+package cn.bc.login;
+
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
+
+import cn.bc.identity.domain.Actor;
+import cn.bc.identity.domain.ActorDetail;
+import cn.bc.identity.service.ActorService;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+
+/**
+ * 登录处理
+ * 
+ * @author dragon
+ * 
+ */
+@Controller
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+public class LoginAction extends ActionSupport implements SessionAware {
+	private static final long serialVersionUID = 1L;
+	private static Log logger = LogFactory.getLog(LoginAction.class);
+	public String name;// 帐号
+	public String password;// 密码
+	public String msg;// 登录信息
+	public boolean success;// 登录是否成功
+	private ActorService actorService;
+	private Map<String, Object> session;
+
+	@Autowired
+	public void setActorService(ActorService actorService) {
+		this.actorService = actorService;
+	}
+
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+
+	public String execute() throws Exception {
+		return SUCCESS;
+	}
+
+	public String doLogin() throws Exception {
+		success = true;
+
+		Actor user = this.actorService.loadByCode(name);
+		if (user == null) {
+			msg = "该用户未注册，如有问题请联系系统管理员！";
+			success = false;
+		} else {
+			// 检测用户的密码是否正确
+			ActorDetail detail = user.getDetail();
+			String password = detail != null ? detail.getString("password")
+					: null;
+
+			// TODO 密码验证
+			//String md5 = DigestUtils.md5DigestAsHex(this.password
+			//		.getBytes("UTF-8"));
+			// if(!md5.equals(password)){
+			// msg = "密码错误！";
+			// success = false;
+			// }
+
+			msg = "登录成功，跳转到系统主页！";
+
+			// TODO 记录登录日志
+
+			// 将登录信息记录到session中
+			this.session.put("user", user);
+		}
+
+		return SUCCESS;
+	}
+
+	// 注销
+	public String doLogout() throws Exception {
+		((org.apache.struts2.dispatcher.SessionMap<String, Object>) this.session)
+				.invalidate();
+		return SUCCESS;
+	}
+}

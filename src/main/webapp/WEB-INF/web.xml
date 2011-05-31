@@ -10,7 +10,7 @@
 	<display-name>webTest</display-name>
 
 	<welcome-file-list>
-		<welcome-file>/index.action</welcome-file>
+		<welcome-file>/login.action</welcome-file>
 	</welcome-file-list>
 	
 	<!-- Log4j -->
