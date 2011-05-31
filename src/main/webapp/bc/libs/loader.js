@@ -75,7 +75,7 @@ bc.loader = {
 		}
 	},
 	a: function(u,l) {
-		//logger.info("call a");
+		logger.info("call a");
 		var s, t, m = this, n = u[0].replace(/.+\/|\.min\.js|\.js|\?.+|\W/g, ''), k = {js: {t: "script", a: "src"}, css: {t: "link", a: "href", r: "stylesheet"}, "i": {t: "img", a: "src"}}; // Clean up the name of the script for storage in the queue
 		t = u[0].match(/\.(js|css).*$/i); t = (t) ? t[1] : "i";
 		if(m.q[n] === true){
@@ -166,6 +166,8 @@ bc.load = function(args){
 			args = rebuildArgs(args,false);
 		}
 		bc.loader.l([args]);
+	}else{
+		bc.loader.l(args);
 	}
 }
 function array2string(array){

@@ -10,7 +10,8 @@ bc.page = {
 	 * @option {String} url 地址
 	 * @option {String} data 附加的数据
 	 * @option {String} afterOpen 窗口新建好后的回调函数
-	 * @option {String} afterClose 窗口关闭后的回调函数
+	 * @option {String} afterClose 窗口关闭后的回调函数。function(event, ui)
+	 * @option {String} beforeClose 窗口关闭前的回调函数，返回false将阻止关闭窗口。function(event, ui)
 	 */
 	newWin: function(option) {
 		option = option || {};
@@ -39,10 +40,10 @@ bc.page = {
 			dataType : "html",
 			success : function(html) {
 				logger.info("success loaded html");
-				var tc = document.getElementById("tempContainer");
-				if(!tc){
-					tc=$('<div id="tempContainer"></div>').appendTo("body")[0];
-				}
+				//var tc = document.getElementById("tempContainer");
+				//if(!tc){
+				//	tc=$('<div id="tempContainer"></div>').appendTo("body")[0];
+				//}
 				//tc.innerHTML=html;
 				var $dom = $(html);
 				if($dom.size() > 1){
@@ -57,13 +58,19 @@ bc.page = {
 					if(!$dom.attr("title"))
 						cfg.title=option.name;
 					$dom.dialog(bc.page._rebuildWinOption(cfg));
-					$dom.bind("dialogclose",function(event,ui){
-						var status = $dom.attr("data-status");
+					$dom.bind("dialogbeforeclose",function(event,ui){
+						var status = $dom.data("data-status");
+						//调用回调函数
+						if(option.beforeClose) 
+							return option.beforeClose(status);
+					}).bind("dialogclose",function(event,ui){
+						var status = $dom.data("data-status");
 						//调用回调函数
 						if(option.afterClose) option.afterClose(status);
 						
 						//彻底删除所有相关的dom元素
 						$(this).dialog("destroy").remove();
+						//删除任务栏对应的dom元素
 						$(bc.page.quickbar.id).find(">a.quickButton[data-mid='" + option.mid + "']").unbind().remove();
 					}).attr("data-src",option.url).attr("data-mid",option.mid)
 					.bind("dialogfocus", function(event, ui) {
@@ -173,10 +180,10 @@ bc.page = {
 			success: function(json) {
 				if(logger.debugEnabled)logger.debug("save success.json=" + jQuery.param(json));
 				if(json.id){
-					$form.find("input[name='entity.id']").val(json.id);
+					$form.find("input[name='e.id']").val(json.id);
 				}
 				//记录已保存状态
-				$this.attr("data-status","saved");
+				$this.attr("data-status","saved").data("data-status","saved");
 				
 				//调用回调函数
 				var showMsg = true;

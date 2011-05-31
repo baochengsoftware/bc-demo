@@ -31,5 +31,5 @@ bc.ui.selectUnit = function() {
 
 // 注册ui事件
 jQuery(function($) {
-	bc.ui.init();
+	//bc.ui.init();
 });

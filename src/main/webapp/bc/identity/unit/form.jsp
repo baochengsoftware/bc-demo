@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='<s:text name="unit.title"/>' data-type='form'
 	data-saveUrl='<s:url value="/bc/unit/save" />'
-	data-js='<s:url value="/bc/identity/unit/form.js" />'
+	data-js='<s:url value="/bc/identity/unit/form.js" />,<s:url value="/bc/identity/identity.js" />'
 	data-initMethod='bc.unitForm.init'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
