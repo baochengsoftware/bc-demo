@@ -13,14 +13,17 @@ function login() {
 		showMsg("密码不能为空！");
 		$("#password").focus();
 		return;
+	}else{
+		$("#password").attr("data-p",password);
 	}
 
 	showMsg("正在登录...");
+	
 	$.ajax({
 		url : bc.root + "/doLogin",
 		data : {
 			name : name,
-			password : password
+			password : hex_md5(password)//使用md5加密避免密码明文传输
 		},
 		type : "POST",
 		dataType: "json",

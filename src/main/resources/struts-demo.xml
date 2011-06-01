@@ -16,14 +16,14 @@
 			<result>/bc/login/login.jsp</result>
 		</action>
 		<action name="logout" class="loginAction" method="doLogout">
-			<result type="redirect">/login.action</result>
+			<result type="redirect">/login</result>
 		</action>
 	</package>
 	<!-- 主页配置 -->
 	<package name="index" extends="struts-default" namespace="/">
 		<action name="index" class="indexAction">
 			<result>/bc/index/desktop.jsp</result>
-			<result name="redirect" type="redirect">/login.action</result>
+			<result name="redirect" type="redirect">/login</result>
 		</action>
 		<!-- 设置空的name，使web.xml中可以通过action来配置welcome-file
 		<action name="" class="indexAction">

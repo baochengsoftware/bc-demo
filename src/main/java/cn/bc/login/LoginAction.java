@@ -15,10 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 
 import cn.bc.identity.domain.Actor;
-import cn.bc.identity.domain.ActorDetail;
-import cn.bc.identity.service.ActorService;
+import cn.bc.identity.domain.AuthData;
+import cn.bc.identity.service.UserService;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -36,12 +35,12 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	public String password;// 密码
 	public String msg;// 登录信息
 	public boolean success;// 登录是否成功
-	private ActorService actorService;
+	private UserService userService;
 	private Map<String, Object> session;
 
 	@Autowired
-	public void setActorService(ActorService actorService) {
-		this.actorService = actorService;
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	public void setSession(Map<String, Object> session) {
@@ -55,30 +54,37 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	public String doLogin() throws Exception {
 		success = true;
 
-		Actor user = this.actorService.loadByCode(name);
+		Actor user = this.userService.loadByCode(name);
 		if (user == null) {
 			msg = "该用户未注册，如有问题请联系系统管理员！";
 			success = false;
 		} else {
 			// 检测用户的密码是否正确
-			ActorDetail detail = user.getDetail();
-			String password = detail != null ? detail.getString("password")
-					: null;
+			AuthData authData = this.userService.loadAuthData(user.getId());
+			if (authData == null) {
+				msg = "系统错误！没有为用户(" + user.getCode() + ")配置认证信息。";
+				success = false;
+			} else {
+				// 密码验证
+				String md5;
+				if(this.password.length() != 32){//明文密码先进行md5加密
+					md5= DigestUtils.md5DigestAsHex(this.password.getBytes("UTF-8"));
+				}else{//已加密的密码
+					md5 = this.password;
+				}
+						
+				if (!md5.equals(authData.getPassword())) {
+					msg = "密码错误！";
+					success = false;
+				} else {
+					msg = "登录成功，跳转到系统主页！";
 
-			// TODO 密码验证
-			//String md5 = DigestUtils.md5DigestAsHex(this.password
-			//		.getBytes("UTF-8"));
-			// if(!md5.equals(password)){
-			// msg = "密码错误！";
-			// success = false;
-			// }
+					// TODO 记录登录日志
 
-			msg = "登录成功，跳转到系统主页！";
-
-			// TODO 记录登录日志
-
-			// 将登录信息记录到session中
-			this.session.put("user", user);
+					// 将登录信息记录到session中
+					this.session.put("user", user);
+				}
+			}
 		}
 
 		return SUCCESS;
