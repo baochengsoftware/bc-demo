@@ -152,6 +152,19 @@ body .ui-widget-overlay {
 #quickShowHide a:HOVER {
 	background-position: -24px 0;
 }
+#quickLogout {
+	width: 40px;
+	vertical-align: middle;
+	height:100%;
+}
+#quickLogout a {
+	background: url(images/logout.png) repeat-y 0 0;
+	display:block;
+	width:32px;
+	height:32px;
+	text-decoration: none;
+	margin: auto;
+}
 #quickButtons {
 	height: 100%;
 	vertical-align: middle;
@@ -201,12 +214,11 @@ body .ui-widget-overlay {
 #copyrightBar {
 	position: absolute;
 	bottom: 0px;
-	left: 50%;
-	width: 300px;
+	left: 0;
+	width: 100%;
 	height: 30px;
 	line-height: 30px;
 	overflow: hidden;
-	margin-left:-135px;
 	overflow: hidden;
 	text-align: center;
 }
@@ -245,4 +257,14 @@ body .ui-widget-overlay {
 }
 .imgtest:HOVER{
 	zoom:1;
+}
+#loginInfo{
+	position: absolute;
+	bottom: 0;
+	left:0;
+	height: 30px;
+	line-height: 30px;
+	font-size:0.75em;
+	color:#888;
+	padding-left:10px;
 }

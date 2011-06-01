@@ -103,6 +103,12 @@ bc.desktop = {
 			}
 			return false;
 		});
+
+		// 注销的控制
+		$("#quickLogout").click(function() {
+			window.open(bc.root + "/logout","_self");
+			return false;
+		});
 		
 		// 桌面日历
 		$("#indexCalendar").datepicker({

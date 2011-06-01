@@ -47,6 +47,7 @@
 			<tr>
 				<td id="quickStart"><a title="开始"></a></td>
 				<td id="quickButtons">&nbsp;</td>
+				<td id="quickLogout" title="点击注销并退出系统"><a>&nbsp;</a></td>
 				<td id="quickShowHide" title="显示桌面"><a>&nbsp;</a></td>
 			</tr>
 			</tbody>
@@ -97,6 +98,9 @@
 		<div class="item" id="bulletinBoard"></div>
 	</div>
 	<div id="copyrightBar"><a href="http://www.bctaxi.com.cn" target="_blank">Copyright ©2011 广州市宝城汽车出租有限公司</a></div>
+	<div id="loginInfo">
+	<s:property value="#session.user.name" />(<s:property value="#session.belong.name" />) 登录于  <s:date name="#session.loginTime" format="yyyy-MM-dd HH:mm"/>
+	</div>
 	<div id="quickStartMenu" class="hide" style="position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden;">
 		<s:property value="startMenu" escapeHtml="false"/>
 	</div>

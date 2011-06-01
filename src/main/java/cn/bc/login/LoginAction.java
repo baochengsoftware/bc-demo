@@ -3,6 +3,8 @@
  */
 package cn.bc.login;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 
 import cn.bc.identity.domain.Actor;
+import cn.bc.identity.domain.ActorRelation;
 import cn.bc.identity.domain.AuthData;
 import cn.bc.identity.service.UserService;
 
@@ -67,12 +70,13 @@ public class LoginAction extends ActionSupport implements SessionAware {
 			} else {
 				// 密码验证
 				String md5;
-				if(this.password.length() != 32){//明文密码先进行md5加密
-					md5= DigestUtils.md5DigestAsHex(this.password.getBytes("UTF-8"));
-				}else{//已加密的密码
+				if (this.password.length() != 32) {// 明文密码先进行md5加密
+					md5 = DigestUtils.md5DigestAsHex(this.password
+							.getBytes("UTF-8"));
+				} else {// 已加密的密码
 					md5 = this.password;
 				}
-						
+
 				if (!md5.equals(authData.getPassword())) {
 					msg = "密码错误！";
 					success = false;
@@ -83,6 +87,20 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
 					// 将登录信息记录到session中
 					this.session.put("user", user);
+
+					// 用户所隶属的单位或部门
+					Actor belong = this.userService.loadBelong(user.getId(),
+							new Integer[] { Actor.TYPE_UNIT,
+									Actor.TYPE_DEPARTMENT });
+					this.session.put("belong", belong);
+
+					// 用户所在的岗位
+					List<Actor> groups = this.userService.findMaster(
+							user.getId(),
+							new Integer[] { ActorRelation.TYPE_BELONG },
+							new Integer[] { new Integer(Actor.TYPE_GROUP) });
+					this.session.put("groups", groups);
+					this.session.put("loginTime", new Date());
 				}
 			}
 		}
