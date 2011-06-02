@@ -5,9 +5,11 @@
 	data-js='<s:url value="/bc/security/module/select.js" />'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.ok"/>","click":"bc.selectModule.clickOk"}],
-		"width":200,"height":250,"modal":true
+		"width":300,"modal":true
 	}'>
-	<s:select list="es" listKey="id" listValue="name" theme="simple"
+	<div style="margin:4px;">
+	<s:select name="es" list="es" listKey="id" listValue="name" theme="simple"
 		size="10" cssStyle="width:100%;height:100%;" value="selected"
-		multiple="multiple"></s:select>
+		multiple="%{multiple}"></s:select>
+	</div>
 </div>

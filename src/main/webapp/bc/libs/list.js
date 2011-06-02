@@ -16,8 +16,8 @@ bc.grid = {
 		//滚动条处理
 		$grid.find(".data .right").scroll(function(){
 			//logger.info("scroll");
-			container.find(".data .left").scrollTop($(this).scrollTop());
 			container.find(".header .right").scrollLeft($(this).scrollLeft());
+			container.find(".data .left").scrollTop($(this).scrollTop());
 		});
 		//记录表格的原始宽度
 		var $data_table = $grid.find(".data .right .table");
@@ -75,6 +75,7 @@ bc.grid = {
 			if(_clientWidth != clientWidth){//从无垂直滚动条到出现滚动条的处理
 				logger.info("clientWidth");
 				$data_table.width(_clientWidth);
+				newTableWidth = _clientWidth;
 			}
 			//header宽度(要减去data区的垂直滚动条宽度)
 			$header_right.width($data_right[0].clientWidth);

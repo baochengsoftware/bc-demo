@@ -68,7 +68,7 @@ body .ui-widget-overlay {
 }
 
 /**桌面快捷方式*/
-#desktop a.shortcut{
+a.shortcut{
 	float: left;
 	/*clear: left; 设置这个就默认竖排了*/
 	margin: 10px 5px 5px 10px;
@@ -81,10 +81,10 @@ body .ui-widget-overlay {
 	_text-align: center;/*fixed ie6:使内部内容水平居中*/
 	width:5.5em;
 }
-#desktop a.shortcut:HOVER{
+a.shortcut:HOVER{
 	border-color: green;
 }
-#desktop a.shortcut .icon{
+a.shortcut .icon{
 	display: block;
 	width:52px;height:52px;
 	background: url(images/shortcuts/shortcuts.png) no-repeat -208px -156px;
@@ -92,7 +92,7 @@ body .ui-widget-overlay {
 	margin: auto;
 	margin-top:2px;
 }
-#desktop a.shortcut .text{
+a.shortcut .text{
 	margin: auto;
 	display: block;
 	width:5em;

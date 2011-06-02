@@ -1,20 +1,20 @@
-bc.selectModule = {
+bc.selectUser = {
 	init : function() {
 		var $page = $(this);
 		//绑定双击事件
 		$page.find("select").dblclick(function(){
-			bc.selectModule.clickOk.call($page[0]);
+			bc.selectUser.clickOk.call($page[0]);
 		});
 	},
 	clickOk : function() {
 		var $page = $(this);
 		var select = $page.find("select")[0];
 		if(select.selectedIndex == -1){
-			alert("必须先选择模块信息！");
+			alert("必须先选择用户信息！");
 			return false;
 		}
 		var item;
-		if(select.multiple){
+		if(select.multiple){//多选
 			item=[];
 			// 循环选定的每一个项目，将该项添加到列表中
 			for (var i = 0; i < select.length; i++){
@@ -22,7 +22,7 @@ bc.selectModule = {
 					item.push({id: select.options[i].value,name: select.options[i].text});
 				}
 			}
-		}else{
+		}else{//单选
 			item={id: select.value,name: select.options[select.selectedIndex].text};
 		}
 		$page.data("data-status",item);
