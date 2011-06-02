@@ -72,6 +72,16 @@
 			<artifactId>bc-report</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>cn.bc</groupId>
+			<artifactId>bc-message</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.bc</groupId>
+			<artifactId>bc-work</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		
 		<!-- for provided -->
 		<dependency>

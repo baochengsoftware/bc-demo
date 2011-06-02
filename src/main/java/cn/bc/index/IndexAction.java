@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -24,7 +25,6 @@ import cn.bc.desktop.domain.Shortcut;
 import cn.bc.desktop.service.PersonalService;
 import cn.bc.desktop.service.ShortcutService;
 import cn.bc.identity.domain.Actor;
-import cn.bc.identity.service.ActorService;
 import cn.bc.security.domain.Module;
 import cn.bc.web.ui.html.menu.Menu;
 import cn.bc.web.ui.html.menu.MenuItem;
@@ -41,13 +41,18 @@ public class IndexAction extends ActionSupport implements SessionAware {
 	private static final long serialVersionUID = 1L;
 	private static Log logger = LogFactory.getLog(IndexAction.class);
 	private String msg;
-	private ActorService actorService;
 	private ShortcutService shortcutService;
 	private PersonalService personalConfigService;
 	private List<Shortcut> shortcuts;
 	private String startMenu;// 开始菜单
 	private Personal personalConfig;// 个人配置
 	private Map<String, Object> session;
+
+	public String contextPath;
+
+	public IndexAction() {
+		contextPath = ServletActionContext.getRequest().getContextPath();
+	}
 
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -56,11 +61,6 @@ public class IndexAction extends ActionSupport implements SessionAware {
 	@Autowired
 	public void setShortcutService(ShortcutService shortcutService) {
 		this.shortcutService = shortcutService;
-	}
-
-	@Autowired
-	public void setActorService(ActorService actorService) {
-		this.actorService = actorService;
 	}
 
 	@Autowired
@@ -103,13 +103,13 @@ public class IndexAction extends ActionSupport implements SessionAware {
 	public String execute() throws Exception {
 		// 检测用户是否登录,未登录则跳转到登录页面
 		Actor user = (Actor) session.get("user");
-		if(user == null){
+		if (user == null) {
 			logger.info("redirect");
 			return "redirect";
 		}
 
-		//String userLoginName = "admin";
-		//Actor user = this.actorService.loadByCode(userLoginName);
+		// String userLoginName = "admin";
+		// Actor user = this.actorService.loadByCode(userLoginName);
 
 		// 个人配置
 		this.personalConfig = this.personalConfigService.loadByActor(
@@ -195,7 +195,7 @@ public class IndexAction extends ActionSupport implements SessionAware {
 			Map<Module, Set<Module>> parentChildren) {
 		MenuItem menuItem;
 		menuItem = new MenuItem();
-		menuItem.setUrl(m.getUrl()).setLabel(m.getName())
+		menuItem.setUrl(buildMenuItemUrl(m)).setLabel(m.getName())
 				.setType(String.valueOf(m.getType())).setAction("menuItem")
 				.setAttr("data-mid", m.getId().toString());// .addStyle("z-index",
 															// "10000");
@@ -207,5 +207,18 @@ public class IndexAction extends ActionSupport implements SessionAware {
 			}
 		}
 		return menuItem;
+	}
+
+	private String buildMenuItemUrl(Module m) {
+		String url = m.getUrl();
+		if (url != null && url.length() > 0) {
+			if (m.getType() == Module.TYPE_OUTER_LINK) {//不处理外部链接
+				return url;
+			} else{
+				return contextPath + url;//内部的url需要附加部署路路径
+			}
+		} else {
+			return null;
+		}
 	}
 }

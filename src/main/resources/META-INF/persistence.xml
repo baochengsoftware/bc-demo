@@ -23,6 +23,14 @@
 		<class>cn.bc.desktop.domain.Shortcut</class>
 		<class>cn.bc.desktop.domain.Personal</class>
 
+		<!-- message -->
+		<class>cn.bc.message.domain.Message</class>
+
+		<!-- work -->
+		<class>cn.bc.work.domain.Work</class>
+		<class>cn.bc.work.domain.TodoWork</class>
+		<class>cn.bc.work.domain.DoneWork</class>
+
 		<!-- Test
 		<class>cn.bc.one2onetest.Person</class>
 		<class>cn.bc.one2onetest.Address</class> -->

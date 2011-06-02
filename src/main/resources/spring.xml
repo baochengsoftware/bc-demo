@@ -49,6 +49,10 @@
 	<import resource="classpath:cn/bc/security/spring.xml"/>
 	<!-- bc-desktop包的配置 -->
 	<import resource="classpath:cn/bc/desktop/spring.xml"/>
+	<!-- bc-message包的配置 -->
+	<import resource="classpath:cn/bc/message/spring.xml"/>
+	<!-- bc-work包的配置 -->
+	<import resource="classpath:cn/bc/work/spring.xml"/>
 
 	<!-- 项目自身模块的配置 -->
 	<import resource="classpath:spring-demo.xml" />
