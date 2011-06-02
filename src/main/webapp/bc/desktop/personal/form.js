@@ -82,5 +82,15 @@ bc.personal={
 			logger.info("json.id=" + json.id);
 			//$(this).find("input[name='e.actor.id']").val(json.id);
 		});
+	},
+	/**弹出修改密码对话框*/
+	changePassword:function(){
+		var option = jQuery.extend({
+			url: bc.root + "/bc/auth/setPassword",
+			name: "修改我的登录密码",
+			mid: "setPassword"
+		},option);
+		
+		bc.page.newWin(option);
 	}
 };

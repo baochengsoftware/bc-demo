@@ -87,5 +87,9 @@ bc.addParamToUrl=function(url,keyValue){
     if (url == null) return url;
     if (!keyValue) return url;
     var hasParam = (url.indexOf("?") != -1);
-    return url + (hasParam?"&":"?") + keyValue;
+    if(url.indexOf("ts=0") != -1){//强制不添加ts的配置
+    	return url;
+    }else{
+    	return url + (hasParam?"&":"?") + keyValue;
+    }
 };

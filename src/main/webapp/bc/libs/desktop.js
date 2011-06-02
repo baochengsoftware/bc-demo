@@ -64,7 +64,8 @@ bc.desktop = {
 		shortcuts.live("click",function(){logger.debug("a:click");return false;});
 		
 		//允许图标拖动
-		$("a.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
+		$("a.shortcut").draggable({containment: '#desktop'});
+		//$("a.shortcut").draggable({containment: '#desktop',grid: [20, 20]});
 		//$("#shortcuts" ).selectable();
 
 		// 快速工具条中条目的鼠标控制
@@ -118,6 +119,9 @@ bc.desktop = {
 		});
 		
 		bc.desktop.doResize();
+		
+		//默认打开待办事务窗口
+		$(shortcuts[0]).trigger("dblclick");
 	},
 	/**重新调整桌面的布局*/
 	doResize : function() {
