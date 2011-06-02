@@ -166,6 +166,10 @@ bc.page = {
 	save: function(callback) {
 		$this = $(this);
 		var url=$this.attr("data-saveUrl");
+		if(!url || url.length == 0){
+			alert("Error:页面没有定义属性data-saveUrl的值");
+			return;
+		}
 		logger.info("saveUrl=" + url);
 		var $form = $("form",this);
 		
