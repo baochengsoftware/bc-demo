@@ -7,8 +7,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -81,6 +84,12 @@ public class LoginAction extends ActionSupport implements SessionAware {
 					msg = "密码错误！";
 					success = false;
 				} else {
+					String info = user.getName() + "登录系统,ip=";
+					HttpServletRequest request = ServletActionContext
+							.getRequest();
+					info += request.getRemoteAddr();
+					info += ",host=" + request.getRemoteHost();
+					logger.fatal(info);
 					msg = "登录成功，跳转到系统主页！";
 
 					// TODO 记录登录日志

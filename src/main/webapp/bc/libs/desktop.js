@@ -121,7 +121,7 @@ bc.desktop = {
 		bc.desktop.doResize();
 		
 		//默认打开待办事务窗口
-		$(shortcuts[0]).trigger("dblclick");
+		//$(shortcuts[0]).trigger("dblclick");
 	},
 	/**重新调整桌面的布局*/
 	doResize : function() {
