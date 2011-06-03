@@ -49,6 +49,7 @@ bc.page = {
 				if($dom.size() > 1){
 					//logger.error("error page. try set theme='simple' for struts2 tag");
 					alert("error page dom. try set theme='simple' for struts2 tag: size=" + $dom.size());
+					$dom = $($dom[0]);
 				}
 				function _init(){
 					//从dom构建并显示桌面组件

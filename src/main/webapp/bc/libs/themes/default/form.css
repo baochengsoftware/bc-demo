@@ -24,7 +24,7 @@ table.formTable {
 	height:100%;
 }
 
-table.formTable td.label{
+td.label{
 	text-align: right;
 	vertical-align: middle;
 	min-width: 6em;
@@ -32,26 +32,25 @@ table.formTable td.label{
 	_width: 6em;
 }
 
-table.formTable td.topLabel{
+td.topLabel{
 	text-align: right;
 	vertical-align: top;
 	min-width: 6em;
 	_width: 6em;
 }
 
-table.formTable td.top{
+td.top{
 	vertical-align: top;
 }
 
-table.formTable td.value{
+td.value{
 	text-align: left;
 }
 
-table.formTable td.value input,table.formTable td.value textarea{
-	width: 15em;
-	width: 100%;
+td.value input,td.value textarea{
+	width: 98%;
 }
-table.formTable td.value .ui-icon{
+td.value .ui-icon{
 	float: left;
 	margin-top: 4px;
 }

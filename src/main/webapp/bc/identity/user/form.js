@@ -17,5 +17,27 @@ bc.userForm = {
 				}
 			});
 		});
+		
+		//绑定选择岗位的事件处理
+		//右到左
+		$form.find("#right2left").click(function(){
+			bc.select.appendSelected($form.find("#standbyGroups")[0],$form.find("#ownedGroups")[0]);
+		});
+		$form.find("#standbyGroups").dblclick(function(){
+			bc.select.appendSelected($form.find("#standbyGroups")[0],$form.find("#ownedGroups")[0]);
+		});
+		$form.find("#rightAll2left").click(function(){
+			bc.select.appendAll($form.find("#standbyGroups")[0],$form.find("#ownedGroups")[0]);
+		});
+		//左到右
+		$form.find("#left2right").click(function(){
+			bc.select.removeSelected($form.find("#ownedGroups")[0]);
+		});
+		$form.find("#ownedGroups").dblclick(function(){
+			bc.select.removeSelected($form.find("#ownedGroups")[0]);
+		});
+		$form.find("#leftAll2right").click(function(){
+			bc.select.removeAll($form.find("#ownedGroups")[0]);
+		});
 	}
 };
