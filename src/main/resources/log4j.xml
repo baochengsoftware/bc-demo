@@ -44,18 +44,18 @@
 	
 	<!-- struts2 -->
     <category name="org.apache.struts2">
-    	 <priority value="ERROR" />
+    	 <priority value="DEBUG" />
     </category>
 	<!-- struts2：设为DEBUG，查看转发到那个jsp文件 -->
     <category name="org.apache.struts2.dispatcher.ServletDispatcherResult">
-    	 <priority value="ERROR" />
+    	 <priority value="DEBUG" />
     </category>
     <category name="com.opensymphony">
-    	<priority value="ERROR" />
+    	<priority value="DEBUG" />
     </category>
 	<!-- struts2：设为DEBUG，查看加载了哪些xml配置文件 -->
     <category name="com.opensymphony.xwork2.util.FileManager">
-    	<priority value="ERROR" />
+    	<priority value="DEBUG" />
     </category>
 	<category name="freemarker">
 	  <priority value="ERROR" />
@@ -63,7 +63,7 @@
 
 	<!-- bc -->
 	<category name="cn.bc">
-	  <priority value="DEBUG" />
+	  <priority value="WARN" />
 	</category>
 	<category name="cn.bc.web.ui.AbstractComponent">
 	  <priority value="ERROR" />

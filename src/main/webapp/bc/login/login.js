@@ -44,7 +44,6 @@ function login() {
 }
 
 $("#loginBtn").click(login);
-var i=0;
 $(":input").keyup(function(e){
 	if(e.which == 13){//按下回车键
 		if(this.id=="name" && $("#password").val() == 0){
@@ -58,4 +57,11 @@ $(":input").keyup(function(e){
 function showMsg(msg) {
 	// alert(msg);
 	$("#msg").html(msg);
+}
+
+//for debug: 自动以管理员登录
+if(bc.debug){
+	$("#name").val("admin");
+	$("#password").val("888888");
+	$("#loginBtn").trigger("click");
 }

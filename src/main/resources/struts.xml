@@ -5,7 +5,7 @@
 <!-- 项目的Struts2全局配置文件，在这里通过include引用其他模块的配置文件 -->
 <struts>
 	<!-- 配置开发模式：产品环境下必须修改为false -->
-	<constant name="struts.devMode" value="false" />
+	<constant name="struts.devMode" value="true" />
 
 	<!-- 配置i18n全局配置文件的文件名 ：global.properties -->
 	<constant name="struts.custom.i18n.resources" value="global" />
