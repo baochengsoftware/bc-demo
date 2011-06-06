@@ -2,7 +2,7 @@ bc.userForm = {
 	init : function() {
 		var $form = $(this);
 		//绑定选择上级的按钮事件处理
-		$form.find("#selectBelong").click(function(){
+		$form.find("#selectBelong,:input[name='belong.name']").click(function(){
 			var data = {};
 			var selected = $form.find(":input[name='belong.id']").val();
 			if(selected && selected.length > 0)

@@ -16,8 +16,7 @@
 					<td class="value w200"><s:textfield name="e.name" data-validate="required"/></td>
 					<td class="label">* <s:text name="user.belong"/>:</td>
 					<td class="value"><s:textfield name="belong.name" data-validate="required"
-					cssStyle="float:left;width:200px;" readonly="true"/><span id="selectBelong" class="clickToSelect ui-icon ui-icon-search" 
-					title='<s:text name="title.select"/>'></span></td>
+						readonly="true" title='%{getText("user.title.click2selectBelong")}'/></td>
 				</tr>
 				<tr>
 					<td class="label">* <s:text name="user.code"/>:</td>
@@ -35,13 +34,15 @@
 				</tr>
 				<tr>
 					<td class="label">* <s:text name="user.card"/>:</td>
-					<td class="value"><s:textfield name="e.card" data-validate="required"/></td>
+					<td class="value"><s:textfield name="e.detail.card" data-validate="required"/></td>
 					<td class="label"><s:text name="user.email"/>:</td>
 					<td class="value"><s:textfield name="e.email" data-validate='{"type":"email","required":false}'/></td>
 				</tr>
 				<tr>
 					<td class="label">* <s:text name="user.workDate"/>:</td>
-					<td class="value"><s:textfield name="e.detail.workDate" data-validate="required"/></td>
+					<td class="value"><input type="text" name="e.detail.workDate" data-validate="required" 
+						class="bc-date" title='%{getText("title.click2selectDate")}'
+						value='<s:date format="yyyy-MM-dd" name="e.detail.workDate" />'/></td>
 					<td class="label"><s:text name="user.gender"/>:</td>
 					<td class="value"><s:radio name="e.detail.sex" list="#{'1':'男','2':'女','0':'不设置'}" 
 						value="e.detail.sex" cssStyle="width:auto;"/></td>
@@ -51,7 +52,7 @@
 					<td class="value"><s:textfield name="e.detail.comment"/></td>
 					<td class="label"><s:text name="label.status"/>:</td>
 					<td class="value"><s:radio name="e.status" list="#{'1':'启用','0':'禁用','2':'已删除'}" 
-						value="e.phone" cssStyle="width:auto;"/></td>
+						value="e.status" cssStyle="width:auto;"/></td>
 				</tr>
 			</tbody>
 		</table>
@@ -85,11 +86,11 @@
 			</tbody>
 		</table>
 		<s:hidden name="e.type"/>
-		<s:hidden name="e.status" />
 		<s:hidden name="e.inner" />
 		<s:hidden name="e.uid" />
 		<s:hidden name="e.id" />
 		<s:hidden name="e.detail.id" />
 		<s:hidden name="belong.id" />
+		<input type="hidden" name="e.detail.createDate" value='<s:date format="yyyy-MM-dd" name="e.detail.createDate" />'/>
 	</s:form>
 </div>

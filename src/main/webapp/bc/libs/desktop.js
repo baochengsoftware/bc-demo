@@ -115,7 +115,7 @@ bc.desktop = {
 		$("#indexCalendar").datepicker({
 			showWeek: true,
 			//showButtonPanel: true,//现时今天按钮
-			firstDay: 1
+			firstDay: 7
 		});
 		
 		bc.desktop.doResize();

@@ -7,3 +7,8 @@ function callback4create(){
 function callback4save(){
 	logger.info("callback4save");
 }
+
+//测试用的函数
+function testFN(){
+	logger.info("testFN");
+}

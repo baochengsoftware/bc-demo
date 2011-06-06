@@ -139,11 +139,13 @@
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/1.8.13/ui/minified/jquery-ui.min.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/ui-libs/jquery-ui/plugins/menu/3.0/fg.menu.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/core.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/ajax.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/msg.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/validate.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/list.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/toolbar.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
-	<script type="text/javascript" src="<s:url value='/bc/libs/ui.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/list.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/form.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/boxPointer.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/loader.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<s:if test='{getText("app.debug") == "true"}'>
