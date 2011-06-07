@@ -11,8 +11,7 @@ bc.departmentForm = {
 			if(myId && myId.length > 0)
 				data.exclude = myId;
 			
-			bc.identity.selectUnit({
-				url: bc.root + "/bc/selectUnitOrDepartment",
+			bc.identity.selectUnitOrDepartment({
 				data: data,
 				onOk: function(actor){
 					if(myId != actor.id){

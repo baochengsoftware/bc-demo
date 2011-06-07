@@ -5,7 +5,7 @@
 	data-js='<s:url value="/bc/libs/select.js" />,<s:url value="/bc/identity/identity.js" />,<s:url value="/bc/identity/user/form.css" />,<s:url value="/bc/identity/user/form.js" />'
 	data-initMethod='bc.userForm.init'
 	data-option='{
-		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
+		"buttons":[{"text":"<s:text name="label.save"/>","click":"bc.userForm.save"}],
 		"width":618,"minWidth":250,"minHeight":250,"modal":false
 	}'>
 	<s:form name="userForm" theme="simple">
@@ -23,7 +23,7 @@
 					<td class="value"><s:textfield name="e.code" data-validate="required"/></td>
 					<td class="label"><s:text name="user.duty"/>:</td>
 					<td class="value">
-						<s:select list="duties" listKey="id" listValue="name" value="e.detail.duty.id"></s:select>
+						<s:select name="e.detail.duty.id" list="duties" listKey="id" listValue="name" value="e.detail.duty.id"></s:select>
 					</td>
 				</tr>
 				<tr>
@@ -56,41 +56,88 @@
 				</tr>
 			</tbody>
 		</table>
-		<table class="userFormTable ui-widget-content" cellspacing="0" cellpadding="2">
-			<tbody>
-				<tr>
-					<td class="ownedGroups">
-						<label><s:text name="user.ownedGroups"/>:</label>
-						<s:select list="ownedGroups" listKey="id" listValue="name" 
-							multiple="true" size="10" id="ownedGroups" name="ownedGroups">
-						</s:select>
-					</td>
-					<td class="leftRightBtns">
-						<input type="button" id="right2left" value="<-"/>
-						<input type="button" id="left2right" value="->"/>
-						<input type="button" id="rightAll2left" value="<<--"/>
-						<input type="button" id="leftAll2right" value="-->>"/>
-					</td>
-					<td class="standbyGroups">
-						<label><s:text name="user.standbyGroups"/>:</label>
-						<s:select list="standbyGroups" listKey="id" listValue="name" 
-							multiple="true" size="10" id="standbyGroups" name="standbyGroups">
-						</s:select>
-					</td>
-					<td class="userPortrait">
-						<input type="button" id="upPortrait" value="<s:text name="user.portrait"/>"/><br/>
-						<img src='<s:url value="/bc/libs/themes/default/images/help.png" />' align="middle" 
-							width="64" height="64"/>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<!-- 已分派的岗位信息 -->
+		<div id="assignGroups" class="userFormTable ui-widget-content" 
+			data-removeTitle='<s:text name="title.click2remove"/>'>
+			<div class="ui-state-active title" style="position:relative;">
+				<span class="text"><s:text name="actor.headerLabel.assignGroups"/>:
+					<s:if test="%{ownedGroups == null || ownedGroups.isEmpty()}"><s:text name="label.empty"/></s:if>
+				</span>
+				<span id="addGroups" class="verticalMiddle ui-icon ui-icon-circle-plus" title='<s:text name="actor.title.click2addGroups"/>'></span>
+			</div>
+			<s:if test="%{ownedGroups != null && !ownedGroups.isEmpty()}">
+			<ul class="horizontal">
+			<s:iterator value="ownedGroups">
+				<li class="horizontal ui-widget-content ui-corner-all" data-id='<s:property value="id" />'>
+					<span class="text"><s:property value="name" /></span>
+					<span class="click2remove verticalMiddle ui-icon ui-icon-close" title='<s:text name="title.click2remove"/>'></span>
+				</li>
+			</s:iterator>
+			</ul>
+			</s:if>	
+		</div>
+		<!-- 已分配的角色信息 -->
+		<div id="assignRoles" class="userFormTable ui-widget-content" 
+			data-removeTitle='<s:text name="title.click2remove"/>'>
+			<div class="ui-state-active title" style="position:relative;">
+				<span class="text"><s:text name="actor.headerLabel.assignRoles"/>:
+					<s:if test="%{ownedRoles == null || ownedRoles.isEmpty()}"><s:text name="label.empty"/></s:if>
+				</span>
+				<span id="addRoles" class="verticalMiddle ui-icon ui-icon-circle-plus" title='<s:text name="actor.title.click2addRoles"/>'></span>
+			</div>
+			<s:if test="%{ownedRoles != null && !ownedRoles.isEmpty()}">
+			<ul class="horizontal">
+			<s:iterator value="ownedRoles">
+				<li class="horizontal ui-widget-content ui-corner-all" data-id='<s:property value="id" />'>
+					<span class="text"><s:property value="name" /></span>
+					<span class="click2remove verticalMiddle ui-icon ui-icon-close" title='<s:text name="title.click2remove"/>'></span>
+				</li>
+			</s:iterator>
+			</ul>
+			</s:if>	
+		</div>
+		<!-- 从上级组织继承的角色信息 -->
+		<div id="inheritRolesFromOU" class="userFormTable ui-widget-content" >
+			<div class="ui-state-active title" style="position:relative;">
+				<span class="text"><s:text name="actor.headerLabel.inheritRolesFromOU"/>:
+					<s:if test="%{inheritRolesFromOU == null || inheritRolesFromOU.isEmpty()}"><s:text name="label.empty"/></s:if>
+				</span>
+			</div>
+			<s:if test="%{inheritRolesFromOU != null && !inheritRolesFromOU.isEmpty()}">
+			<ul class="horizontal">
+			<s:iterator value="inheritRolesFromOU">
+				<li class="horizontal ui-widget-content ui-corner-all" data-id='<s:property value="id" />'>
+					<span class="text"><s:property value="name" /></span>
+				</li>
+			</s:iterator>
+			</ul>
+			</s:if>	
+		</div>
+		<!-- 从已分派岗位间接获取的角色 -->
+		<div id="inheritRolesFromGroup" class="userFormTable ui-widget-content" >
+			<div class="ui-state-active title" style="position:relative;">
+				<span class="text"><s:text name="actor.headerLabel.inheritRolesFromGroup"/>:
+					<s:if test="%{inheritRolesFromGroup == null || inheritRolesFromGroup.isEmpty()}"><s:text name="label.empty"/></s:if>
+				</span>
+			</div>
+			<s:if test="%{inheritRolesFromGroup != null && !inheritRolesFromGroup.isEmpty()}">
+			<ul class="horizontal">
+			<s:iterator value="inheritRolesFromGroup">
+				<li class="horizontal ui-widget-content ui-corner-all" data-id='<s:property value="id" />'>
+					<span class="text"><s:property value="name" /></span>
+				</li>
+			</s:iterator>
+			</ul>
+			</s:if>	
+		</div>
 		<s:hidden name="e.type"/>
 		<s:hidden name="e.inner" />
 		<s:hidden name="e.uid" />
 		<s:hidden name="e.id" />
 		<s:hidden name="e.detail.id" />
 		<s:hidden name="belong.id" />
-		<input type="hidden" name="e.detail.createDate" value='<s:date format="yyyy-MM-dd" name="e.detail.createDate" />'/>
+		<input type="hidden" name="e.detail.createDate" value='<s:date format="yyyy-MM-dd HH:mm:ss" name="e.detail.createDate" />'/>
+		<s:hidden name="assignGroupIds" />
+		<s:hidden name="assignRoleIds" />
 	</s:form>
 </div>

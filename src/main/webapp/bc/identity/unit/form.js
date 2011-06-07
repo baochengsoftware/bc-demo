@@ -12,7 +12,6 @@ bc.unitForm = {
 				data.exclude = myId;
 			
 			bc.identity.selectUnit({
-				url: bc.root + "/bc/selectUnit",
 				data: data,
 				onOk: function(actor){
 					if(myId != actor.id){

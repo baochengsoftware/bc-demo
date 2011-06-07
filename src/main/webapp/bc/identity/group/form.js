@@ -8,8 +8,7 @@ bc.groupForm = {
 			if(selected && selected.length > 0)
 				data.selected = selected;
 			
-			bc.identity.selectUnit({
-				url: bc.root + "/bc/selectUnitOrDepartment",
+			bc.identity.selectUnitOrDepartment({
 				data: data,
 				onOk: function(actor){
 					$form.find(":input[name='belong.name']").val(actor.name);

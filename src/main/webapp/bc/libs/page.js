@@ -125,6 +125,14 @@ bc.page = {
 					//执行模块指定的初始化方法
 					_init();
 				}
+			},
+			error: function(request, textStatus, errorThrown) {
+				var msg = "bc.ajax: textStatus=" + textStatus + ";errorThrown=" + errorThrown;
+				logger.error(msg);
+				alert(msg);
+				
+				//出错后通知任务栏模块加载完毕，避免长期显示加载动画
+				bc.page.quickbar.loaded(option.mid);
 			}
 		});
 	},
@@ -157,8 +165,12 @@ bc.page = {
 				}
 				
 				//如果click为字符串，当成是函数名称处理
-				if(typeof btn.click == "string")
+				if(typeof btn.click == "string"){
+					var c = btn.click;
 					btn.click = bc.getNested(btn.click);
+					if(!btn.click)
+						alert("函数'"+c+"'没有定义！");
+				}
 			}
 			//delete _option.buttons;
 		}
