@@ -2,19 +2,19 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='<s:text name="user.title"/>' data-type='form'
 	data-saveUrl='<s:url value="/bc/user/save" />'
-	data-js='<s:url value="/bc/libs/select.js" />,<s:url value="/bc/identity/identity.js" />,<s:url value="/bc/identity/user/form.css" />,<s:url value="/bc/identity/user/form.js" />'
+	data-js='<s:url value="/bc/identity/identity.js" />,<s:url value="/bc/identity/user/form.js" />'
 	data-initMethod='bc.userForm.init'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.save"/>","click":"bc.userForm.save"}],
 		"width":618,"minWidth":250,"minHeight":250,"modal":false
 	}'>
 	<s:form name="userForm" theme="simple">
-		<table class="userFormTable ui-widget-content" cellspacing="2" cellpadding="0">
+		<table class="formTable2 ui-widget-content" cellspacing="2" cellpadding="0">
 			<tbody>
 				<tr>
 					<td class="label">* <s:text name="user.name"/>:</td>
 					<td class="value w200"><s:textfield name="e.name" data-validate="required"/></td>
-					<td class="label">* <s:text name="user.belong"/>:</td>
+					<td class="label">* <s:text name="actor.belong"/>:</td>
 					<td class="value"><s:textfield name="belong.name" data-validate="required"
 						readonly="true" title='%{getText("user.title.click2selectBelong")}'/></td>
 				</tr>
@@ -29,13 +29,13 @@
 				<tr>
 					<td class="label">* <s:text name="label.order"/>:</td>
 					<td class="value"><s:textfield name="e.order" data-validate='required'/></td>
-					<td class="label"><s:text name="user.phone"/>:</td>
+					<td class="label"><s:text name="label.phone"/>:</td>
 					<td class="value"><s:textfield name="e.phone" data-validate='{"type":"phone","required":false}'/></td>
 				</tr>
 				<tr>
 					<td class="label">* <s:text name="user.card"/>:</td>
 					<td class="value"><s:textfield name="e.detail.card" data-validate="required"/></td>
-					<td class="label"><s:text name="user.email"/>:</td>
+					<td class="label"><s:text name="label.email"/>:</td>
 					<td class="value"><s:textfield name="e.email" data-validate='{"type":"email","required":false}'/></td>
 				</tr>
 				<tr>
@@ -57,10 +57,10 @@
 			</tbody>
 		</table>
 		<!-- 已分派的岗位信息 -->
-		<div id="assignGroups" class="userFormTable ui-widget-content" 
+		<div id="assignGroups" class="formTable2 ui-widget-content" 
 			data-removeTitle='<s:text name="title.click2remove"/>'>
 			<div class="ui-state-active title" style="position:relative;">
-				<span class="text"><s:text name="actor.headerLabel.assignGroups"/>:
+				<span class="text"><s:text name="actor.headerLabel.assignGroups"/>：
 					<s:if test="%{ownedGroups == null || ownedGroups.isEmpty()}"><s:text name="label.empty"/></s:if>
 				</span>
 				<span id="addGroups" class="verticalMiddle ui-icon ui-icon-circle-plus" title='<s:text name="actor.title.click2addGroups"/>'></span>
@@ -77,10 +77,10 @@
 			</s:if>	
 		</div>
 		<!-- 已分配的角色信息 -->
-		<div id="assignRoles" class="userFormTable ui-widget-content" 
+		<div id="assignRoles" class="formTable2 ui-widget-content" 
 			data-removeTitle='<s:text name="title.click2remove"/>'>
 			<div class="ui-state-active title" style="position:relative;">
-				<span class="text"><s:text name="actor.headerLabel.assignRoles"/>:
+				<span class="text"><s:text name="actor.headerLabel.assignRoles"/>：
 					<s:if test="%{ownedRoles == null || ownedRoles.isEmpty()}"><s:text name="label.empty"/></s:if>
 				</span>
 				<span id="addRoles" class="verticalMiddle ui-icon ui-icon-circle-plus" title='<s:text name="actor.title.click2addRoles"/>'></span>
@@ -97,33 +97,33 @@
 			</s:if>	
 		</div>
 		<!-- 从上级组织继承的角色信息 -->
-		<div id="inheritRolesFromOU" class="userFormTable ui-widget-content" >
+		<div id="inheritRolesFromOU" class="formTable2 ui-widget-content" >
 			<div class="ui-state-active title" style="position:relative;">
-				<span class="text"><s:text name="actor.headerLabel.inheritRolesFromOU"/>:
+				<span class="text"><s:text name="actor.headerLabel.inheritRolesFromOU"/>：
 					<s:if test="%{inheritRolesFromOU == null || inheritRolesFromOU.isEmpty()}"><s:text name="label.empty"/></s:if>
 				</span>
 			</div>
 			<s:if test="%{inheritRolesFromOU != null && !inheritRolesFromOU.isEmpty()}">
 			<ul class="horizontal">
 			<s:iterator value="inheritRolesFromOU">
-				<li class="horizontal ui-widget-content ui-corner-all" data-id='<s:property value="id" />'>
-					<span class="text"><s:property value="name" /></span>
+				<li class="horizontal ui-widget-content ui-corner-all ui-state-disabled" data-id='<s:property value="id" />'>
+					<span class="text2"><s:property value="name" /></span>
 				</li>
 			</s:iterator>
 			</ul>
 			</s:if>	
 		</div>
 		<!-- 从已分派岗位间接获取的角色 -->
-		<div id="inheritRolesFromGroup" class="userFormTable ui-widget-content" >
+		<div id="inheritRolesFromGroup" class="formTable2 ui-widget-content" >
 			<div class="ui-state-active title" style="position:relative;">
-				<span class="text"><s:text name="actor.headerLabel.inheritRolesFromGroup"/>:
+				<span class="text"><s:text name="actor.headerLabel.inheritRolesFromGroup"/>：
 					<s:if test="%{inheritRolesFromGroup == null || inheritRolesFromGroup.isEmpty()}"><s:text name="label.empty"/></s:if>
 				</span>
 			</div>
 			<s:if test="%{inheritRolesFromGroup != null && !inheritRolesFromGroup.isEmpty()}">
 			<ul class="horizontal">
 			<s:iterator value="inheritRolesFromGroup">
-				<li class="horizontal ui-widget-content ui-corner-all" data-id='<s:property value="id" />'>
+				<li class="horizontal ui-widget-content ui-corner-all ui-state-disabled" data-id='<s:property value="id" />'>
 					<span class="text"><s:property value="name" /></span>
 				</li>
 			</s:iterator>

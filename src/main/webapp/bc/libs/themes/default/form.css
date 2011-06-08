@@ -13,7 +13,7 @@
 .bc-form.ui-widget-content{
 	border:0;
 }
-table.formTable {
+.formTable {
 	table-layout: fixed;/**/
 	border-spacing: 0;
 	background: none;
@@ -22,6 +22,14 @@ table.formTable {
 	cursor: default;
 	width:98%;
 	height:100%;
+}
+.formTable2 {
+	margin: 8px;
+	width:600px;
+}
+.formComment {
+	margin: 4px 8px;
+	padding:0.25em;
 }
 
 td.label{

@@ -139,6 +139,7 @@ body {
 ul.horizontal,div.horizontal{overflow:auto;list-style:none;padding:4px;margin:0;}
 li.horizontal{position:relative;margin:2px 4px 2px 0;float:left;padding:2px 4px;}
 li.horizontal span.text{margin-right:16px;cursor:default;}
+li.horizontal span.text2{cursor:default;}
 span.ui-icon.verticalMiddle{position:absolute;top:50%;margin-top:-8px;width:16px;height:16px;right:4px;cursor:pointer;}
 
 /*普通的标题*/
