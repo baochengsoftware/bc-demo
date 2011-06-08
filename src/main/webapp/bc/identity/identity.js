@@ -113,13 +113,25 @@ bc.identity = {
 	},
 	
 	/**
-	 * 给指定的岗位分配用户
+	 * 选择用户信息
 	 * @param {Object} option 配置参数
-	 * @option {String} actorId actor的id
-	 * @option {String} assignedUserIds 已分配用户的id列表，多个值用逗号连接
-	 * @option {Function} onOk 选择完毕后的回调函数，函数第一个参数为选中的用户信息(数组)
+	 * @option {String} selected 已选择用户的id列表，多个值用逗号连接
+	 * @option {String} exclude 要排除显示的项的值，多个值用逗号连接
+	 * @option {Boolean} multiple 是否允许多选，默认false
+	 * @option {Function} onOk 选择完毕后的回调函数，函数第一个参数为选中的用户信息(多选时数组，单选时时对象)
 	 */
-	assignUsers : function(option) {
-		alert("TODO--assignUsers");
+	selectUser : function(option) {
+		option = jQuery.extend({
+			url: bc.root + "/bc/selectUser",
+			name: "选择用户信息",
+			mid: "selectModule",
+			afterClose: function(status){
+				if(status && typeof(option.onOk) == "function"){
+					option.onOk(status);
+				}
+			}
+		},option);
+		
+		bc.page.newWin(option);
 	}
-}
+};

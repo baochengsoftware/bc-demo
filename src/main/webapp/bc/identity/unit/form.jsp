@@ -14,8 +14,8 @@
 				<tr>
 					<td class="label">* <s:text name="label.name"/>:</td>
 					<td class="value w200"><s:textfield name="e.name" data-validate="required"/></td>
-					<td class="label">* <s:text name="unit.belong"/>:</td>
-					<td class="value"><s:textfield name="belong.name" data-validate="required"
+					<td class="label"><s:text name="unit.belong"/>:</td>
+					<td class="value"><s:textfield name="belong.name"
 						readonly="true" title='%{getText("user.title.click2selectBelong")}'/></td>
 				</tr>
 				<tr>

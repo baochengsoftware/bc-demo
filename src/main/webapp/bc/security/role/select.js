@@ -25,7 +25,6 @@ bc.selectRole = {
 		}else{//单选
 			item={id: select.value,name: select.options[select.selectedIndex].text};
 		}
-		//alert("item=" + item);
 		$page.data("data-status",item);
 		$page.dialog("close");
 	}
