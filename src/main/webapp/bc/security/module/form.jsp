@@ -6,41 +6,35 @@
 	data-initMethod='bc.moduleForm.init'
 	data-option='{
 		"buttons":[{"text":"<s:text name="label.save"/>","action":"save"}],
-		"width":310,"minWidth":300,"minHeight":300,"modal":false
+		"width":618,"minWidth":250,"minHeight":250,"modal":false
 	}'>
 	<s:form name="moduleForm" theme="simple">
-		<table class="formTable" cellspacing="2">
+		<table class="formTable2 ui-widget-content" cellspacing="2" cellpadding="0">
 			<tbody>
 				<tr>
-					<td class="label">* <s:text name="module.belong"/>:</td>
-					<td class="value"><s:textfield name="e.belong.name" data-validate="required" 
-					cssStyle="float:left;width:14em;" readonly="true"/><span id="selectBelong" class="clickToSelect ui-icon ui-icon-search" 
-					title='<s:text name="title.select"/>'></span></td>
-				</tr>
-				<tr>
-					<td class="label"><s:text name="module.type"/>:</td>
-					<td class="value"><s:radio name="e.type" list="#{'1':'模块','2':'内部链接','3':'外部链接'}" 
+					<td class="label">* <s:text name="module.type"/>：</td>
+					<td class="value" colspan="3"><s:radio name="e.type" list="types" listKey="key" listValue="value"
 						value="e.type" cssStyle="width:auto;"/></td>
 				</tr>
 				<tr>
-					<td class="label">* <s:text name="label.name"/>:</td>
-					<td class="value"><s:textfield name="e.name" data-validate="required"/></td>
-				</tr>
-				<tr id="urlRow">
-					<td class="label">* <s:text name="module.url"/>:</td>
-					<td class="value"><s:textfield name="e.url"/></td>
+					<td class="label">* <s:text name="label.name"/>：</td>
+					<td class="value w200"><s:textfield name="e.name" data-validate="required"/></td>
+					<td data-name="belong" class="label"><s:text name="module.belong"/>:</td>
+					<td data-name="belong" class="value"><s:textfield name="e.belong.name" 
+						readonly="true" title='%{getText("module.title.click2selectBelong")}'/></td>
 				</tr>
 				<tr>
-					<td class="label">* <s:text name="label.code"/>:</td>
+					<td class="label">* <s:text name="label.code"/>：</td>
 					<td class="value"><s:textfield name="e.code" data-validate="required"/></td>
+					<td data-name="iconClass" class="label"><s:text name="module.iconClass"/>:</td>
+					<td data-name="iconClass" class="value"><s:textfield name="e.iconClass" 
+						readonly="true"  title='%{getText("module.title.click2selectIconClass")}'/></td>
 				</tr>
 				<tr>
-					<td class="label"><s:text name="module.iconClass"/>:</td>
-					<td class="value"><s:textfield name="e.iconClass"/></td>
-				</tr>
-				<tr>
-					<td class="label"><s:text name="module.option"/>:</td>
-					<td class="value"><s:textfield name="e.option"/></td>
+					<td data-name="url" id="urlText" class="label" data-text='<s:text name="module.url"/>'>* <s:text name="module.url"/>：</td>
+					<td data-name="url" class="value"><s:textfield name="e.url" data-validate="required"/></td>
+					<td data-name="option" class="label"><s:text name="module.option"/>:</td>
+					<td data-name="option" class="value"><s:textfield name="e.option"/></td>
 				</tr>
 			</tbody>
 		</table>
@@ -49,5 +43,6 @@
 		<s:hidden name="e.uid" />
 		<s:hidden name="e.id" />
 		<s:hidden name="e.belong.id" />
+		<p class="formComment"><s:text name="module.form.comment"/></p>
 	</s:form>
 </div>

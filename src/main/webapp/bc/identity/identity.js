@@ -89,6 +89,30 @@ bc.identity = {
 	},
 	
 	/**
+	 * 选择模块信息
+	 * @param {Object} option 配置参数
+	 * @option {String} selected 已选择模块的id列表，多个值用逗号连接
+	 * @option {String} exclude 要排除显示的项的值，多个值用逗号连接
+	 * @option {Boolean} multiple 是否允许多选，默认false
+	 * @option {Number} type 选择的资源类型
+	 * @option {Function} onOk 选择完毕后的回调函数，函数第一个参数为选中的角色信息(数组)
+	 */
+	selectModule : function(option) {
+		option = jQuery.extend({
+			url: bc.root + "/bc/selectModule",
+			name: "选择模块信息",
+			mid: "selectModule",
+			afterClose: function(status){
+				if(status && typeof(option.onOk) == "function"){
+					option.onOk(status);
+				}
+			}
+		},option);
+		
+		bc.page.newWin(option);
+	},
+	
+	/**
 	 * 给指定的岗位分配用户
 	 * @param {Object} option 配置参数
 	 * @option {String} actorId actor的id

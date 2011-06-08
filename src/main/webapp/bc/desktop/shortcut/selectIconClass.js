@@ -1,10 +1,12 @@
 bc.selectIconClass={
 	init:function(){
-		var $icons = $(this).find("a.shortcut");
+		var $page = $(this);
+		var $icons = $page.find("a.shortcut");
 		$icons.click(function(){
 			$icons.toggleClass("selectedIcon",false);
-			var $this = $(this);
 			$(this).toggleClass("selectedIcon",true);
+		}).dblclick(function(){
+			bc.selectIconClass.clickOk.apply($page[0],arguments);
 		});
 	},
 	clickOk:function(){

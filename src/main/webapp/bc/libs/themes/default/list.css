@@ -54,7 +54,7 @@ table.table{
 	margin-top: -8px;
 }
 .bc-grid .left{
-	border-right: 1px solid #ccc;
+	border-right: 1px solid #aaa;
 }
 
 .bc-grid .left,.bc-grid .left table.table,.bc-grid .left table.table td.id{
