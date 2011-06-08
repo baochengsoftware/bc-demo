@@ -52,13 +52,19 @@
 				<table class="table" cellspacing="0" cellpadding="0" style="width:300px;">
 					<tbody>
 						<tr class='ui-state-default row'>
-							<td class="first sortable" style="width: 60px">
+							<td class="first sortable" style="width: 60px" 
+								data-id='code'
+								data-label='<s:text name="duty.code" />'>
 								<div class="wrapper"><s:text name="duty.code" />
 								<span class="sortableIcon ui-icon ui-icon-triangle-1-n"></span></div>
 							</td>
-							<td class="middle" style="width: 60px"><div class="wrapper"><s:text name="duty.code" /></div>
+							<td class="middle" style="width: 60px"
+								data-id='code'
+								data-label='<s:text name="duty.code" />'><div class="wrapper"><s:text name="duty.code" /></div>
 							</td>
-							<td class="last sortable" style="width: 100px"><div class="wrapper"><s:text name="duty.name" />
+							<td class="last sortable" style="width: 100px"
+								data-id='name'
+								data-label='<s:text name="duty.name" />'><div class="wrapper"><s:text name="duty.name" />
 								<span class="sortableIcon ui-icon hide"></span></div>
 							</td>
 <!-- 							<td class="empty">&nbsp;</td> -->

@@ -26,7 +26,7 @@ bc.boxPointer = {
      */
     show: function(option){
     	option = $.extend({
-    		close:"click",
+    		close:"auto",
     		dir:"bottom",
     		content:"undefined content!",
     		of: document.body,
@@ -44,16 +44,6 @@ bc.boxPointer = {
 		
 		//添加关闭按钮
 		if(option.close == "click"){
-			//5秒之后自动关闭
-			setTimeout(function(){
-				boxPointer.unbind().hide("fast",function(){
-					//移除之前记录到dom中的bpid
-					target.removeData("bpid");
-					//彻底删除元素
-					boxPointer.remove();
-				});
-			},5000);
-			
 			boxPointer.append('<a href="#" class="close ui-state-default ui-corner-all"><span class="ui-icon ui-icon-closethick"></span></a>')
 			.find("a.close")
 			.click(function(){
@@ -174,5 +164,6 @@ bc.boxPointer = {
 		
 		//显示及定位
 		boxPointer.show().position(p);
+		return boxPointer;
     }
 };

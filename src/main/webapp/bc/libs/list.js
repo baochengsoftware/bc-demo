@@ -206,7 +206,7 @@ $("ul li.pagerIcon").live("click", function() {
 		window.print();
 		break;
 	case "export"://导出视图
-		alert("TODO: export");
+		bc.grid.export2Excel($page.find(".bc-grid"),this);
 		break;
 	default ://调用自定义的函数
 		var click = $this.attr("data-click");

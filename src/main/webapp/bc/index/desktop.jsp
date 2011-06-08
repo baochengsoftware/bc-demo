@@ -145,6 +145,7 @@
 	<script type="text/javascript" src="<s:url value='/bc/libs/page.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/toolbar.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/list.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
+	<script type="text/javascript" src="<s:url value='/bc/libs/list.export.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/form.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/boxPointer.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
 	<script type="text/javascript" src="<s:url value='/bc/libs/loader.js' ><s:param name='ts' value='%{getText("app.ts")}'/></s:url>"></script>
