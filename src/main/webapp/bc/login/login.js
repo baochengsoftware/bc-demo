@@ -63,5 +63,5 @@ function showMsg(msg) {
 if(bc.debug){
 	$("#name").val("admin");
 	$("#password").val("888888");
-	$("#loginBtn").trigger("click");
+	//$("#loginBtn").trigger("click");
 }
