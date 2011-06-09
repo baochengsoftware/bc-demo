@@ -1,6 +1,0 @@
-[submodule "src/main/webapp/ui-libs"]
-	path = src/main/webapp/ui-libs
-	url = git@gitorious.org:ui/ui-libs.git
-[submodule "src/main/webapp/ui-libs-demo"]
-	path = src/main/webapp/ui-libs-demo
-	url = git@gitorious.org:ui/ui-libs-demo.git
