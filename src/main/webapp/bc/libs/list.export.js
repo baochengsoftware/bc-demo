@@ -19,11 +19,17 @@ bc.grid.export2Excel = function($grid,el) {
 	html.push('<form name="exporter" method="post" style="margin:8px;">');
 	
 	//分页时添加“确认导出范围”
-	if($grid.find("li.pagerIconGroup.seek")){//分页
+	var paging = $grid.find("li.pagerIconGroup.seek").size() > 0;
+	if(paging){//分页
 		html.push('<div style="height:22px;line-height:22px;font-size:14px;font-weight:bold;color:#333;">确认导出范围</div>'
 			+'<ul style="list-style:none;margin:0;padding:0;">'
-			+'<li style="margin:2px;_margin:0;"><label for="exportScope1"><input style="margin:2px 0;_margin:0;" type="radio" id="exportScope1" name="exportScope" value="1" checked><span style="margin:0 4px;_margin:0 2px;">当前页</span></label>'
-			+'&nbsp;&nbsp;<label for="exportScope2"><input style="margin:2px 0;_margin:0;" type="radio" id="exportScope2" name="exportScope" value="2"><span style="margin:0 4px;_margin:0 2px;">全部</span></label></li>'
+			+'<li style="margin:2px;_margin:0;">'
+			+'<label for="exportScope1">'
+			+'<input style="margin:2px 0;_margin:0;" type="radio" id="exportScope1" name="exportScope" value="1" checked>'
+			+'<span style="margin:0 4px;_margin:0 2px;">当前页</span></label>'
+			+'&nbsp;&nbsp;<label for="exportScope2">'
+			+'<input style="margin:2px 0;_margin:0;" type="radio" id="exportScope2" name="exportScope" value="2">'
+			+'<span style="margin:0 4px;_margin:0 2px;">全部</span></label></li>'
 			+'</ul>');
 	}
 	
@@ -33,10 +39,8 @@ bc.grid.export2Excel = function($grid,el) {
 		+'<div style="padding:0 4px;text-align:right;">'
 		+'<a id="continue" style="text-decoration:underline;cursor:pointer;">继续</a>&nbsp;&nbsp;'
 		+'<a id="cancel" style="text-decoration:underline;cursor:pointer;">取消</a></div>'
-		+'<input type="hidden" name="title">'
-		+'<input type="hidden" name="exportFileName">'
-		+'<input type="hidden" name="headerIds">'
-		+'<input type="hidden" name="headerNames">'
+		+'<input type="hidden" name="searchText">'
+		+'<input type="hidden" name="exportKeys">'
 		+'</form>');
 	
 	//获取列的定义信息
@@ -70,7 +74,56 @@ bc.grid.export2Excel = function($grid,el) {
 	
 	//继续按钮
 	boxPointer.find("#continue").click(function(){
-		alert("TODO");
+		var $page = $grid.parents(".bc-page");
+		var url=$page.attr("data-namespace") + "/export";
+		logger.info("export grid data by url=" + url);
+		var data = {};
+		
+		//导出格式
+		data.exporting=true;
+		data.exportFormat="xls";
+		
+		//导出范围
+		data.exportScope = boxPointer.find(":radio:checked[name='exportScope']").val();
+		
+		//分页参数
+		var $pager_seek = $page.find("ul.pager>li.seek");
+		if(paging && data.exportScope != "2"){//视图为分页视图，并且用户没有选择导出范围为"全部"
+			data["page.pageNo"] = $pager_seek.find("#pageNo").text();
+			data["page.pageSize"] = $pager_seek.parent().find("li.size>a.ui-state-active>span.pageSize").text();
+		}
+		
+		//TODO 排序参数
+		
+		//将简单的参数附加到url后
+		url += "?" + $.param(data);
+		
+		//附加要导出的列参数到隐藏域
+		var $fields = boxPointer.find(":checkbox:checked[name='field']");
+		if($fields.size() != columns.size()){//用户去除了部分的列没选择
+			var t="";
+			$fields.each(function(i){
+				t+= (i == 0 ? "" : ",") + this.value;
+			});
+			boxPointer.find(":hidden[name='exportKeys']").val(t);
+		}
+		
+		//附加搜索条件的参数到隐藏域(避免中文乱码) TODO 高级搜索
+		var $search = $page.find(".bc-toolbar #searchText");
+		if($search.size()){
+			var searchText = $search.val();
+			if(searchText && searchText.length > 0)
+				boxPointer.find(":hidden[name='searchText']").val(searchText);
+		}
+		
+		//提交表单
+		var _form = boxPointer.find("form")[0];
+		_form.action = url;
+		_form.target = "blank";//这个需要在主页中配置一个名称为blank的iframe来支持
+		_form.submit();
+		
+		//删除弹出的窗口
+		boxPointer.remove();
 		return false;
 	});
 };
